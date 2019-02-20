@@ -1,0 +1,17 @@
+.nav-home .navbar-nav .nav-item .nav-link{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: #fff!important;
+    transition: color 0.5s ease!important;
+}
+.nav-home .navbar-nav .nav-item .nav-link:hover{
+    color: #FFAB00!important;
+}
+.brand{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 18px;
+}
+.brand::after{
+	content: "DZ";
+	color: #FFAB00;
+}

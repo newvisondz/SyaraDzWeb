@@ -1,0 +1,11 @@
+<div class="container-fluid mt-5 mb-5">
+		<div class="container">
+      <h4 class="title">Tarifs</h4>
+      <div style="width: 100px; border: 1px solid #FFAB00; margin-bottom: 50px;"></div>
+			<div class="row">
+        <div class="col-lg-4 mb-2" *ngFor="let tarif of tarifArray">
+          <app-tarif [type]="tarif.type" [description]="tarif.description" [features]="tarif.features" [price] = "tarif.price"></app-tarif>
+        </div>
+      </div>
+		</div>
+	</div>

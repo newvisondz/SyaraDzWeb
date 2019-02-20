@@ -1,0 +1,30 @@
+
+  <div class="card box-shadow card-tarif">
+	   <div class="card-body">
+		     <h4 class="card-title" style="font-weight: 400; margin-bottom: 40px;">{{type}}</h4>
+				 <div class="row">
+				   <div class="col-sm-12">
+						  <p class="card-text" style="font-weight: 400;text-align: justify-all; font-size: 16px;">
+								{{description}}
+						  </p>
+						  <h6 style="margin-top: 40px; margin-bottom: 40px;">Fonctionnalités: </h6>
+							<ul class="list-group list-group-flush" style="text-align: left;">
+							  <li class="list-group-item" *ngFor="let feature of features">
+                  <i class="fas fa-check-circle" style="color: #1e7e34" *ngIf="feature.available"></i>
+                  <i class="fas fa-times-circle" style="color: #dc3545" *ngIf="!feature.available"></i>
+                  {{feature.description}}
+                </li>
+							</ul>
+							<h6 class="card-subtitle mb-2 text-muted">
+  							<div>
+  								<h3>{{price}} DA/MOIS</h3>
+  							</div>
+							</h6>
+							<button type="button" class="btn-lg btn btn-search">
+								Commencer
+								<i class="fas fa-arrow-right fa-lg"></i>
+							</button>
+					 </div>
+					</div>
+		 </div>
+	</div>

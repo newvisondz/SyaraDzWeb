@@ -1,0 +1,13 @@
+.title{
+  font-weight: 400;
+  font-size: 1.3em;
+  margin-bottom: 15px;
+  font-family: 'Montserrat';
+  &:after {
+  	content: ".";
+  	color: #FFAB00;
+  }
+}
+.card-text{
+  font-family: 'Montserrat';
+}

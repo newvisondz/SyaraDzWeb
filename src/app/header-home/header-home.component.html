@@ -1,0 +1,20 @@
+<header class="header">
+		<div class="container-fluid title-block">
+			<h1 class="h1-1">{{title}}</h1>
+			<h6 class="h3-1">{{citation}}</h6>
+			<div class="form-group">
+				<button type="button" class="btn-lg btn btn-search">
+				    Commencer
+			  		<i class="fas fa-arrow-right fa-lg"></i>
+		      	</button>
+		    </div>
+		</div>
+		<div class="container-fluid num-block">
+			<div class="row">
+				<div class="col-sm-4 num" *ngFor="let obj of statics">
+					<h1>{{obj.number}}</h1>
+					<span>{{obj.content}}</span>
+				</div>
+			</div>
+		</div>
+</header>

@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { HomePageService } from '../services/home-page.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tarif-view',
@@ -6,92 +8,19 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./tarif-view.component.scss']
 })
 export class TarifViewComponent implements OnInit {
-  @Input() tarifArray = [
-    {
-      type : "BASIC",
-      description : "Consectetur adipisicing elit, sed do eiusmodtempor onsectetur adipisicing elit, sed do eiusmodtempor.",
-      features : [
-        {
-          description : "Cras justo odio",
-          available : true
-        },
-        {
-          description : "Cras justo odio",
-          available : true
-        },
-        {
-          description : "Cras justo odio",
-          available : false
-        },
-        {
-          description : "Cras justo odio",
-          available : false
-        },
-        {
-          description : "Cras justo odio",
-          available : false
-        },
-      ],
-      price : 10000
-    },
-    {
-      type : "MEDUIM",
-      description : "Consectetur adipisicing elit, sed do eiusmodtempor onsectetur adipisicing elit, sed do eiusmodtempor.",
-      features : [
-        {
-          description : "Cras justo odio",
-          available : true
-        },
-        {
-          description : "Cras justo odio",
-          available : true
-        },
-        {
-          description : "Cras justo odio",
-          available : true
-        },
-        {
-          description : "Cras justo odio",
-          available : false
-        },
-        {
-          description : "Cras justo odio",
-          available : false
-        },
-      ],
-      price : 20000
-    },
-    {
-      type : "AVANCEE",
-      description : "Consectetur adipisicing elit, sed do eiusmodtempor onsectetur adipisicing elit, sed do eiusmodtempor.",
-      features : [
-        {
-          description : "Cras justo odio",
-          available : true
-        },
-        {
-          description : "Cras justo odio",
-          available : true
-        },
-        {
-          description : "Cras justo odio",
-          available : true
-        },
-        {
-          description : "Cras justo odio",
-          available : true
-        },
-        {
-          description : "Cras justo odio",
-          available : true
-        },
-      ],
-      price : 30000
-    }
-  ]
-  constructor() { }
+  tarifArray : any[];
+
+  tarifSubscription: Subscription;
+  constructor(private homePageService:HomePageService) { }
 
   ngOnInit() {
+
+    this.tarifSubscription = this.homePageService.tarifSubject.subscribe(
+      (tarifArray: any[]) => {
+        this.tarifArray = tarifArray;
+      }
+    );
+    this.homePageService.emitTarifSubject();
   }
 
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HomePageService } from '../services/home-page.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header-home',
@@ -6,25 +8,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header-home.component.scss']
 })
 export class HeaderHomeComponent implements OnInit {
-  title : String = "SayaraDz";
-  citation : String = "La vie est déjà assez dure. Rendons les choses un peu plus faciles.";
-  statics = [
-    {
-      content : "Voitures exposées",
-      number : "1000"
-    },
-    {
-      content : "Voitures vendus",
-      number : "250"
-    },
-    {
-      content : "Partenaires",
-      number : "43"
-    },
-  ]
-  constructor() { }
+  header : object;
+
+  headerSubscription: Subscription;
+  constructor(private homePageService:HomePageService) { }
 
   ngOnInit() {
+    this.headerSubscription = this.homePageService.headerSubject.subscribe(
+    (header: object) => {
+        this.header = header;
+      }
+    );
+    this.homePageService.emitHeaderSubject();
   }
 
 }

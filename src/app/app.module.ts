@@ -10,6 +10,8 @@ import { TarifViewComponent } from './tarif-view/tarif-view.component';
 import { TarifComponent } from './tarif/tarif.component';
 import { ServiceViewComponent } from './service-view/service-view.component';
 import { ServiceComponent } from './service/service.component';
+import { HomePageService } from './services/home-page.service';
+import { FooterHomeComponent } from './footer-home/footer-home.component';
 
 @NgModule({
   declarations: [
@@ -20,13 +22,16 @@ import { ServiceComponent } from './service/service.component';
     TarifViewComponent,
     TarifComponent,
     ServiceViewComponent,
-    ServiceComponent
+    ServiceComponent,
+    FooterHomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    HomePageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

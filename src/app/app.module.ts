@@ -4,14 +4,15 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { HeaderHomeComponent } from './header-home/header-home.component';
-import { MissionHomeComponent } from './mission-home/mission-home.component';
-import { TarifViewComponent } from './tarif-view/tarif-view.component';
-import { TarifComponent } from './tarif/tarif.component';
-import { ServiceViewComponent } from './service-view/service-view.component';
-import { ServiceComponent } from './service/service.component';
-import { HomePageService } from './services/home-page.service';
-import { FooterHomeComponent } from './footer-home/footer-home.component';
+import { HeaderHomeComponent } from './home-page/header-home/header-home.component';
+import { MissionHomeComponent } from './home-page/mission-home/mission-home.component';
+import { TarifViewComponent } from './home-page/tarif-view/tarif-view.component';
+import { TarifComponent } from './home-page/tarif/tarif.component';
+import { ServiceViewComponent } from './home-page/service-view/service-view.component';
+import { ServiceComponent } from './home-page/service/service.component';
+import { HomePageService } from './home-page/services/home-page.service';
+import { FooterHomeComponent } from './home-page/footer-home/footer-home.component';
+
 
 @NgModule({
   declarations: [

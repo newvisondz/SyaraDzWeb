@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { HomePageService } from '../services/home-page.service';
+import { HomePageService } from './services/home-page.service';
 import { Subscription } from 'rxjs';
 
 @Component({

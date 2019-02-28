@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +14,7 @@ import { HomePageService } from './home-page/services/home-page.service';
 import { FooterHomeComponent } from './home-page/footer-home/footer-home.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,7 @@ import { FooterHomeComponent } from './home-page/footer-home/footer-home.compone
     FooterHomeComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule
   ],
   providers: [

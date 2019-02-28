@@ -1,0 +1,12 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+.example-container {
+   top: 64px !important;
+  }
+
+  @media(max-width: 599px) {
+     .example-container {
+      top: 56px !important;
+    }
+  }

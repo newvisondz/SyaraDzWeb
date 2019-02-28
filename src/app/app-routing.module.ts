@@ -6,7 +6,15 @@ const routes: Routes = [
   {
     path: '',
     component: HomePageComponent
-  }
+  },
+  {
+    path: 'dashboard',
+    loadChildren: './layout/layout.module#LayoutModule',
+  },
+  {
+    path: 'login',
+    loadChildren: './login/login.module#LoginModule'
+  },
 ];
 
 @NgModule({

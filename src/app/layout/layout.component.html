@@ -1,0 +1,16 @@
+<div class="container-fluid px-0" style="overflow-x: hidden;" >
+  <mat-toolbar color="primary">
+      <button mat-icon-button (click)="snav.toggle()"><i class="fas fa-bars fa-2x"></i></button>
+      <a class="navbar-brand mx-5" href="#" style="color:#fff">SayaraDZ</a>
+      <span class="example-spacer"></span>
+      <app-header></app-header>
+  </mat-toolbar>
+  <mat-sidenav-container class="example-container" fullscreen>
+    <mat-sidenav #snav>
+        <app-sidebar></app-sidebar>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

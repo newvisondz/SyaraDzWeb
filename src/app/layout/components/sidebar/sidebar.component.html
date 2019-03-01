@@ -1,0 +1,16 @@
+<nav class="sidebar">
+    <div class="list-group" id="accordion">
+      <mat-accordion>
+        <mat-expansion-panel *ngFor= "let link of links">
+          <mat-expansion-panel-header  class="a-item">
+                <i [className]=link.icon></i>&nbsp;
+                <span>{{link.header}}</span>
+          </mat-expansion-panel-header>
+          <a  class="list-group-item" *ngFor = "let sublink of link.sublinks" [routerLink]=sublink.route >
+              <i [className]=sublink.icon></i>&nbsp;
+              <span>{{sublink.header}}</span>
+          </a>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+</nav>

@@ -1,0 +1,27 @@
+<div>
+      <mat-menu #notificationMenu="matMenu">
+        <button mat-menu-item class="a-item" href="#">Action</button>
+        <button mat-menu-item class="a-item" href="#">Another action</button>
+        <button mat-menu-item class="a-item" href="#">Something else here</button>
+      </mat-menu>
+      <button mat-button [matMenuTriggerFor]="notificationMenu" class="a-item">
+        <i class="fa fa-bell notification-icon" style= "color : #FFF"></i><span class="badge badge-success badge-pill notification-badge">4</span>
+      </button>
+      <mat-menu #appMenu="matMenu">
+        <button mat-menu-item class="a-item" href="javascript:void(0)">
+          <i class="fa fa-fw fa-user"></i> Profile
+        </button>
+        <button mat-menu-item class="a-item" href="javascript:void(0)">
+          <i class="fa fa-fw fa-envelope"></i> Messages
+        </button>
+        <button mat-menu-item class="a-item" href="javascript:void(0)">
+          <i class="fas fa-cogs"></i> Paramètres
+        </button>
+        <button mat-menu-item class="a-item"  >
+          <i class="fa fa-fw fa-power-off"></i>Déconnexion
+        </button>
+      </mat-menu>
+      <button mat-button [matMenuTriggerFor]="appMenu" class="a-item">
+        Menu
+      </button>
+</div>

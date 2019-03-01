@@ -1,0 +1,33 @@
+<div class="container pt-5">
+    <app-page-header [heading]="'Liste des fabricants'" [icon]="'fa-table'"></app-page-header>
+    <div class="row">
+        <div class="col col-xl-12 col-lg-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Liste des fabricants
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Fabricant</th>
+                            <th>Manipulations</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor = "let obj of fabricants, let i = index">
+                              <th scope="row">{{i+1}}</th>
+                              <td>{{obj.fabricant}}</td>
+                              <td>
+                                <button class="mx-2" mat-flat-button color="warn"   >Supprimer</button>
+                                <button class="mx-2" mat-flat-button color="primary">Modifier</button>
+                              </td>
+                          </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

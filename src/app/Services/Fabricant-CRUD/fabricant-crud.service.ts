@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,35 +12,30 @@ export class FabricantCRUDService {
 
   readonly ROOT_URL = 'http://sayara-dz.herokuapp.com';
 
-  public create(){
+  public create(marque:string){
 
     const headers = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
     
-    this.http.post(this.ROOT_URL+'/fabricant/model/',{
-      marque: 'Toyota'
-    },{headers: headers}).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.log(err);
-      }
-    );
+    return this.http.post(this.ROOT_URL+'/fabricant/model/',
+    { marque: marque }, { headers: headers }
+    ).pipe(map(res => {
+      return res;
+    }));
   }
 
   public list(){
+
+    interface Response {
+      fabricants: any;
+    }
+
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
 
-    this.http.get(this.ROOT_URL+"/fabricant/model",{
+    return this.http.get<Response>(this.ROOT_URL+"/fabricant/model",{
       headers: header
-    }).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.log("Error occured");
-      }
-    );
+    }).pipe(map(res => {
+      return res;
+    }));
   }
   
 }

@@ -1,12 +1,21 @@
 import { TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule,HttpTestingController } from '@angular/common/http/testing'
 import { FabricantCRUDService } from './fabricant-crud.service';
 
 describe('FabricantCRUDService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let service: FabricantCRUDService;
 
-  it('should be created', () => {
-    const service: FabricantCRUDService = TestBed.get(FabricantCRUDService);
-    expect(service).toBeTruthy();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [FabricantCRUDService]
+    });
+
+    service = TestBed.get(FabricantCRUDService);
+  });
+
+  it('should return a token', () => {
+    const dummyRes = {
+    }
   });
 });

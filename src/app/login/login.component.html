@@ -3,18 +3,20 @@
         <div class="col-md-4">
             <img src="assets/images/logo.png" width="150px" class="user-avatar" />
             <h1>SayaraDZ</h1>
-            <form role="form">
+
+            <form (submit)="onSubmit()">
                 <div class="form-content">
                     <div class="form-group">
-                        <input type="text" ng-model="name" class="form-control input-underline input-lg" id="" placeholder="Email">
+                        <input type="text" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" class="form-control input-underline input-lg" placeholder="Email">
                     </div>
 
                     <div class="form-group">
-                        <input type="password" class="form-control input-underline input-lg" id="" placeholder="Password">
+                        <input type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" class="form-control input-underline input-lg" placeholder="Password">
                     </div>
                 </div>
-                <a class="btn rounded-btn" [routerLink]="['/dashboard']" (click)="onLoggedin()">Connecter</a>
+                <button class="btn rounded-btn" type="submit">Connect</button>
             </form>
+
         </div>
     </div>
 </div>

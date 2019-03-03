@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms'
+import { Router } from '@angular/router';
 import { FabricantCRUDService } from '../../Services/Fabricant-CRUD/fabricant-crud.service'
 import { first } from 'rxjs/operators';
 
@@ -15,7 +16,8 @@ export class FormFabricantComponent implements OnInit {
   submitted = false;
 
   constructor(private _formBuilder: FormBuilder,
-              private fabricant:FabricantCRUDService) {}
+              private fabricant:FabricantCRUDService,
+              private router:Router) {}
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -42,11 +44,12 @@ export class FormFabricantComponent implements OnInit {
       .pipe(first()).subscribe(
           res => {
               console.log(res);
+              this.router.navigate(["/dashboard/afficherFabricants"]);
           },
           err => {
               console.log("Error occured : "+ err);
           }
       );
-      alert('SUCCESS!! :-)' + this.firstFormGroup.controls['fabricant'].value)
+      
   }
 }

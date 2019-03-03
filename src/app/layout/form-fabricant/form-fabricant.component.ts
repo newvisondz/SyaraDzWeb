@@ -21,12 +21,6 @@ export class FormFabricantComponent implements OnInit {
               private fabricant:FabricantCRUDService,
               private router:Router) {}
 
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-  submitted = false;
-  constructor(private _formBuilder: FormBuilder) {}
-
-
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       fabricant: ['', Validators.required]

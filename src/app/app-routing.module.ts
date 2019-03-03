@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomePageComponent } from './home-page/home-page.component';
+import { AuthGuardService } from './Services/Guards/auth-guard.service';
+
 
 const routes: Routes = [
   {
@@ -10,6 +12,8 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: './layout/layout.module#LayoutModule',
+    canActivate: [AuthGuardService],
+
   },
   {
     path: 'login',

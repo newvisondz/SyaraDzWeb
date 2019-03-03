@@ -7,5 +7,7 @@ describe('FormFabricantModule', () => {
         formModule = new FormFabricantModule();
     });
 
-    
+    it('should create an instance', () => {
+        expect(formFabricantModule).toBeTruthy();
+    });
 });

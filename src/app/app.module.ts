@@ -32,6 +32,7 @@ import { FooterHomeComponent } from './home-page/footer-home/footer-home.compone
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule
+    AppRoutingModule
   ],
   providers: [
     HomePageService

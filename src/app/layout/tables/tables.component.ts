@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FabricantCRUDService } from "../../Services/Fabricant-CRUD/fabricant-crud.service";
 import { first } from 'rxjs/operators';
 
+
 @Component({
     selector: 'app-tables',
     templateUrl: './tables.component.html',

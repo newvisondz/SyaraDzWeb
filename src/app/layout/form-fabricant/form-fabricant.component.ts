@@ -4,12 +4,14 @@ import { Router } from '@angular/router';
 import { FabricantCRUDService } from '../../Services/Fabricant-CRUD/fabricant-crud.service'
 import { first } from 'rxjs/operators';
 
+
 @Component({
     selector: 'app-form-fabricant',
     templateUrl: './form-fabricant.component.html',
     styleUrls: ['./form-fabricant.component.scss'],
 })
 export class FormFabricantComponent implements OnInit {
+
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -19,6 +21,12 @@ export class FormFabricantComponent implements OnInit {
               private fabricant:FabricantCRUDService,
               private router:Router) {}
 
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  submitted = false;
+  constructor(private _formBuilder: FormBuilder) {}
+
+
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       fabricant: ['', Validators.required]
@@ -27,6 +35,7 @@ export class FormFabricantComponent implements OnInit {
       secondCtrl: ['', Validators.required]
     });
   }
+
 
   // convenience getter for easy access to form fields
   get f() { return this.firstFormGroup.controls; }

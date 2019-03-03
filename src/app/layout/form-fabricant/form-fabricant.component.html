@@ -4,9 +4,7 @@
         <div class="col-lg-12">
           <mat-horizontal-stepper linear="false" #stepper>
               <mat-step [stepControl]="firstFormGroup">
-
                   <ng-template matStepLabel>fabricant</ng-template>
-
                   <form [formGroup]="firstFormGroup">
                     <fieldset class="form-group">
                         <label>Nom de fabricant : *</label>
@@ -15,10 +13,8 @@
                     </fieldset>
                     <button mat-raised-button color="primary" matStepperNext>Suivant</button>
                   </form>
-
               </mat-step>
               <mat-step [stepControl]="secondFormGroup">
-
                   <ng-template matStepLabel>Utilisateur(optionel)</ng-template>
                   <form [formGroup]="secondFormGroup">
                     <div class="">

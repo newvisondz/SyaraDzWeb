@@ -3,12 +3,14 @@ import { Router } from '@angular/router';
 import { AuthentificationService } from '../Services/Authentification/authentification.service'
 import { first } from 'rxjs/operators';
 
+
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+
 
     username: string = "";
     password: string = "";
@@ -34,5 +36,4 @@ export class LoginComponent implements OnInit {
                 console.log("Error occured : "+ err);
             }
         );
-    }
 }

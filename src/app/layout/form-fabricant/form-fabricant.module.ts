@@ -10,7 +10,6 @@ import {MatIconModule} from '@angular/material/icon';
 import { FormFabricantRoutingModule } from './form-fabricant-routing.module';
 import { FormFabricantComponent } from './form-fabricant.component';
 import { PageHeaderModule } from './../shared';
-
 @NgModule({
     imports: [
       CommonModule,

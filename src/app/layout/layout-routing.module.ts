@@ -11,7 +11,7 @@ const routes: Routes = [
             { path: '', redirectTo: 'overview', pathMatch: 'prefix' },
             { path: 'overview', loadChildren: './overview/overview.module#OverviewModule' },
             //{ path: 'charts', loadChildren: './charts/charts.module#ChartsModule' },
-            { path: 'afficherFabricants', loadChildren: './tables/tables.module#TablesModule' },
+            { path: 'afficherFabricants', loadChildren: './list-fabricants/list-fabricants.module#ListFabricantsModule' },
             { path: 'creerFabricant', loadChildren: './form-fabricant/form-fabricant.module#FormFabricantModule' },
             //{ path: 'bs-element', loadChildren: './bs-element/bs-element.module#BsElementModule' },
             //{ path: 'grid', loadChildren: './grid/grid.module#GridModule' },

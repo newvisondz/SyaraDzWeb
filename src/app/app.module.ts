@@ -1,6 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule , HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpErrorInterceptor } from './error-interceptor';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,7 +16,6 @@ import { HomePageService } from './home-page/services/home-page.service';
 import { FooterHomeComponent } from './home-page/footer-home/footer-home.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +26,7 @@ import { FooterHomeComponent } from './home-page/footer-home/footer-home.compone
     TarifComponent,
     ServiceViewComponent,
     ServiceComponent,
-    FooterHomeComponent
+    FooterHomeComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -35,8 +35,13 @@ import { FooterHomeComponent } from './home-page/footer-home/footer-home.compone
     AppRoutingModule
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true,
+    },
     HomePageService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

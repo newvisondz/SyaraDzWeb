@@ -11,10 +11,10 @@ import { first } from 'rxjs/operators';
 })
 export class LoginComponent implements OnInit {
 
-
     username: string = "";
     password: string = "";
-    
+
+    error : string = "";
     constructor (   private auth:AuthentificationService,
                     private router:Router
                 ) {}
@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
         .pipe(first()).subscribe(
             res => {
                 if (res.token == undefined) {
+                    this.error = "Undefined username or wrong password";
                     console.log("Show Error feedback!");
                 } else {
                     window.localStorage.setItem("accesToken", res.token);
@@ -33,7 +34,8 @@ export class LoginComponent implements OnInit {
                 }
             },
             err => {
-                console.log("Error occured : "+ err);
+              this.error = err;
+              console.log("Error occured : "+ err);
             }
         );
     }

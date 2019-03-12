@@ -9,7 +9,26 @@
                     <fieldset class="form-group">
                         <label>Nom de fabricant : *</label>
                         <input formControlName="fabricant" class="form-control" required>
-                        <p class="help-block">Veuillez saisir le nom de fabricant que vous voulez créer ensuire cliquer sur suivant.</p>
+                        <p class="help-block">Veuillez saisir le nom de fabricant que vous voulez créer.</p>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Adresse de fabricant : *</label>
+                        <input formControlName="addressFabricant" class="form-control" required>
+                        <p class="help-block">Veuillez saisir l'addresse de fabricant que vous voulez créer.</p>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Logo de fabricant : *</label>
+                        <input
+                          type="file"
+                          formControlName="logoFabricant"
+                          class="form-control"
+                          accept="image/jpeg,image/png"
+                          (change)="onFileChange($event)"
+                          required>
+                        <p class="help-block">Veuillez saisir uploader le logo de fabricant que vous voulez créer.</p>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <img [src]=logo alt="" height="200px" width="200px">
                     </fieldset>
                     <button mat-raised-button color="primary" matStepperNext>Suivant</button>
                   </form>

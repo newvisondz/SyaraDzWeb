@@ -1,0 +1,115 @@
+import { Component, OnInit ,ViewChild,AfterViewInit} from '@angular/core';
+import { FabricantCRUDService } from "../../Services/Fabricant-CRUD/fabricant-crud.service";
+import { first,tap } from 'rxjs/operators';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA , MatDialogConfig} from '@angular/material';
+import {DeleteConfirmDialogComponent} from './../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
+
+@Component({
+    selector: 'app-list-fabricants',
+    templateUrl: './list-fabricants.component.html',
+    styleUrls: ['./list-fabricants.component.scss'],
+})
+export class ListFabricantsComponent implements OnInit,AfterViewInit {
+
+    fabricants:MatTableDataSource<object>;
+    displayedColumns: string[] = ['index','marque', 'addresse', 'logo', 'manipulations'];
+    loading : boolean = false;
+    error : string = "";
+    lengthList : number = 0;
+
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
+
+
+    constructor(private fabricant:FabricantCRUDService,public dialog: MatDialog) {}
+
+    ngOnInit() {
+      this.loading = true;
+      this.fabricant.listPage(1,5)
+          .pipe(first()).subscribe(
+            res => {
+                console.log(res);
+                this.fabricants = new MatTableDataSource(res.fabricants);
+                this.fabricants.sort = this.sort;
+                this.loading = false;
+            },
+            err => {
+                this.error = "Error occured : "+ err;
+                console.log("Error occured : "+ err);
+                this.loading = false;
+            }
+        );
+        this.setLengthList();
+    }
+    setLengthList(){
+      this.fabricant.list()
+        .pipe(first()).subscribe(
+          res => {
+              this.lengthList = res.fabricants.length;
+              this.loading = false;
+          },
+          err => {
+              this.error = "Error occured : "+ err;
+              console.log("Error occured : "+ err);
+              this.loading = false;
+          }
+      );
+    }
+    ngAfterViewInit() {
+        this.paginator.page
+            .pipe(
+                tap(() => this.loadFabricantsPage())
+            )
+            .subscribe();
+    }
+
+    loadFabricantsPage() {
+      this.loading = true;
+      this.fabricant.listPage(this.paginator.pageIndex+1,this.paginator.pageSize,'asc')
+        .pipe(first()).subscribe(
+          res => {
+            console.log(res);
+            this.fabricants = new MatTableDataSource(res.fabricants);
+            this.fabricants.sort = this.sort;
+            this.setLengthList();
+            this.loading = false;
+          },
+          err => {
+            this.error = "Error occured : "+ err;
+            console.log("Error occured : "+ err);
+            this.loading = false;
+          }
+        );
+    }
+
+    onDelete(id:number){
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+
+      dialogConfig.data = {id: id};
+      const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.loading = true;
+          this.fabricant.delete(id).subscribe(
+              res => {
+                console.log(res);
+                this.loadFabricantsPage();
+                this.loading = false;
+              },
+              err => {
+                this.error = "Error occured : "+ err;
+                console.log("Error occured : "+ err);
+                this.loading = false;
+              }
+            );
+        }
+      });
+    }
+    onUpdate(id:number){
+
+      console.log(id);
+    }
+}

@@ -16,6 +16,7 @@ export class FormFabricantComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   submitted = false;
+  logo : string = '';
 
   constructor(private _formBuilder: FormBuilder,
               private fabricant:FabricantCRUDService,
@@ -23,7 +24,9 @@ export class FormFabricantComponent implements OnInit {
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
-      fabricant: ['', Validators.required]
+      fabricant: ['', Validators.required],
+      addressFabricant: ['', Validators.required],
+      logoFabricant: ['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
@@ -31,18 +34,26 @@ export class FormFabricantComponent implements OnInit {
   }
 
 
-  // convenience getter for easy access to form fields
-  get f() { return this.firstFormGroup.controls; }
+  onFileChange($event){
+    if ((<HTMLInputElement>event.target).files && (<HTMLInputElement>event.target).files[0]) {
+    var reader = new FileReader();
 
+    reader.onload = (event: ProgressEvent) => {
+      this.logo = (<FileReader>event.target).result as string;
+    }
+
+    reader.readAsDataURL((<HTMLInputElement>event.target).files[0]);
+  }
+  }
   onSubmit() {
       this.submitted = true;
 
       // stop here if form is invalid
       if (this.firstFormGroup.invalid) {
-          console.log("Unvalid input");          
+          console.log("Unvalid input");
           return;
       }
-      
+
       this.fabricant.create(this.firstFormGroup.controls['fabricant'].value)
       .pipe(first()).subscribe(
           res => {
@@ -53,6 +64,6 @@ export class FormFabricantComponent implements OnInit {
               console.log("Error occured : "+ err);
           }
       );
-      
+
   }
 }

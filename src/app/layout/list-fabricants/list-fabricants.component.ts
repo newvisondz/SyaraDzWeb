@@ -4,7 +4,7 @@ import { first,tap } from 'rxjs/operators';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA , MatDialogConfig} from '@angular/material';
 import {DeleteConfirmDialogComponent} from './../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
-
+import {UpdateFabriquatDialogComponent} from './update-fabriquat-dialog/update-fabriquat-dialog.component';
 @Component({
     selector: 'app-list-fabricants',
     templateUrl: './list-fabricants.component.html',
@@ -109,7 +109,15 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
       });
     }
     onUpdate(id:number){
-
-      console.log(id);
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      //dialogConfig.data = {id: id};
+      const dialogRef = this.dialog.open(UpdateFabriquatDialogComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if(result.status){
+          console.log(result.marque + result.address);
+        }
+      });
     }
 }

@@ -3,10 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import {MatStepperModule} from '@angular/material/stepper';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule,MatButtonModule} from '@angular/material';
-import {MatIconModule} from '@angular/material/icon';
-
+import {MaterialModule} from './../material.module';
 import { FormFabricantRoutingModule } from './form-fabricant-routing.module';
 import { FormFabricantComponent } from './form-fabricant.component';
 import { PageHeaderModule } from './../shared';
@@ -17,10 +14,7 @@ import { PageHeaderModule } from './../shared';
       PageHeaderModule,MatStepperModule,
       FormsModule,
       ReactiveFormsModule,
-      MatFormFieldModule,
-      MatInputModule,
-      MatButtonModule,
-      MatIconModule],
+      MaterialModule],
     declarations: [FormFabricantComponent]
 })
 export class FormFabricantModule {}

@@ -1,0 +1,41 @@
+<div class="container pt-5" >
+  <app-page-header [heading]="infoPage.title" [icon]="infoPage.icon"></app-page-header>
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{user.name}} {{user.surname}}</mat-card-title>
+      <mat-card-subtitle>{{user.post}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="d-flex flex-column">
+        <mat-form-field>
+          <input [disabled]="modify" matInput placeholder="Nom" [value] = user.name/>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input [disabled]="modify" matInput placeholder="Prénom" [value] = "user.surname"/>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input [disabled]="modify" matInput placeholder="Email" type="email" [value] = "user.email"/>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input [disabled]="modify" matInput placeholder="Mot de passe" type="password" [value] = user.password/>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input [disabled]="modify" matInput placeholder="Address" [value] = user.address/>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input [disabled]="modify" matInput placeholder="Phone" [value] = user.phone/>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-flat-button class = "mx-2" color="primary" (click) = "enableModify()">Modifier<mat-icon>create</mat-icon></button>
+      <button [hidden] = modify mat-flat-button color="accent" (click) = "enableModify()">Enregistrer<mat-icon>save</mat-icon></button>
+    </mat-card-actions>
+  </mat-card>
+</div>

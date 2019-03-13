@@ -10,9 +10,10 @@ const routes: Routes = [
         children: [
             { path: '', redirectTo: 'overview', pathMatch: 'prefix' },
             { path: 'overview', loadChildren: './overview/overview.module#OverviewModule' },
-            //{ path: 'charts', loadChildren: './charts/charts.module#ChartsModule' },
+            { path: 'profile', loadChildren: './profile/profile.module#ProfileModule' },
             { path: 'afficherFabricants', loadChildren: './list-fabricants/list-fabricants.module#ListFabricantsModule' },
             { path: 'creerFabricant', loadChildren: './form-fabricant/form-fabricant.module#FormFabricantModule' },
+            { path: 'creerUtilisateur', loadChildren: './form-user/form-user.module#FormUserModule' },
             //{ path: 'bs-element', loadChildren: './bs-element/bs-element.module#BsElementModule' },
             //{ path: 'grid', loadChildren: './grid/grid.module#GridModule' },
             //{ path: 'components', loadChildren: './bs-component/bs-component.module#BsComponentModule' },

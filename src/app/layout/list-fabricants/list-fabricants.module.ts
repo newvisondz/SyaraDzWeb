@@ -8,11 +8,20 @@ import { MaterialModule } from './../material.module';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import { NotificationModule,DeleteConfirmDialogModule } from './../../shared';
 import {DeleteConfirmDialogComponent} from './../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
-
+import { UpdateFabriquatDialogComponent } from './update-fabriquat-dialog/update-fabriquat-dialog.component';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
-    imports: [CommonModule, ListFabricantsRoutingModule, PageHeaderModule,MaterialModule,NotificationModule,DeleteConfirmDialogModule],
-    declarations: [ListFabricantsComponent],
-    entryComponents: [DeleteConfirmDialogComponent],
+    imports: [
+      CommonModule,
+      ListFabricantsRoutingModule,
+      PageHeaderModule,
+      MaterialModule,
+      NotificationModule,
+      DeleteConfirmDialogModule,
+      FormsModule,
+      ReactiveFormsModule],
+    declarations: [ListFabricantsComponent, UpdateFabriquatDialogComponent],
+    entryComponents: [DeleteConfirmDialogComponent,UpdateFabriquatDialogComponent],
 })
 export class ListFabricantsModule {}

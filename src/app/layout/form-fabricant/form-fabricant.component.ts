@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms'
 import { Router } from '@angular/router';
 import { FabricantCRUDService } from '../../Services/Fabricant-CRUD/fabricant-crud.service'
@@ -17,6 +17,7 @@ export class FormFabricantComponent implements OnInit {
   secondFormGroup: FormGroup;
   submitted = false;
   logo : string = '';
+  @ViewChild('file') file;
 
   constructor(private _formBuilder: FormBuilder,
               private fabricant:FabricantCRUDService,
@@ -33,17 +34,19 @@ export class FormFabricantComponent implements OnInit {
     });
   }
 
-
+  addFiles() {
+      this.file.nativeElement.click();
+    }
   onFileChange($event){
     if ((<HTMLInputElement>event.target).files && (<HTMLInputElement>event.target).files[0]) {
-    var reader = new FileReader();
+      var reader = new FileReader();
 
-    reader.onload = (event: ProgressEvent) => {
-      this.logo = (<FileReader>event.target).result as string;
+      reader.onload = (event: ProgressEvent) => {
+        this.logo = (<FileReader>event.target).result as string;
+      }
+
+      reader.readAsDataURL((<HTMLInputElement>event.target).files[0]);
     }
-
-    reader.readAsDataURL((<HTMLInputElement>event.target).files[0]);
-  }
   }
   onSubmit() {
       this.submitted = true;
@@ -57,6 +60,7 @@ export class FormFabricantComponent implements OnInit {
       this.fabricant.create(this.firstFormGroup.controls['fabricant'].value)
       .pipe(first()).subscribe(
           res => {
+              console.log(this.firstFormGroup.controls['fabricant'].value);
               console.log(res);
               this.router.navigate(["/dashboard/afficherFabricants"]);
           },

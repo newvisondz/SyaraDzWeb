@@ -13,6 +13,8 @@ import {
   MatPaginatorModule,
   MatSortModule,
   MatProgressSpinnerModule,
+  MatCardModule,
+  MatBadgeModule
 } from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -32,7 +34,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatPaginatorModule,
     MatSortModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule,
+    MatBadgeModule
   ],
   exports: [
     MatButtonModule,
@@ -49,7 +53,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatPaginatorModule,
     MatSortModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule,
+    MatBadgeModule
   ]
 })
 

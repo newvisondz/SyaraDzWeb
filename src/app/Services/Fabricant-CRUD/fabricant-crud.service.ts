@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class FabricantCRUDService {
   public create(marque:string){
 
     const headers = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
-    
+
     return this.http.post(this.ROOT_URL+'/fabricant/model/',
     { marque: marque }, { headers: headers }
     ).pipe(map(res => {
@@ -37,5 +37,42 @@ export class FabricantCRUDService {
       return res;
     }));
   }
-  
+
+  public listPage(page:number , perpage:number , sort:string= "asc" ){
+
+    interface Response {
+      fabricants: any;
+    }
+
+    const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
+
+    return this.http.get<Response>(this.ROOT_URL+"/fabricant/model",{
+      headers: header,
+      params: new HttpParams()
+                .set('perpage', perpage.toString())
+                .set('page', page.toString())
+                .set('sort', sort)
+    }).pipe(map(res => {
+      return res;
+    }));
+  }
+
+  public delete(id : number ){
+    const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
+    class ResponseError {
+      error: boolean;
+      msg : string;
+    }
+    return this.http.delete(this.ROOT_URL+"/fabricant/model/"+id,{
+      headers: header}).pipe(map(res => {
+        if(res instanceof ResponseError){
+          const result = res as ResponseError;
+          if(result.error){
+            throw(result.msg);
+          }
+        }
+      return res;
+    }));
+  }
+
 }

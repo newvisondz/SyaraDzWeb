@@ -7,12 +7,14 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
+import { NotificationModule } from './../shared';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
-        LoginRoutingModule],
+        LoginRoutingModule,
+        NotificationModule],
     providers: [
         HttpClientModule],
     declarations: [LoginComponent]

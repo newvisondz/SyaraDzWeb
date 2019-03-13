@@ -19,7 +19,7 @@ export class SidebarComponent implements OnInit {
         {
           header : "Profile",
           icon : "fas fa-user",
-          route : "/"
+          route : "profile"
         },
       ]
     },
@@ -94,7 +94,7 @@ export class SidebarComponent implements OnInit {
         {
           header : "Créer utilisateur",
           icon : "fas fa-plus",
-          route : "/"
+          route : "creerUtilisateur"
         },
         {
           header : "Afficher utilisateur",

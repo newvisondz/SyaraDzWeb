@@ -1,0 +1,35 @@
+<div class="container pt-5" >
+  <app-page-header [heading]="infoPage.title" [icon]="infoPage.icon"></app-page-header>
+  <mat-card class="example-card">
+    <mat-card-content>
+      <form class="">
+        <div class="d-flex flex-column">
+          <mat-form-field>
+            <input matInput placeholder="Nom" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Prénom" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Email" type="email" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Mot de passe" type="password" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Address" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Phone" />
+          </mat-form-field>
+        </div>
+        <button type = "submit" mat-flat-button color="accent" (click) = "enableModify()">Créer utilisateur<mat-icon>save</mat-icon></button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -8,8 +8,15 @@ import {
   MatInputModule,
   MatSidenavModule,
   MatListModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule,
+  MatProgressSpinnerModule,
+  MatCardModule,
+  MatBadgeModule
 } from '@angular/material';
+import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
@@ -22,7 +29,14 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatInputModule,
     MatSidenavModule,
     MatListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatCardModule,
+    MatBadgeModule
   ],
   exports: [
     MatButtonModule,
@@ -33,7 +47,15 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatInputModule,
     MatSidenavModule,
     MatListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressSpinnerModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatCardModule,
+    MatBadgeModule
   ]
 })
 

@@ -4,11 +4,12 @@
         <button mat-menu-item class="a-item" href="#">Another action</button>
         <button mat-menu-item class="a-item" href="#">Something else here</button>
       </mat-menu>
+
       <button mat-button [matMenuTriggerFor]="notificationMenu" class="a-item">
-        <i class="fa fa-bell notification-icon" style= "color : #FFF"></i><span class="badge badge-success badge-pill notification-badge">4</span>
-      </button>
+         <mat-icon matBadge="8" matBadgePosition="before" matBadgeColor="accent">notification_important</mat-icon>
+     </button>
       <mat-menu #appMenu="matMenu">
-        <button mat-menu-item class="a-item" href="javascript:void(0)">
+        <button mat-menu-item class="a-item" routerLink="profile">
           <i class="fa fa-fw fa-user"></i> Profile
         </button>
         <button mat-menu-item class="a-item" href="javascript:void(0)">
@@ -22,6 +23,6 @@
         </button>
       </mat-menu>
       <button mat-button [matMenuTriggerFor]="appMenu" class="a-item">
-        Menu
+        <mat-icon >home</mat-icon>
       </button>
 </div>

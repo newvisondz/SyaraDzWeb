@@ -6,11 +6,29 @@
               <mat-step [stepControl]="firstFormGroup">
                   <ng-template matStepLabel>fabricant</ng-template>
                   <form [formGroup]="firstFormGroup">
-                    <fieldset class="form-group">
-                        <label>Nom de fabricant : *</label>
-                        <input formControlName="fabricant" class="form-control" required>
-                        <p class="help-block">Veuillez saisir le nom de fabricant que vous voulez créer ensuire cliquer sur suivant.</p>
-                    </fieldset>
+                    <div class="d-flex flex-column">
+                      <mat-form-field>
+                        <input formControlName="fabricant" matInput placeholder="Nom de fabricant" />
+                      </mat-form-field>
+                      <mat-form-field>
+                        <input formControlName="addressFabricant" matInput placeholder="Adresse de fabricant" />
+                      </mat-form-field>
+                      <fieldset class="form-group">
+                          <input
+                            #file
+                            type="file"
+                            formControlName="logoFabricant"
+                            class="form-control"
+                            accept="image/jpeg,image/png"
+                            (change)="onFileChange($event)"
+                            required
+                            style="display : none">
+                      </fieldset>
+                      <button mat-raised-button (click) = "addFiles()">Choisir un logo du fabricant</button>
+                      <fieldset class="form-group">
+                          <img [src]=logo alt="" height="200px" width="200px">
+                      </fieldset>
+                    </div>
                     <button mat-raised-button color="primary" matStepperNext>Suivant</button>
                   </form>
               </mat-step>

@@ -1,21 +1,37 @@
 <div class="login-page">
-    <div class="row justify-content-md-center">
-        <div class="col-md-4">
-            <img src="assets/images/logo.png" width="150px" class="user-avatar" />
-            <h1>SayaraDZ</h1>
-            <app-notification [error] = "error"></app-notification>
-            <form (submit)="onSubmit()">
-                <div class="form-content">
-                    <div class="form-group">
-                        <input type="text" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" class="form-control input-underline input-lg" placeholder="Email">
-                    </div>
+    <div class="row justify-content-sm-center mt-5">
+        <div class="d-flex justify-content-center">
+            <mat-spinner [hidden]="!loading" class="mt-5"></mat-spinner>
+        </div>
+        <div class="col-sm-6" [hidden]="loading">
+          <app-notification [error] = "error"></app-notification>
+          <div class="card box-shadow">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-12 col-xl-6">
+                  <h4 class="card-title">Log in</h4>
+                  <div style="width: 100px; border: 1px solid #FFAB00;"></div>
+                  <div class="card-text">
+                    <form (submit)="onSubmit()">
+                        <div class="form-content">
+                            <div class="form-group">
+                                <input type="text" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" class="form-control input-underline input-lg" placeholder="Email">
+                            </div>
 
-                    <div class="form-group">
-                        <input type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" class="form-control input-underline input-lg" placeholder="Password">
-                    </div>
+                            <div class="form-group">
+                                <input type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" class="form-control input-underline input-lg" placeholder="Password">
+                            </div>
+                        </div>
+                        <button class="btn rounded-btn" type="submit">Connect</button>
+                    </form>
+                  </div>
                 </div>
-                <button class="btn rounded-btn" type="submit">Connect</button>
-            </form>
+                <div class="col-xl-6 d-none d-sm-none d-md-none d-lg-none d-xl-block">
+                  <img src="../../assets/car3.jpg" height="400">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
 </div>

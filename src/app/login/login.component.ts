@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
     password: string = "";
 
     error : string = "";
+    loading : boolean = false;
     constructor (   private auth:AuthentificationService,
                     private router:Router
                 ) {}
@@ -22,10 +23,12 @@ export class LoginComponent implements OnInit {
     ngOnInit() {}
 
     onSubmit() {
+        this.loading = true;
         this.auth.login(this.username,this.password)
         .pipe(first()).subscribe(
             res => {
                 if (res.token == undefined) {
+                    this.loading = false;
                     this.error = "Undefined username or wrong password";
                     console.log("Show Error feedback!");
                 } else {
@@ -34,6 +37,7 @@ export class LoginComponent implements OnInit {
                 }
             },
             err => {
+              this.loading = false;
               this.error = err;
               console.log("Error occured : "+ err);
             }

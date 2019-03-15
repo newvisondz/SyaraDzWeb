@@ -7,6 +7,7 @@ import {MaterialModule} from './../material.module';
 import { FormFabricantRoutingModule } from './form-fabricant-routing.module';
 import { FormFabricantComponent } from './form-fabricant.component';
 import { PageHeaderModule } from './../shared';
+import { NotificationModule } from './../../shared';
 @NgModule({
     imports: [
       CommonModule,
@@ -14,7 +15,8 @@ import { PageHeaderModule } from './../shared';
       PageHeaderModule,MatStepperModule,
       FormsModule,
       ReactiveFormsModule,
-      MaterialModule],
+      MaterialModule,
+      NotificationModule],
     declarations: [FormFabricantComponent]
 })
 export class FormFabricantModule {}

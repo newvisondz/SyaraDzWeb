@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms'
 
 @Component({
   selector: 'app-profile',
@@ -19,15 +20,40 @@ export class ProfileComponent implements OnInit {
     address : "CEM El Badre batiment A N 21 Hai El Badre Kouba -Alger",
     phone : "0551 78 91 42"
   };
+  loading : boolean = false;
   modify : boolean = true;
+  userFormGroup: FormGroup;
 
-  constructor() { }
+  constructor(private _formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.userFormGroup = this._formBuilder.group({
+      username: ['', Validators.required],
+      usersurname: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+      address: ['', Validators.required],
+      phone: ['', Validators.required],
+    });
+    Object.keys(this.userFormGroup.controls).forEach(key => {
+      this.userFormGroup.get(key).disable();
+    });
   }
+  onSubmit(){
 
+  }
   enableModify(){
     this.modify = !this.modify;
+    if(this.modify){
+      Object.keys(this.userFormGroup.controls).forEach(key => {
+        this.userFormGroup.get(key).disable();
+      });
+    }else{
+      Object.keys(this.userFormGroup.controls).forEach(key => {
+        this.userFormGroup.get(key).enable();
+      });
+    }
   }
 
 }

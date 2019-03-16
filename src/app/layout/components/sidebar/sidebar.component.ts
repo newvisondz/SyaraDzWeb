@@ -99,7 +99,7 @@ export class SidebarComponent implements OnInit {
         {
           header : "Afficher utilisateur",
           icon : "fas fa-list-alt",
-          route : "/"
+          route : "afficherUsersFabricants"
         },
       ]
     },

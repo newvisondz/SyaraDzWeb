@@ -33,56 +33,39 @@ export class SidebarComponent implements OnInit {
           route : "creerFabricant"
         },
         {
-          header : "Afficher fabricant",
+          header : "Afficher fabricants",
           icon : "fas fa-list-alt",
           route : "afficherFabricants"
         },
       ]
     },
     {
-      header : "Gestion des modéles",
+      header : "Données de références",
       icon : "fas fa-car",
       sublinks : [
         {
-          header : "Créer modéle",
-          icon : "fas fa-plus",
+          header : "Gestion des modéles",
+          icon : "fas fa-car",
           route : "/"
         },
         {
-          header : "Afficher modéle",
-          icon : "fas fa-list-alt",
-          route : "/"
-        },
-      ]
-    },
-    {
-      header : "Gestion des versions",
-      icon : "fas fa-code-branch",
-      sublinks : [
-        {
-          header : "Créer version",
-          icon : "fas fa-plus",
+          header : "Gestion des versions",
+          icon : "fas fa-code-branch",
           route : "/"
         },
         {
-          header : "Afficher version",
-          icon : "fas fa-list-alt",
-          route : "/"
-        },
-      ]
-    },
-    {
-      header : "Gestion des véhicules",
-      icon : "fas fa-car-side",
-      sublinks : [
-        {
-          header : "Créer véhicule",
-          icon : "fas fa-plus",
+          header : "Gestion des couleurs",
+          icon : "fas fa-palette",
           route : "/"
         },
         {
-          header : "Afficher véhicule",
-          icon : "fas fa-list-alt",
+          header : "Gestion des options",
+          icon : "fas fa-code-branch",
+          route : "/"
+        },
+        {
+          header : "Gestion des véhicules",
+          icon : "fas fa-car-side",
           route : "/"
         },
       ]

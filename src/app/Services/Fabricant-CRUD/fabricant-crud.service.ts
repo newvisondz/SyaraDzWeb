@@ -10,14 +10,14 @@ export class FabricantCRUDService {
 
   constructor(private http:HttpClient) { }
 
-  readonly ROOT_URL = 'http://sayara-dz.herokuapp.com';
+  readonly ROOT_URL = 'https://sayara-dz.herokuapp.com';
 
   public create(marque:string){
 
     const headers = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
-
-    return this.http.post(this.ROOT_URL+'/fabricant/model/',
-    { marque: marque }, { headers: headers }
+    let body = { brand : marque };
+    console.log(body);
+    return this.http.post(this.ROOT_URL+'/manufacturers',body, { headers: headers }
     ).pipe(map(res => {
       return res;
     }));
@@ -31,14 +31,14 @@ export class FabricantCRUDService {
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
 
-    return this.http.get<Response>(this.ROOT_URL+"/fabricant/model",{
+    return this.http.get<Response>(this.ROOT_URL+"/manufacturers",{
       headers: header
     }).pipe(map(res => {
       return res;
     }));
   }
 
-  public listPage(page:number , perpage:number , sort:string= "asc" ){
+  public listPage(page:number , perpage:number , sort:string= "+" ){
 
     interface Response {
       fabricants: any;
@@ -46,10 +46,10 @@ export class FabricantCRUDService {
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
 
-    return this.http.get<Response>(this.ROOT_URL+"/fabricant/model",{
+    return this.http.get<Response>(this.ROOT_URL+"/manufacturers",{
       headers: header,
       params: new HttpParams()
-                .set('perpage', perpage.toString())
+                .set('limit', perpage.toString())
                 .set('page', page.toString())
                 .set('sort', sort)
     }).pipe(map(res => {
@@ -63,7 +63,7 @@ export class FabricantCRUDService {
       error: boolean;
       msg : string;
     }
-    return this.http.delete(this.ROOT_URL+"/fabricant/model/"+id,{
+    return this.http.delete(this.ROOT_URL+"/manufacturers/"+id,{
       headers: header}).pipe(map(res => {
         if(res instanceof ResponseError){
           const result = res as ResponseError;
@@ -75,4 +75,22 @@ export class FabricantCRUDService {
     }));
   }
 
+  public update(id : number , brand: string){
+    const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
+    class ResponseError {
+      error: boolean;
+      msg : string;
+    }
+    let body = {brand : brand};
+    return this.http.put(this.ROOT_URL+"/manufacturers/"+id,body,{
+      headers: header}).pipe(map(res => {
+        if(res instanceof ResponseError){
+          const result = res as ResponseError;
+          if(result.error){
+            throw(result.msg);
+          }
+        }
+      return res;
+    }));
+  }
 }

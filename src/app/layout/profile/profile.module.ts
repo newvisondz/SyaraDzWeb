@@ -5,6 +5,7 @@ import { MaterialModule } from './../material.module';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { PageHeaderModule } from './../shared';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { NotificationModule } from '../../shared';
 @NgModule({
   declarations: [ProfileComponent],
   imports: [
@@ -13,7 +14,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     ProfileRoutingModule,
     PageHeaderModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NotificationModule
   ]
 })
 export class ProfileModule { }

@@ -3,7 +3,7 @@
       <button mat-icon-button (click)="snav.toggle()"><i class="fas fa-bars fa-2x"></i></button>
       <a class="navbar-brand mx-5" href="#" style="color:#fff">SayaraDZ</a>
       <span class="example-spacer"></span>
-      <app-header></app-header>
+      <app-header [loading] = loading></app-header>
   </mat-toolbar>
   <mat-sidenav-container class="example-container" fullscreen>
     <mat-sidenav #snav>

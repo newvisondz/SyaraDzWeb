@@ -22,6 +22,7 @@ export class UpdateFabriquatDialogComponent implements OnInit {
       addressFabricant: ['', Validators.required],
       logoFabricant: ['', Validators.required]
     });
+    console.log(this.data.fabricant);
   }
   addFiles() {
       this.file.nativeElement.click();

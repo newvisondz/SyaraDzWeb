@@ -18,6 +18,7 @@ export class FormFabricantComponent implements OnInit {
   submitted = false;
   logo : string = '';
   error : string = "";
+  loading : boolean = false;
   @ViewChild('file') file;
 
   constructor(private _formBuilder: FormBuilder,
@@ -68,22 +69,26 @@ export class FormFabricantComponent implements OnInit {
           console.log("Unvalid input");
           return;
       }
+      this.loading = true;
       this.fabricant.create(this.firstFormGroup.controls['fabricant'].value)
       .pipe(first()).subscribe(
           res => {
               console.log(this.firstFormGroup.controls['fabricant'].value);
               console.log(res);
+              this.loading = false;
               this.router.navigate(["/dashboard/afficherFabricants"]);
           },
           err => {
+              this.error = err;
+              this.loading = false;
               console.log("Error occured : "+ err);
           }
       );
-      if (this.secondFormGroup.invalid) {
+      /*if (this.secondFormGroup.invalid) {
         this.error = "Unvalid input";
           console.log("Unvalid input");
       }else{
         console.log("créer un utilisateur fabricant aussi");
-      }
+      }*/
   }
 }

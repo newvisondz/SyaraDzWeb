@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthentificationService } from '../../../Services//Authentification/authentification.service'
 
@@ -10,7 +10,9 @@ import { AuthentificationService } from '../../../Services//Authentification/aut
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+  @Input() loading : boolean = false;
+  @Input() error : string = "";
+  
   constructor(private auth:AuthentificationService,
               private router:Router) { }
 

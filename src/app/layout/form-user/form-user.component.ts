@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms'
 import { FabricantCRUDService } from "../../Services/Fabricant-CRUD/fabricant-crud.service";
 import { first } from 'rxjs/operators';
+import { Fabricant} from '../../model/fabricant.model';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-form-user',
   templateUrl: './form-user.component.html',
@@ -14,7 +16,7 @@ export class FormUserComponent implements OnInit {
     icon : "fa-users",
   };
   userFormGroup: FormGroup;
-  fabricants :any [];
+  fabricants : Observable<Fabricant>[];
   loading : boolean = false;
   constructor(private fabricant:FabricantCRUDService,private _formBuilder: FormBuilder) { }
 
@@ -34,7 +36,7 @@ export class FormUserComponent implements OnInit {
       .pipe(first()).subscribe(
         res => {
           this.loading = false;
-          this.fabricants = res.fabricants;
+          this.fabricants = res.manufacturers;
         },
         err => {
             console.log("Error occured : "+ err);

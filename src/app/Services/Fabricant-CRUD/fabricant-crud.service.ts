@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Fabricant} from '../../model/fabricant.model';
+import { environment } from '../../../environments/environment';
+
+interface Response {
+  manufacturers: Observable<Fabricant>[],
+  count : number
+}
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +18,7 @@ export class FabricantCRUDService {
 
   constructor(private http:HttpClient) { }
 
-  readonly ROOT_URL = 'https://sayara-dz.herokuapp.com';
+  readonly ROOT_URL = environment.baseUrl;
 
   public create(marque:string){
 
@@ -25,10 +33,6 @@ export class FabricantCRUDService {
 
   public list(){
 
-    interface Response {
-      fabricants: any;
-    }
-
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
 
     return this.http.get<Response>(this.ROOT_URL+"/manufacturers",{
@@ -39,10 +43,6 @@ export class FabricantCRUDService {
   }
 
   public listPage(page:number , perpage:number , sort:string= "+" ){
-
-    interface Response {
-      fabricants: any;
-    }
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
 

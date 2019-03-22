@@ -3,17 +3,7 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { AuthentificationService } from '../../Services/Authentification/authentification.service';
 import { first } from 'rxjs/operators';
 import { PasswordValidator } from '../../validators/password.validator';
-class Profile{
-  email : string;
-  id : string;
-  type : string;
-  constructor(email : string, id : string, type : string)
-  {
-    this.email = email;
-    this.id = id;
-    this.type = type;
-  }
-}
+import { Admin } from '../../model/admin.model';
 
 
 @Component({
@@ -29,7 +19,7 @@ export class ProfileComponent implements OnInit {
 
   error : string = "";
 
-  user : Profile = new Profile("","","");
+  user :Admin = new Admin("","","");
   loading : boolean = false;
 
   modify : boolean = true;

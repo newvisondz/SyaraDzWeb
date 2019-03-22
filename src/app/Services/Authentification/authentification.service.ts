@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Admin } from '../../model/admin.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +13,12 @@ export class AuthentificationService  {
 
   constructor(private http:HttpClient) { }
 
-  readonly ROOT_URL = 'https://sayara-dz.herokuapp.com';
+  readonly ROOT_URL = environment.baseUrl;
 
   public login(username:string,password:string){
 
     interface LoginResponse {
-      email : string;
-      id : string;
       token: string;
-      type : string;
     }
     let data = {
       email : username,
@@ -50,15 +50,11 @@ export class AuthentificationService  {
     );
   }
 
-  public showMe(){
+  public showMe() : Observable<Admin>{
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
-    interface profileResponse {
-      email : string;
-      id : string;
-      type : string;
-    }
-    return this.http.get<profileResponse>(this.ROOT_URL+'/me',
+
+    return this.http.get<Admin>(this.ROOT_URL+'/me',
     { headers: header }
     ).pipe(map(res => {
       console.log(res);

@@ -17,6 +17,8 @@ export class FormFabricantComponent implements OnInit {
   secondFormGroup: FormGroup;
   submitted = false;
   logo : string = '';
+  error : string = "";
+  loading : boolean = false;
   @ViewChild('file') file;
 
   constructor(private _formBuilder: FormBuilder,
@@ -30,12 +32,22 @@ export class FormFabricantComponent implements OnInit {
       logoFabricant: ['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
+      username: ['', Validators.required],
+      usersurname: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+      address: ['', Validators.required],
+      phone: ['', Validators.required],
+      fabricant: [{value: '', disabled: true}, Validators.required],
     });
   }
 
   addFiles() {
       this.file.nativeElement.click();
+    }
+    getFabricantName(){
+      return this.firstFormGroup.controls['fabricant'].value;
     }
   onFileChange($event){
     if ((<HTMLInputElement>event.target).files && (<HTMLInputElement>event.target).files[0]) {
@@ -53,21 +65,30 @@ export class FormFabricantComponent implements OnInit {
 
       // stop here if form is invalid
       if (this.firstFormGroup.invalid) {
+          this.error = "Unvalid input";
           console.log("Unvalid input");
           return;
       }
-
+      this.loading = true;
       this.fabricant.create(this.firstFormGroup.controls['fabricant'].value)
       .pipe(first()).subscribe(
           res => {
               console.log(this.firstFormGroup.controls['fabricant'].value);
               console.log(res);
+              this.loading = false;
               this.router.navigate(["/dashboard/afficherFabricants"]);
           },
           err => {
+              this.error = err;
+              this.loading = false;
               console.log("Error occured : "+ err);
           }
       );
-
+      /*if (this.secondFormGroup.invalid) {
+        this.error = "Unvalid input";
+          console.log("Unvalid input");
+      }else{
+        console.log("créer un utilisateur fabricant aussi");
+      }*/
   }
 }

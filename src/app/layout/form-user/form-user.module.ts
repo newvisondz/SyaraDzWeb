@@ -4,14 +4,16 @@ import { FormUserComponent } from './form-user.component';
 import {FormUserRoutingModule} from './form-user-routing.module';
 import { MaterialModule } from './../material.module';
 import { PageHeaderModule } from './../shared';
-
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 @NgModule({
   declarations: [FormUserComponent],
   imports: [
     CommonModule,
     FormUserRoutingModule,
     MaterialModule,
-    PageHeaderModule
+    PageHeaderModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class FormUserModule { }

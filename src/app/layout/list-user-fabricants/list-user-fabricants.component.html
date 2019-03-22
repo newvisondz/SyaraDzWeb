@@ -1,0 +1,26 @@
+<div class="container pt-5">
+    <app-page-header [heading]="'Liste des fabricants'" [icon]="'fa-table'"></app-page-header>
+    <div class="d-flex justify-content-center">
+        <mat-spinner [hidden]="!loading" class="mt-5"></mat-spinner>
+    </div>
+    <div class="row" [hidden]="loading">
+        <div class="col col-xl-12 col-lg-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Liste des fabricants
+                </div>
+                <app-notification class="ma-2" [error] = "error"></app-notification>
+                <div class="card-body table-responsive">
+                  <mat-paginator [length]="lengthList" [pageSize]="5"
+                    [pageSizeOptions]="[5, 10, 15]">
+                  </mat-paginator>
+                  <div class="row">
+                    <div class="col-lg-4 mb-2" *ngFor = "let element of fabricants">
+                      <app-display-card-user [user]="element"></app-display-card-user>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

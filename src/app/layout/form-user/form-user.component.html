@@ -1,34 +1,71 @@
 <div class="container pt-5" >
   <app-page-header [heading]="infoPage.title" [icon]="infoPage.icon"></app-page-header>
-  <mat-card class="example-card">
+  <div class="d-flex justify-content-center">
+      <mat-spinner class="mt-5"  [hidden]="!loading"></mat-spinner>
+  </div>
+  <mat-card class="example-card mb-5" [hidden]="loading">
     <mat-card-content>
-      <form class="">
+      <form [formGroup]="userFormGroup" (ngSubmit)="onSubmit()">
         <div class="d-flex flex-column">
-          <mat-form-field>
-            <input matInput placeholder="Nom" />
-          </mat-form-field>
+          <h5>Informations personnelles :</h5>
+          <div class="row">
+            <div class="col-sm-6 d-flex flex-column">
+              <mat-form-field>
+                <input matInput placeholder="Nom"  formControlName="username"/>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-6 d-flex flex-column">
+              <mat-form-field>
+                <input matInput placeholder="Prénom" formControlName="usersurname" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 d-flex flex-column">
+              <mat-form-field>
+                <input matInput placeholder="Email" type="email" formControlName="email" />
+              </mat-form-field>
+            </div>
+            <div class="col-sm-6 d-flex flex-column">
+              <mat-form-field>
+                <input matInput placeholder="Phone" formControlName="phone" />
+              </mat-form-field>
+            </div>
+          </div>
 
           <mat-form-field>
-            <input matInput placeholder="Prénom" />
+            <input matInput placeholder="Address" formControlName="address"/>
+          </mat-form-field>
+          <br>
+          <h5>Choisir un mot de passe :</h5>
+          <div class="row">
+            <div class="col-sm-6 d-flex flex-column">
+              <mat-form-field>
+                <input matInput placeholder="Mot de passe" type="password" formControlName="password"/>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-6 d-flex flex-column">
+              <mat-form-field>
+                <input matInput placeholder="Confirmer le mot de passe" type="password" formControlName="confirmPassword"/>
+              </mat-form-field>
+            </div>
+          </div>
+          <br>
+          <h5>Informations générales :</h5>
+          <mat-form-field>
+            <mat-select placeholder="Fabricant" formControlName="fabricant" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let fabricant of fabricants" [value]="fabricant">
+                {{fabricant.marque}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
 
-          <mat-form-field>
-            <input matInput placeholder="Email" type="email" />
-          </mat-form-field>
-
-          <mat-form-field>
-            <input matInput placeholder="Mot de passe" type="password" />
-          </mat-form-field>
-
-          <mat-form-field>
-            <input matInput placeholder="Address" />
-          </mat-form-field>
-
-          <mat-form-field>
-            <input matInput placeholder="Phone" />
-          </mat-form-field>
         </div>
-        <button type = "submit" mat-flat-button color="accent" (click) = "enableModify()">Créer utilisateur<mat-icon>save</mat-icon></button>
+        <div class="d-flex flex-row-reverse">
+          <button type = "submit" mat-flat-button class="btn-search">Créer utilisateur</button>
+        </div>
+
       </form>
     </mat-card-content>
   </mat-card>

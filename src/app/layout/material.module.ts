@@ -14,7 +14,9 @@ import {
   MatSortModule,
   MatProgressSpinnerModule,
   MatCardModule,
-  MatBadgeModule
+  MatBadgeModule,
+  MatSelectModule,
+  MatSlideToggleModule
 } from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -36,7 +38,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatProgressSpinnerModule,
     MatDialogModule,
     MatCardModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatSelectModule,
+    MatSlideToggleModule
   ],
   exports: [
     MatButtonModule,
@@ -55,7 +59,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatProgressSpinnerModule,
     MatDialogModule,
     MatCardModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatSelectModule,
+    MatSlideToggleModule
   ]
 })
 

@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./overview.component.scss']
 })
 export class OverviewComponent implements OnInit {
+  loading : boolean = false;
+  error : string = "";
+  
   infoPage = {
     title : "Tableau de bords",
     icon : "fa-tachometer-alt",

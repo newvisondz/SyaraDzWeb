@@ -3,27 +3,46 @@
     <mat-dialog-content class="mat-typography">
       <form [formGroup]="firstFormGroup">
         <div class="d-flex flex-column">
-          <mat-form-field>
-            <input formControlName="fabricant" matInput placeholder="Nom de fabricant" />
-          </mat-form-field>
-          <mat-form-field>
-            <input formControlName="addressFabricant" matInput placeholder="Adresse de fabricant" />
-          </mat-form-field>
-          <fieldset class="form-group">
-              <input
-                #file
-                type="file"
-                formControlName="logoFabricant"
-                class="form-control"
-                accept="image/jpeg,image/png"
-                (change)="onFileChange($event)"
-                required
-                style="display : none">
-          </fieldset>
-          <button mat-raised-button (click) = "addFiles()">Choisir un logo du fabricant</button>
-          <fieldset class="form-group">
-              <img [src]=logo alt="" height="200px" width="200px">
-          </fieldset>
+          <div class="d-flex flex-column">
+            <h5>Informations générales :</h5>
+            <div class="row">
+              <div class="col-sm-6 d-flex flex-column">
+                <mat-form-field>
+                  <input formControlName="fabricant" matInput [value]="data.fabricant.brand" placeholder="Nom de fabricant" />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-6 d-flex flex-column">
+                <mat-form-field>
+                  <input formControlName="addressFabricant" matInput placeholder="Adresse de fabricant" />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <br>
+            <h5>Choisir un logo de la marque :</h5>
+            <div class="row">
+              <div class="col-sm-6">
+                <fieldset class="form-group">
+                    <input
+                      #file
+                      type="file"
+                      formControlName="logoFabricant"
+                      class="form-control"
+                      accept="image/jpeg,image/png"
+                      (change)="onFileChange($event)"
+                      required
+                      style="display : none">
+                </fieldset>
+                <button mat-raised-button color="primary" (click) = "addFiles()">Choisir un logo du fabricant</button>
+              </div>
+              <div class="col-sm-6 d-flex flex-column">
+                <fieldset class="form-group">
+                    <img [src]=logo alt="Aucun logo choisie" height="200px" width="200px">
+                </fieldset>
+              </div>
+            </div>
+            <br>
+          </div>
         </div>
       </form>
     </mat-dialog-content>

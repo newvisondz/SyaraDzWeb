@@ -5,7 +5,8 @@ import { OverviewRoutingModule } from './overview-routing.module';
 import { OverviewComponent } from './overview.component';
 import { PageHeaderModule, StatModule } from './../shared';
 import { ChartsModule } from './../charts/charts.module';
-
+import { MaterialModule } from './../material.module';
+import { NotificationModule } from './../../shared';
 
 @NgModule({
     imports: [
@@ -13,7 +14,9 @@ import { ChartsModule } from './../charts/charts.module';
         OverviewRoutingModule,
         PageHeaderModule,
         StatModule,
-        ChartsModule
+        ChartsModule,
+        MaterialModule,
+        NotificationModule
     ],
     declarations: [
         OverviewComponent,

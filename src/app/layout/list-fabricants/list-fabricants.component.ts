@@ -13,7 +13,7 @@ import {UpdateFabriquatDialogComponent} from './update-fabriquat-dialog/update-f
 export class ListFabricantsComponent implements OnInit,AfterViewInit {
 
     fabricants:MatTableDataSource<object>;
-    displayedColumns: string[] = ['index','marque', 'addresse', 'logo', 'manipulations'];
+    displayedColumns: string[] = ['index','marque', 'logo','createdAt', 'updatedAt', 'manipulations'];
     loading : boolean = false;
     error : string = "";
     lengthList : number = 0;
@@ -30,7 +30,8 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
           .pipe(first()).subscribe(
             res => {
                 console.log(res);
-                this.fabricants = new MatTableDataSource(res.fabricants);
+                this.fabricants = new MatTableDataSource(res.manufacturers);
+                this.lengthList = res.count;
                 this.fabricants.sort = this.sort;
                 this.loading = false;
             },
@@ -40,22 +41,8 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
                 this.loading = false;
             }
         );
-        this.setLengthList();
     }
-    setLengthList(){
-      this.fabricant.list()
-        .pipe(first()).subscribe(
-          res => {
-              this.lengthList = res.fabricants.length;
-              this.loading = false;
-          },
-          err => {
-              this.error = "Error occured : "+ err;
-              console.log("Error occured : "+ err);
-              this.loading = false;
-          }
-      );
-    }
+
     ngAfterViewInit() {
         this.paginator.page
             .pipe(
@@ -70,9 +57,8 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
         .pipe(first()).subscribe(
           res => {
             console.log(res);
-            this.fabricants = new MatTableDataSource(res.fabricants);
+            this.fabricants = new MatTableDataSource(res.manufacturers);
             this.fabricants.sort = this.sort;
-            this.setLengthList();
             this.loading = false;
           },
           err => {
@@ -108,15 +94,27 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
         }
       });
     }
-    onUpdate(id:number){
+    onUpdate(fabricant:any){
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
-      //dialogConfig.data = {id: id};
+      dialogConfig.data = {fabricant: fabricant};
       const dialogRef = this.dialog.open(UpdateFabriquatDialogComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(result => {
         if(result.status){
-          console.log(result.marque + result.address);
+          this.loading = true;
+          this.fabricant.update(fabricant.id,result.marque).subscribe(
+              res => {
+                console.log(res);
+                this.loadFabricantsPage();
+                this.loading = false;
+              },
+              err => {
+                this.error = "Error occured : "+ err;
+                console.log("Error occured : "+ err);
+                this.loading = false;
+              }
+            );
         }
       });
     }

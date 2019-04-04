@@ -2,6 +2,8 @@ import { Component, OnInit ,ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms'
 import { Router } from '@angular/router';
 import { FabricantCRUDService } from '../../Services/Fabricant-CRUD/fabricant-crud.service'
+
+import { Fabricant} from '../../model/fabricant.model';
 import { first } from 'rxjs/operators';
 
 
@@ -69,26 +71,42 @@ export class FormFabricantComponent implements OnInit {
           console.log("Unvalid input");
           return;
       }
-      this.loading = true;
-      this.fabricant.create(this.firstFormGroup.controls['fabricant'].value)
-      .pipe(first()).subscribe(
-          res => {
-              console.log(this.firstFormGroup.controls['fabricant'].value);
-              console.log(res);
-              this.loading = false;
-              this.router.navigate(["/dashboard/afficherFabricants"]);
-          },
-          err => {
-              this.error = err;
-              this.loading = false;
-              console.log("Error occured : "+ err);
-          }
-      );
-      /*if (this.secondFormGroup.invalid) {
+      if (this.secondFormGroup.invalid) {
         this.error = "Unvalid input";
-          console.log("Unvalid input");
-      }else{
-        console.log("créer un utilisateur fabricant aussi");
-      }*/
+        console.log("Unvalid input");
+        return;
+      }
+      this.createFabricant();
+
+  }
+  createFabricant(){
+    this.loading = true;
+    this.fabricant.create(this.firstFormGroup.controls['fabricant'].value)
+    .pipe(first()).subscribe(
+        res => {
+            this.loading = false;
+            this.createAdminFabricant(res.id);
+            this.router.navigate(["/dashboard/afficherFabricants"]);
+        },
+        err => {
+            this.error = err;
+            this.loading = false;
+            console.log("Error occured : "+ err);
+        }
+    );
+  }
+  createAdminFabricant(manufacturer:string){
+    const admin = {
+        email : this.secondFormGroup.controls['email'].value,
+        password : this.secondFormGroup.controls['password'].value ,
+        firstName : this.secondFormGroup.controls['username'].value,
+        lastName : this.secondFormGroup.controls['usersurname'].value,
+        address : this.secondFormGroup.controls['address'].value,
+        phone : this.secondFormGroup.controls['phone'].value,
+    };
+      console.log(manufacturer);
+      this.loading = true;
+      //create the admin of the manufacturer
+      console.log("call method of creation for : "+admin)
   }
 }

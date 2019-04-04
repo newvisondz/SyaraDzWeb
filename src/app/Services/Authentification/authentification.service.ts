@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Admin } from '../../model/admin.model';
+import { FabricantAdmin } from '../../model/fabricant-admin';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -54,7 +55,18 @@ export class AuthentificationService  {
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
 
-    return this.http.get<Admin>(this.ROOT_URL+'/me',
+    return this.http.get<FabricantAdmin>(this.ROOT_URL+'/me',
+    { headers: header }
+    ).pipe(map(res => {
+      console.log(res);
+      return res;
+    }));
+  }
+  public updateMe(email:string, password:string){
+
+    const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
+    let body = {email : email, password:password};
+    return this.http.put(this.ROOT_URL+'/admins/me',body,
     { headers: header }
     ).pipe(map(res => {
       console.log(res);

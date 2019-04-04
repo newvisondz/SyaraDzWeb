@@ -25,7 +25,7 @@ export class FabricantCRUDService {
     const headers = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
     let body = { brand : marque };
     console.log(body);
-    return this.http.post(this.ROOT_URL+'/manufacturers',body, { headers: headers }
+    return this.http.post<Fabricant>(this.ROOT_URL+'/manufacturers',body, { headers: headers }
     ).pipe(map(res => {
       return res;
     }));

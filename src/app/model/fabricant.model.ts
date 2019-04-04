@@ -1,9 +1,9 @@
 export class Fabricant {
   constructor(
-    brand: string,
-    createdAt: Date,
-    id: string,
-    logo: string,
-    updatedAt: Date
+    public brand: string,
+    public reatedAt: Date,
+    public id: string,
+    public logo: string,
+    public updatedAt: Date
   ){}
 }

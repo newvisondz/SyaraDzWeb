@@ -1,6 +1,8 @@
 import { Component, OnInit ,ViewChild,AfterViewInit} from '@angular/core';
 import { first,tap } from 'rxjs/operators';
 import {MatPaginator} from '@angular/material';
+import { AuthentificationService } from "../../Services/Authentification/authentification.service";
+import { AdminsCrudService } from "../../Services/Admins-CRUD/admins-crud.service"
 
 @Component({
     selector: 'app-user-list-fabricants',
@@ -9,62 +11,32 @@ import {MatPaginator} from '@angular/material';
 })
 export class ListUserFabricantsComponent implements OnInit,AfterViewInit {
 
-    fabricants = [
-      {
-        id : 1,
-        name : "Sihem",
-        surname : "Bouhenniche",
-        post : "Admin",
-        marque : "Audi",
-        email : "sayaradz@esi.dz",
-        password : "root",
-        address : "CEM El Badre batiment A N 21 Hai El Badre Kouba -Alger",
-        phone : "0551 78 91 42"
-      },
-      {
-        id : 2,
-        name : "Oussama",
-        surname : "Bouhenniche",
-        post : "User",
-        marque : "Mercedes",
-        email : "sayaradz@esi.dz",
-        password : "root",
-        address : "CEM El Badre batiment A N 21 Hai El Badre Kouba -Alger",
-        phone : "0551 78 91 42"
-      },
-      {
-        id : 3,
-        name : "Asma",
-        surname : "Bouhenniche",
-        post : "Admin",
-        marque : "Renault",
-        email : "sayaradz@esi.dz",
-        password : "root",
-        address : "CEM El Badre batiment A N 21 Hai El Badre Kouba -Alger",
-        phone : "0551 78 91 42"
-      },
-      {
-        id : 4,
-        name : "Latif",
-        surname : "Bouhenniche",
-        post : "user",
-        marque : "Hundai",
-        email : "sayaradz@esi.dz",
-        password : "root",
-        address : "CEM El Badre batiment A N 21 Hai El Badre Kouba -Alger",
-        phone : "0551 78 91 42"
-      }
-    ];
+    fabricants = [];
+
     loading : boolean = false;
     error : string = "";
     lengthList : number = 0;
+    marque : string ;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
-    constructor() {}
+    constructor(private auth:AuthentificationService,
+                private admins : AdminsCrudService,) {}
 
     ngOnInit() {
+      console.log("lol!");
+      this.admins.list("toyota")
+      .pipe(first()).subscribe(
+          res => {
+            console.log(res);
+            this.fabricants = res.manufacturer.admins;
+            this.marque = res.manufacturer.brand;
+          },
+          err => {
+            console.log("Error occured : "+ err);
+          }
+      );
     }
 
     setLengthList(){

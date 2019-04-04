@@ -53,16 +53,58 @@ export class AuthentificationService  {
   public showMe(){
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
+    
     interface profileResponse {
       email : string;
       id : string;
       type : string;
     }
+
     return this.http.get<profileResponse>(this.ROOT_URL+'/me',
     { headers: header }
+    ).pipe(map(res => {
+      return res;
+    }));
+  }
+
+  public userLogin(username:string,password:string){
+
+    interface LoginResponse {
+      email : string;
+      id : string;
+      token: string;
+      type : string;
+    }
+    let data = {
+      email : username,
+      password : password,
+    }
+
+    return this.http.post<LoginResponse>(this.ROOT_URL+'/manufacturers/login',
+    data
     ).pipe(map(res => {
       console.log(res);
       return res;
     }));
   }
+
+  public userLogout(){
+
+    const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
+
+    this.http.delete(this.ROOT_URL+'/manufacturers/logout',{
+      headers: header
+    }).subscribe(
+      res => {
+        console.log(res);
+        window.localStorage.setItem("accesToken", "");
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
 }
+
+

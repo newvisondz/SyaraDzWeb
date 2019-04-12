@@ -69,8 +69,48 @@ export class AuthentificationService  {
     return this.http.put(this.ROOT_URL+'/admins/me',body,
     { headers: header }
     ).pipe(map(res => {
+      return res;
+    }));
+  }
+
+  public userLogin(username:string,password:string){
+
+    interface LoginResponse {
+      email : string;
+      id : string;
+      token: string;
+      type : string;
+    }
+    let data = {
+      email : username,
+      password : password,
+    }
+
+    return this.http.post<LoginResponse>(this.ROOT_URL+'/manufacturers/login',
+    data
+    ).pipe(map(res => {
       console.log(res);
       return res;
     }));
   }
+
+  public userLogout(){
+
+    const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
+
+    this.http.delete(this.ROOT_URL+'/manufacturers/logout',{
+      headers: header
+    }).subscribe(
+      res => {
+        console.log(res);
+        window.localStorage.setItem("accesToken", "");
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
 }
+
+

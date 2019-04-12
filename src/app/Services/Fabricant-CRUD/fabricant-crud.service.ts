@@ -33,6 +33,10 @@ export class FabricantCRUDService {
 
   public list(){
 
+    interface Response {
+      manufacturers: any;
+    }
+
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
 
     return this.http.get<Response>(this.ROOT_URL+"/manufacturers",{
@@ -43,6 +47,12 @@ export class FabricantCRUDService {
   }
 
   public listPage(page:number , perpage:number , sort:string= "+" ){
+
+    interface Response {
+      fabricants: any;
+      manufacturers: any;
+      count: any;
+    }
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
 
@@ -59,10 +69,12 @@ export class FabricantCRUDService {
 
   public delete(id : number ){
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
+    
     class ResponseError {
       error: boolean;
       msg : string;
     }
+    
     return this.http.delete(this.ROOT_URL+"/manufacturers/"+id,{
       headers: header}).pipe(map(res => {
         if(res instanceof ResponseError){
@@ -77,11 +89,14 @@ export class FabricantCRUDService {
 
   public update(id : number , brand: string){
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
+    
     class ResponseError {
       error: boolean;
       msg : string;
     }
+    
     let body = {brand : brand};
+    
     return this.http.put(this.ROOT_URL+"/manufacturers/"+id,body,{
       headers: header}).pipe(map(res => {
         if(res instanceof ResponseError){

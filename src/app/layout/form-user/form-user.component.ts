@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms'
 import { FabricantCRUDService } from "../../Services/Fabricant-CRUD/fabricant-crud.service";
+import { AdminsCrudService } from "../../Services/Admins-CRUD/admins-crud.service"
 import { first } from 'rxjs/operators';
 import { Fabricant} from '../../model/fabricant.model';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-user',
@@ -94,9 +96,32 @@ export class FormUserComponent implements OnInit {
     // get the barndid from the local stroage
     this.fabricant = new Fabricant("Kia",new Date(),"1ezf8zf8ze7g74sDFZE88fz","/images/logo.png",new Date());
   }
+  
+  constructor(private fabricant:FabricantCRUDService,
+              private _formBuilder: FormBuilder,
+              private admins : AdminsCrudService,
+              private router:Router) { }
 
   onSubmit(){
-    console.log("Créer un utilisateur Simple : ");
+    console.log("Créer un utilisateur : ");
+    this.admins.create(this.userFormGroup.get('fabricant').value.id,
+                      this.userFormGroup.get('email').value,
+                      this.userFormGroup.get('password').value)
+    .pipe(first()).subscribe(
+      res => {
+          if (res.type == undefined) {
+              this.loading = false;
+              console.log("Show Error feedback!");
+          } else {
+              console.log(res);
+              this.router.navigate(["dashboard/afficherUsersFabricants"]);
+          }
+      },
+      err => {
+        console.log("Error occured : "+ err);
+      }
+  );
+    
   }
 
 }

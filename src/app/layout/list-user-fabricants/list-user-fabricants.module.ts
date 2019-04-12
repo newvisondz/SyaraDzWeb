@@ -10,7 +10,9 @@ import { NotificationModule,DeleteConfirmDialogModule } from './../../shared';
 import {DeleteConfirmDialogComponent} from './../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { DisplayCardUserComponent } from './display-card-user/display-card-user.component';
-
+import { DisplayCardUsersComponent } from './display-card-users/display-card-users.component';
+import { DisplayUsersComponent } from './display-users/display-users.component';
+import { UpdateUserFabricantDialogComponent } from './update-user-fabricant-dialog/update-user-fabricant-dialog.component';
 @NgModule({
     imports: [
       CommonModule,
@@ -21,7 +23,7 @@ import { DisplayCardUserComponent } from './display-card-user/display-card-user.
       DeleteConfirmDialogModule,
       FormsModule,
       ReactiveFormsModule],
-    declarations: [ListUserFabricantsComponent, DisplayCardUserComponent],
-    entryComponents: [DeleteConfirmDialogComponent],
+    declarations: [ListUserFabricantsComponent, DisplayCardUserComponent, DisplayCardUsersComponent, DisplayUsersComponent,UpdateUserFabricantDialogComponent],
+    entryComponents: [DeleteConfirmDialogComponent,UpdateUserFabricantDialogComponent],
 })
 export class ListUserFabricantsModule {}

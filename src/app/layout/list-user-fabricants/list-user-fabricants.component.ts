@@ -1,8 +1,8 @@
 import { Component, OnInit ,ViewChild,AfterViewInit} from '@angular/core';
-import { first,tap } from 'rxjs/operators';
 import {MatPaginator} from '@angular/material';
 import { AuthentificationService } from "../../Services/Authentification/authentification.service";
 import { AdminsCrudService } from "../../Services/Admins-CRUD/admins-crud.service"
+
 
 @Component({
     selector: 'app-user-list-fabricants',
@@ -39,18 +39,9 @@ export class ListUserFabricantsComponent implements OnInit,AfterViewInit {
       );
     }
 
-    setLengthList(){
     }
+
     ngAfterViewInit() {
-        this.paginator.page
-            .pipe(
-                tap(() => this.loadUserFabricantsPage())
-            )
-            .subscribe();
-    }
-
-    loadUserFabricantsPage() {
-
     }
 
 }

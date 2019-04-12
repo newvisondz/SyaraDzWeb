@@ -20,6 +20,14 @@ const routes: Routes = [
     loadChildren: './login/login.module#LoginModule'
   },
   {
+    path: 'login31090533',
+    loadChildren: './login-admin/login-admin.module#LoginAdminModule'
+  },
+  {
+    path: 'access-denied',
+    loadChildren: './access-denied/access-denied.module#AccessDeniedModule'
+  },
+  {
     path: 'not-found',
     loadChildren: './not-found/not-found.module#NotFoundModule'
   },

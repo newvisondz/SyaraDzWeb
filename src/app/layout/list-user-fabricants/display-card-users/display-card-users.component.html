@@ -1,0 +1,26 @@
+<div class="">
+  <div class="d-flex justify-content-center">
+      <mat-spinner [hidden]="!loading" class="mt-5"></mat-spinner>
+  </div>
+  <div class="" [hidden]="loading">
+    <app-notification class="ma-2" [error] = "error"></app-notification>
+    <div class="row">
+      <div class="col-lg-4 mb-2" *ngFor = "let element of fabricants">
+        <mat-card class="example-card">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{element.brand}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-actions style="text-align:right;">
+              <button class="mx-1" mat-icon-button color="primary" [routerLink]="[pathAdmins+element.id]" >
+                <mat-icon><i class="fas fa-user-tie"></i></mat-icon>
+              </button>
+              <button class="mx-1" mat-icon-button color="primary" [routerLink]="[pathUsers+element.id]" >
+                <mat-icon><i class="fas fa-users"></i></mat-icon>
+              </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

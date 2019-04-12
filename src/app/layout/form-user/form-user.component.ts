@@ -18,6 +18,7 @@ export class FormUserComponent implements OnInit {
     title : "Creer Utilisateur",
     icon : "fa-users",
   };
+
   userFormGroup: FormGroup;
   fabricant : Fabricant;
   loading : boolean = false;
@@ -62,8 +63,7 @@ export class FormUserComponent implements OnInit {
     ]
   };
 
-  constructor(private fabricantService:FabricantCRUDService,
-              private _formBuilder: FormBuilder,
+  constructor(private _formBuilder: FormBuilder,
               private admins : AdminsCrudService,
               private router:Router) { }
 

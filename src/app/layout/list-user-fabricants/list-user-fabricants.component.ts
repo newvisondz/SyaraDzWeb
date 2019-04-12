@@ -27,7 +27,7 @@ export class ListUserFabricantsComponent implements OnInit,AfterViewInit {
     ngOnInit() {
       console.log("lol!");
       this.admins.list("toyota")
-      .pipe(first()).subscribe(
+      .subscribe(
           res => {
             console.log(res);
             this.fabricants = res.manufacturer.admins;
@@ -39,9 +39,6 @@ export class ListUserFabricantsComponent implements OnInit,AfterViewInit {
       );
     }
 
-    }
+    ngAfterViewInit(){}
 
-    ngAfterViewInit() {
-    }
-
-}
+  }

@@ -62,7 +62,10 @@ export class FormUserComponent implements OnInit {
     ]
   };
 
-  constructor(private fabricantService:FabricantCRUDService,private _formBuilder: FormBuilder) { }
+  constructor(private fabricantService:FabricantCRUDService,
+              private _formBuilder: FormBuilder,
+              private admins : AdminsCrudService,
+              private router:Router) { }
 
   ngOnInit() {
     this.userFormGroup = this._formBuilder.group({
@@ -96,11 +99,6 @@ export class FormUserComponent implements OnInit {
     // get the barndid from the local stroage
     this.fabricant = new Fabricant("Kia",new Date(),"1ezf8zf8ze7g74sDFZE88fz","/images/logo.png",new Date());
   }
-  
-  constructor(private fabricant:FabricantCRUDService,
-              private _formBuilder: FormBuilder,
-              private admins : AdminsCrudService,
-              private router:Router) { }
 
   onSubmit(){
     console.log("Créer un utilisateur : ");

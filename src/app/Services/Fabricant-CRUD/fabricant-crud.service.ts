@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Fabricant} from '../../model/fabricant.model';
+import { environment } from '../../../environments/environment';
+
+interface Response {
+  manufacturers: Observable<Fabricant>[],
+  count : number
+}
 
 @Injectable({
   providedIn: 'root'
@@ -10,24 +18,20 @@ export class FabricantCRUDService {
 
   constructor(private http:HttpClient) { }
 
-  readonly ROOT_URL = 'https://sayara-dz.herokuapp.com';
+  readonly ROOT_URL = environment.baseUrl;
 
   public create(marque:string){
 
     const headers = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
     let body = { brand : marque };
     console.log(body);
-    return this.http.post(this.ROOT_URL+'/manufacturers',body, { headers: headers }
+    return this.http.post<Fabricant>(this.ROOT_URL+'/manufacturers',body, { headers: headers }
     ).pipe(map(res => {
       return res;
     }));
   }
 
   public list(){
-
-    interface Response {
-      fabricants: any;
-    }
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
 
@@ -39,10 +43,6 @@ export class FabricantCRUDService {
   }
 
   public listPage(page:number , perpage:number , sort:string= "+" ){
-
-    interface Response {
-      fabricants: any;
-    }
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
 

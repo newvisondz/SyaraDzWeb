@@ -1,36 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA , MatDialogConfig} from '@angular/material';
-import { first } from 'rxjs/operators';
-import { PasswordValidator } from '../../validators/password.validator';
-import { FabricantAdmin } from '../../model/fabricant-admin';
-
-import {DeleteConfirmDialogComponent} from './../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
-
-
+import { Component, OnInit, ViewChild,Optional,Inject } from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import { PasswordValidator } from '../../../validators/password.validator';
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  selector: 'app-update-fabriquat-dialog',
+  templateUrl: './update-user-fabricant-dialog.component.html',
+  styleUrls: ['./update-user-fabricant-dialog.component.scss']
 })
-export class ProfileComponent implements OnInit {
-  infoPage = {
-    title : "Profile",
-    icon : "fa-user",
-  };
-
-  error : string = "";
-
-  user :FabricantAdmin = new FabricantAdmin("12d8azD885DZq8dzar",
-  "fs_bouhenniche@esi.dz",
-  "USER FABRICANT",
-  "kia",
-  "Bouhenniche","Sihem",
-  false,
-  "0551234567","hai elbadre,kouba, alger");
-  loading : boolean = false;
-
-
+export class UpdateUserFabricantDialogComponent implements OnInit {
   userFormGroup: FormGroup;
   matching_passwords : FormGroup;
 
@@ -47,12 +24,12 @@ export class ProfileComponent implements OnInit {
         { type: 'required', message: 'Password is required' },
       ]
     };
-  constructor(private _formBuilder: FormBuilder,public dialog: MatDialog) { }
+    user : any = null;
+  constructor(private _formBuilder: FormBuilder,
+              @Optional() public dialogRef: MatDialogRef<UpdateUserFabricantDialogComponent>,
+              @Optional() @Inject(MAT_DIALOG_DATA) public data:any) { }
 
   ngOnInit() {
-    //get user infos
-
-    //init form
     this.userFormGroup = this._formBuilder.group({
       username: ['', Validators.compose([
     		Validators.maxLength(25),
@@ -87,21 +64,24 @@ export class ProfileComponent implements OnInit {
       // check whether our password and confirm password match
       validator: PasswordValidator.validate.bind(this)
    });
-  }
-  onSubmit(){
-    const email = this.userFormGroup.controls['email'].value;
-    const password = this.matching_passwords.controls['password'].value;
-    //...... update inofrmations
-
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        console.log("confirmation : true; update")
-      }
-    });
+    console.log(this.data.user);
+    this.user = this.data.user;
   }
 
+
+  onConfirm(){
+    const user = {
+      email: this.userFormGroup.controls['email'].value,
+      password : this.matching_passwords.controls['password'].value,
+      firstName : this.userFormGroup.controls['username'].value,
+      lastName : this.userFormGroup.controls['usersurname'].value,
+      address : this.userFormGroup.controls['address'].value,
+      phone : this.userFormGroup.controls['phone'].value
+    }
+    const data = {
+      status : true,
+      user : user
+    }
+    this.dialogRef.close(data);
+  }
 }

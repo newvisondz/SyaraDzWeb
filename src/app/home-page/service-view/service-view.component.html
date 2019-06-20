@@ -3,7 +3,7 @@
       <h4 class="title">Nos Services</h4>
       <div style="width: 100px; border: 1px solid #FFAB00; margin-bottom: 50px;"></div>
 			<div class="row justify-content-md-center">
-        <div class="col-md-3 mb-5 box-shadow-hover" *ngFor="let service of servicesArray">
+        <div class="col-xs-12 col-sm-6 col-md-4 mb-5 box-shadow-hover" *ngFor="let service of servicesArray">
           <app-service [name]="service.name" [details]="service.details" [icon] = "service.icon"></app-service>
         </div>
       </div>

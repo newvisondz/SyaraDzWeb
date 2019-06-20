@@ -18,7 +18,7 @@ import {
   MatSelectModule,
   MatSlideToggleModule,
   MatTabsModule,
-  MatCheckboxModule
+  MatCheckboxModule,
 } from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';

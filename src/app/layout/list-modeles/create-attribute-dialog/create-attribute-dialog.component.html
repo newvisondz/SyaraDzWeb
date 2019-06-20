@@ -1,0 +1,22 @@
+  <div class="container-dialog">
+    <h2 mat-dialog-title>Modifier Modele</h2>
+    <mat-dialog-content class="mat-typography">
+      <form [formGroup]="firstFormGroup">
+        <div class="d-flex flex-column">
+          <div class="d-flex flex-column">
+            <h5>Créer un nouveau attribut :</h5>
+            <mat-form-field>
+              <input formControlName="name" matInput placeholder="Nom de l'attribut" />
+            </mat-form-field>
+            <mat-form-field>
+              <input formControlName="value" matInput placeholder="La valeur de l'attribut" />
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-raised-button  color = "primary" (click) = "onConfirm()">Confirmer</button>
+      <button mat-raised-button mat-dialog-close color = "warn">Annuler</button>
+    </mat-dialog-actions>
+  </div>

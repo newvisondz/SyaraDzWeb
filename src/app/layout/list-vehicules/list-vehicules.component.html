@@ -1,45 +1,39 @@
 <div class="container pt-5">
-    <app-page-header [heading]="'Liste des fabricants'" [icon]="'fa-table'"></app-page-header>
-    <div class="d-flex justify-content-center">
-        <mat-spinner [hidden]="!loading" class="mt-5"></mat-spinner>
-    </div>
-    <div class="row" [hidden]="loading">
+    <app-page-header [heading]="'Liste des Véhicules'" [icon]="'fa-table'"></app-page-header>
+    <div class="row">
         <div class="col col-xl-12 col-lg-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    Liste des fabricants
+                    Liste des véhicules
                 </div>
-                <app-notification class="ma-2" [error] = "error"></app-notification>
                 <div class="card-body table-responsive">
                   <mat-paginator [length]="lengthList" [pageSize]="5"
                     [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
-                    <table mat-table [dataSource]="fabricants" matSort class="mat-elevation-z8" style="width : 100%">
+                    <table mat-table [dataSource]="vehicules" matSort class="mat-elevation-z8" style="width : 100%">
 
                       <ng-container matColumnDef="index">
                         <th mat-header-cell *matHeaderCellDef > No. </th>
                         <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
                       </ng-container>
 
-                      <ng-container matColumnDef="marque">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Marque </th>
-                        <td mat-cell *matCellDef="let element"> {{element.brand}} </td>
+                      <ng-container matColumnDef="numéro de chassis">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro de chassis </th>
+                        <td mat-cell *matCellDef="let element"> {{element.numChassis}} </td>
                       </ng-container>
 
-                      <ng-container matColumnDef="logo">
-                        <th mat-header-cell *matHeaderCellDef> Logo </th>
-                        <td mat-cell *matCellDef="let element">
-                            <img src="{{element.logo}}" class="icon-logo">
-                         </td>
+                      <ng-container matColumnDef="version">
+                        <th mat-header-cell *matHeaderCellDef> Version </th>
+                        <td mat-cell *matCellDef="let element">{{element.version}}</td>
                       </ng-container>
 
-                      <ng-container matColumnDef="createdAt">
-                        <th mat-header-cell *matHeaderCellDef> Date de création </th>
-                        <td mat-cell *matCellDef="let element"> {{element.createdAt | date :  "short" }} </td>
+                      <ng-container matColumnDef="couleur">
+                        <th mat-header-cell *matHeaderCellDef> Couleur </th>
+                        <td mat-cell *matCellDef="let element"> {{element.couleur}} </td>
                       </ng-container>
 
-                      <ng-container matColumnDef="updatedAt">
-                        <th mat-header-cell *matHeaderCellDef> Date de mise à jours </th>
-                        <td mat-cell *matCellDef="let element"> {{element.updatedAt | date :  "short" }} </td>
+                      <ng-container matColumnDef="concessionnaire">
+                        <th mat-header-cell *matHeaderCellDef> concessionnaire </th>
+                        <td mat-cell *matCellDef="let element"> {{element.concessionnaire}} </td>
                       </ng-container>
 
                       <ng-container matColumnDef="manipulations">

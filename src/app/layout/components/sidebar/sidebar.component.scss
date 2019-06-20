@@ -1,4 +1,8 @@
 $topnav-background-color: #fff;
+.example-header-image {
+  background-image: url('../../../../assets/images/icon_admin.png');
+  background-size: cover;
+}
 .sidebar {
   overflow-y: auto;
   background-color: $topnav-background-color;

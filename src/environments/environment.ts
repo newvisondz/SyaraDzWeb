@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl : 'https://sayara-dz.herokuapp.com'
+  baseUrl : 'http://sayaradz3-sayaradz3.b9ad.pro-us-east-1.openshiftapps.com'
 };
 
 /*

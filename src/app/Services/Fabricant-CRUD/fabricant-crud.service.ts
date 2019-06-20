@@ -20,10 +20,10 @@ export class FabricantCRUDService {
 
   readonly ROOT_URL = environment.baseUrl;
 
-  public create(marque:string){
+  public create(marque:string,logo:File){
 
     const headers = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
-    let body = { brand : marque };
+    let body = { brand : marque , logo : logo};
     console.log(body);
     return this.http.post<Fabricant>(this.ROOT_URL+'/manufacturers',body, { headers: headers }
     ).pipe(map(res => {

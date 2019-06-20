@@ -52,10 +52,14 @@ export class AuthentificationService  {
     );
   }
 
-  public showMe() : Observable<Admin>{
+  public showMe(){
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
 
+    interface Response {
+      manufacturer: any;
+    }
+    
     return this.http.get<FabricantAdmin>(this.ROOT_URL+'/me',
     { headers: header }
     ).pipe(map(res => {
@@ -63,6 +67,8 @@ export class AuthentificationService  {
       return res;
     }));
   }
+
+  
   public updateMe(email:string, password:string){
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});

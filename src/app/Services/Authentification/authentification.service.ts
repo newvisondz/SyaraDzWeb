@@ -44,6 +44,7 @@ export class AuthentificationService  {
       res => {
         console.log(res);
         window.localStorage.setItem("accesToken", "");
+        window.localStorage.setItem("isSuperAdmin", "");
       },
       err => {
         console.log(err);
@@ -104,6 +105,7 @@ export class AuthentificationService  {
       res => {
         console.log(res);
         window.localStorage.setItem("accesToken", "");
+        window.localStorage.setItem("isAdmin", "");
       },
       err => {
         console.log(err);

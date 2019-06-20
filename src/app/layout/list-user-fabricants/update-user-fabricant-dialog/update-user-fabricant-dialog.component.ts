@@ -31,13 +31,13 @@ export class UpdateUserFabricantDialogComponent implements OnInit {
 
   ngOnInit() {
     this.userFormGroup = this._formBuilder.group({
-      username: ['', Validators.compose([
+      firstName: ['', Validators.compose([
     		Validators.maxLength(25),
     		Validators.minLength(5),
     		Validators.pattern('^(?=.*[a-zA-Z])[a-zA-Z]+$'),
     		Validators.required
     	])],
-      usersurname: ['', Validators.compose([
+      lastName: ['', Validators.compose([
     		Validators.maxLength(25),
     		Validators.minLength(5),
     		Validators.pattern('^(?=.*[a-zA-Z])[a-zA-Z]+$'),
@@ -73,8 +73,8 @@ export class UpdateUserFabricantDialogComponent implements OnInit {
     const user = {
       email: this.userFormGroup.controls['email'].value,
       password : this.matching_passwords.controls['password'].value,
-      firstName : this.userFormGroup.controls['username'].value,
-      lastName : this.userFormGroup.controls['usersurname'].value,
+      firstName : this.userFormGroup.controls['firstName'].value,
+      lastName : this.userFormGroup.controls['lastName'].value,
       address : this.userFormGroup.controls['address'].value,
       phone : this.userFormGroup.controls['phone'].value
     }

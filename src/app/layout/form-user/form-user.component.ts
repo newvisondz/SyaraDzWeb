@@ -18,8 +18,9 @@ export class FormUserComponent implements OnInit {
     title : "Creer Utilisateur",
     icon : "fa-users",
   };
+
   userFormGroup: FormGroup;
-  fabricant : Fabricant;
+  fabricants : any[];
   loading : boolean = false;
 
   account_validation_messages = {
@@ -62,12 +63,27 @@ export class FormUserComponent implements OnInit {
     ]
   };
 
-  constructor(private fabricantService:FabricantCRUDService,
-              private _formBuilder: FormBuilder,
+  constructor(private _formBuilder: FormBuilder,
+              private fabricantService : FabricantCRUDService,
               private admins : AdminsCrudService,
               private router:Router) { }
 
   ngOnInit() {
+
+    this.fabricantService.list()
+      .pipe(first()).subscribe(
+        res => {
+          this.loading = false;
+          this.fabricants = res.manufacturers;
+          console.log(this.fabricants);
+        },
+        err => {
+            console.log("Error occured : "+ err);
+            this.loading = false;
+        }
+    );
+
+
     this.userFormGroup = this._formBuilder.group({
       username: ['', Validators.compose([
     		Validators.maxLength(25),
@@ -93,18 +109,19 @@ export class FormUserComponent implements OnInit {
     		Validators.required
     	])],
       phone: ['', Validators.required],
-      fabricant: [{value: '', disabled: true}, Validators.required],
+      fabricant: [{value: ''}, Validators.required],
     });
-
-    // get the barndid from the local stroage
-    this.fabricant = new Fabricant("Kia",new Date(),"1ezf8zf8ze7g74sDFZE88fz","/images/logo.png",new Date());
   }
 
   onSubmit(){
     console.log("Créer un utilisateur : ");
     this.admins.create(this.userFormGroup.get('fabricant').value.id,
                       this.userFormGroup.get('email').value,
-                      this.userFormGroup.get('password').value)
+                      this.userFormGroup.get('password').value,
+                      this.userFormGroup.get('username').value,
+                      this.userFormGroup.get('usersurname').value,
+                      this.userFormGroup.get('address').value,
+                      this.userFormGroup.get('phone').value)
     .pipe(first()).subscribe(
       res => {
           if (res.type == undefined) {
@@ -116,7 +133,7 @@ export class FormUserComponent implements OnInit {
           }
       },
       err => {
-        console.log("Error occured : "+ err);
+        console.log("Error occured : /n"+ err);
       }
   );
     

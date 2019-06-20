@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms'
 import { FabricantCRUDService } from "../../Services/Fabricant-CRUD/fabricant-crud.service";
 import { AdminsCrudService } from "../../Services/Admins-CRUD/admins-crud.service"
+import { UsersCrudService } from "../../Services/Users-CRUD/users-crud.service"
+import { AuthentificationService } from "../../Services/Authentification/authentification.service"
 import { first } from 'rxjs/operators';
 import { Fabricant} from '../../model/fabricant.model';
 import { Observable } from 'rxjs';
@@ -12,6 +14,7 @@ import { Router } from '@angular/router';
   templateUrl: './form-user.component.html',
   styleUrls: ['./form-user.component.scss']
 })
+
 export class FormUserComponent implements OnInit {
 
   infoPage = {
@@ -20,8 +23,9 @@ export class FormUserComponent implements OnInit {
   };
 
   userFormGroup: FormGroup;
-  fabricants : any[];
+  fabricants : any[] = [];
   loading : boolean = false;
+  isSuperAdmin = (localStorage.getItem('isSuperAdmin') =="true");
 
   account_validation_messages = {
     'username' : [
@@ -66,22 +70,46 @@ export class FormUserComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder,
               private fabricantService : FabricantCRUDService,
               private admins : AdminsCrudService,
-              private router:Router) { }
+              private router:Router,
+              private auth: AuthentificationService,
+              private users: UsersCrudService) { }
 
   ngOnInit() {
+    this.loading = true;
 
-    this.fabricantService.list()
-      .pipe(first()).subscribe(
-        res => {
-          this.loading = false;
-          this.fabricants = res.manufacturers;
-          console.log(this.fabricants);
-        },
-        err => {
-            console.log("Error occured : "+ err);
-            this.loading = false;
-        }
-    );
+    
+
+    
+    if(this.isSuperAdmin){
+      //check if is the super admin and set the authorized links
+      this.fabricantService.list()
+        .pipe(first()).subscribe(
+          res => {
+            this.fabricants = res.manufacturers;
+            console.log(this.fabricants);
+          },
+          err => {
+              console.log("Error occured : "+ err);
+              
+          }
+      );
+    } else {
+      this.auth.showMe().pipe(first()).subscribe(
+          res => {
+            console.log(res.manufacturer);
+            var obj = {
+              brand : res.manufacturer,
+              id: res.manufacturer
+            }
+            this.fabricants.push(obj);
+          },
+          err => {
+              console.log("Error occured : "+ err);
+          }
+      );
+    }
+
+    this.loading = false;
 
 
     this.userFormGroup = this._formBuilder.group({
@@ -114,8 +142,16 @@ export class FormUserComponent implements OnInit {
   }
 
   onSubmit(){
+    this.loading = true;
     console.log("Créer un utilisateur : ");
-    this.admins.create(this.userFormGroup.get('fabricant').value.id,
+    var service;
+    if(this.isSuperAdmin){
+      service = this.admins;
+    } else {
+      service = this.users;
+    }
+
+    service.create(this.userFormGroup.get('fabricant').value.id,
                       this.userFormGroup.get('email').value,
                       this.userFormGroup.get('password').value,
                       this.userFormGroup.get('username').value,
@@ -125,15 +161,16 @@ export class FormUserComponent implements OnInit {
     .pipe(first()).subscribe(
       res => {
           if (res.type == undefined) {
-              this.loading = false;
               console.log("Show Error feedback!");
           } else {
               console.log(res);
               this.router.navigate(["dashboard/afficherUsersFabricants"]);
           }
+          this.loading = false;
       },
       err => {
         console.log("Error occured : /n"+ err);
+        this.loading = false;
       }
   );
     

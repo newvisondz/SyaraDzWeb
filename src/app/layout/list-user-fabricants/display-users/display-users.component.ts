@@ -1,42 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { first,tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import { FabricantAdmin} from '../../../model/fabricant-admin';
+import { AdminsCrudService } from "../../../Services/Admins-CRUD/admins-crud.service";
+import { UsersCrudService } from "../../../Services/Users-CRUD/users-crud.service";
+
+
 @Component({
   selector: 'app-display-users',
   templateUrl: './display-users.component.html',
   styleUrls: ['./display-users.component.scss']
 })
+
+
 export class DisplayUsersComponent implements OnInit {
+
+  adminsfabricants : FabricantAdmin[] = [];
+
   id : string;
-  adminsfabricants : FabricantAdmin[] = [
-    new FabricantAdmin("12d8azD885DZq8dzar",
-    "fs_bouhenniche@esi.dz",
-    "USER FABRICANT",
-    "kia",
-    "Bouhenniche","Sihem",
-    false,
-    "0551234567","hai elbadre,kouba, alger"),
-    new FabricantAdmin("12d8azD885DZq8dzar",
-    "fs_bouhenniche@esi.dz",
-    "USER FABRICANT",
-    "kia",
-    "Bouhenniche","Sihem",
-    false,
-    "0551234567","hai elbadre,kouba, alger"),
-    new FabricantAdmin("12d8azD885DZq8dzar",
-    "fs_bouhenniche@esi.dz",
-    "USER FABRICANT",
-    "kia",
-    "Bouhenniche","Sihem",
-    false,
-    "0551234567","hai elbadre,kouba, alger")
-  ];
+  title : string = "";
+
   loading : boolean = false;
   error : string = "";
-  title : string = "";
-  constructor(private router: Router,private route: ActivatedRoute) { }
+
+
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private admins: AdminsCrudService,
+              private users: UsersCrudService) { }
 
   ngOnInit() {
     //the id of the manufacturer
@@ -50,12 +41,64 @@ export class DisplayUsersComponent implements OnInit {
       this.loadUsers();
     }
   }
+
   loadAdmins(){
     //load admins from backend
     console.log("load admins");
+    this.loading = true;
+    this.admins.list(this.id)
+        .pipe(first()).subscribe(
+          res => {
+              res.manufacturer.admins.forEach(admin => {
+                console.log(admin);
+                this.adminsfabricants.push(
+                  new FabricantAdmin( admin.id,
+                                      admin.email,
+                                      admin.type,
+                                      admin.manufacturer,
+                                      admin.lastName,admin.firstName,
+                                      admin.isAdmin,
+                                      admin.phone,admin.address)
+                )
+              });
+              // Effect the admins array
+              this.loading = false;
+          },
+          err => {
+              this.error = "Error occured : "+ err;
+              console.log("Error occured : "+ err);
+              this.loading = false;
+          }
+      );
   }
+
   loadUsers(){
     //load users from backend
     console.log("load users");
+    this.loading = true;
+    this.users.list(this.id)
+        .pipe(first()).subscribe(
+          res => {
+              res.manufacturer.users.forEach(user => {
+                console.log(user);
+                this.adminsfabricants.push(
+                  new FabricantAdmin( user.id,
+                                      user.email,
+                                      user.type,
+                                      user.manufacturer,
+                                      user.lastName,user.firstName,
+                                      user.isAdmin,
+                                      user.phone,user.address)
+                )
+              });
+              // Effect the admins array
+              this.loading = false;
+          },
+          err => {
+              this.error = "Error occured : "+ err;
+              console.log("Error occured : "+ err);
+              this.loading = false;
+          }
+      );
   }
 }

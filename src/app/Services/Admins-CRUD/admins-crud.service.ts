@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +10,13 @@ export class AdminsCrudService {
 
   constructor(private http:HttpClient) { }
 
-  readonly ROOT_URL = 'https://sayara-dz.herokuapp.com';
+  readonly ROOT_URL = environment.baseUrl;
 
   public create(mfid:string,email:string,password:string,firstName?:string,lastName?:string,address?:string,phone?:string){
 
     const headers = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
     
-    let body = { 
+    let body = {
       email : email,
       password : password,
       firstName : firstName,
@@ -69,7 +70,20 @@ export class AdminsCrudService {
     }));
   }
 
-  public update(){
-    // We need the view
+  public update(mfid : string, id : number,body: any){
+    
+    const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
+
+    interface Response {
+      type: any;
+    }
+
+    console.log(body);
+    
+
+    return this.http.put<Response>(this.ROOT_URL+'/manufacturers/'+mfid+'/admins/'+id,body, { headers: header }
+    ).pipe(map(res => {
+      return res;
+    }));
   }
 }

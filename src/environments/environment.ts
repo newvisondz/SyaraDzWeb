@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl : 'http://sayaradz-sayaradz.7e14.starter-us-west-2.openshiftapps.com'
+  baseUrl : 'http://sayaradz3-sayaradz3.b9ad.pro-us-east-1.openshiftapps.com'
 };
 
 /*

@@ -26,17 +26,7 @@ export class ListUserFabricantsComponent implements OnInit,AfterViewInit {
 
     ngOnInit() {
       console.log("lol!");
-      this.admins.list("toyota")
-      .subscribe(
-          res => {
-            console.log(res);
-            this.fabricants = res.manufacturer.admins;
-            this.marque = res.manufacturer.brand;
-          },
-          err => {
-            console.log("Error occured : "+ err);
-          }
-      );
+      
     }
 
     ngAfterViewInit(){}

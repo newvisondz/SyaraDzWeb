@@ -5,7 +5,8 @@ import { MaterialModule } from './../material.module';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { PageHeaderModule } from './../shared';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { NotificationModule } from '../../shared';
+import { NotificationModule,DeleteConfirmDialogModule } from '../../shared';
+import {DeleteConfirmDialogComponent} from './../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
 @NgModule({
   declarations: [ProfileComponent],
   imports: [
@@ -15,7 +16,9 @@ import { NotificationModule } from '../../shared';
     PageHeaderModule,
     FormsModule,
     ReactiveFormsModule,
-    NotificationModule
-  ]
+    NotificationModule,
+    DeleteConfirmDialogModule,
+  ],
+  entryComponents: [DeleteConfirmDialogComponent],
 })
 export class ProfileModule { }

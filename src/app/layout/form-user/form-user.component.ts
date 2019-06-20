@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms'
 import { FabricantCRUDService } from "../../Services/Fabricant-CRUD/fabricant-crud.service";
 import { AdminsCrudService } from "../../Services/Admins-CRUD/admins-crud.service"
 import { first } from 'rxjs/operators';
+import { Fabricant} from '../../model/fabricant.model';
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,27 +18,59 @@ export class FormUserComponent implements OnInit {
     title : "Creer Utilisateur",
     icon : "fa-users",
   };
+
   userFormGroup: FormGroup;
-  fabricants :any[];
+  fabricants : any[];
   loading : boolean = false;
-  constructor(private fabricant:FabricantCRUDService,
-              private _formBuilder: FormBuilder,
+
+  account_validation_messages = {
+    'username' : [
+        { type: 'required', message: 'Password is required' },
+        { type: 'minlength', message: 'Username must be at least 5 characters long' },
+        { type: 'maxlength', message: 'Username cannot be more than 25 characters long' },
+        { type: 'pattern', message: 'Your username must contain only letters' },
+    ],
+    'usersurname' : [
+        { type: 'required', message: 'Password is required' },
+        { type: 'minlength', message: 'Username must be at least 5 characters long' },
+        { type: 'maxlength', message: 'Username cannot be more than 25 characters long' },
+        { type: 'pattern', message: 'Your username must contain only letters' },
+    ],
+    'fabricant' : [
+        { type: 'required', message: 'Password is required' },
+    ],
+    'isAdmin': [
+        { type: 'required', message: 'Password is required' },
+    ],
+    'phone' : [
+        { type: 'required', message: 'Password is required' },
+    ],
+    'address' : [
+        { type: 'required', message: 'Password is required' },
+        { type: 'minlength', message: 'Addres must be at least 5 characters long' },
+        { type: 'maxlength', message: 'Addres cannot be more than 30 characters long' },
+    ],
+    'email': [
+        { type: 'required', message: 'Email is required' },
+        { type: 'pattern', message: 'Enter a valid email' }
+    ],
+    'confirm_password': [
+        { type: 'required', message: 'Confirm password is required' },
+        { type: 'areEqual', message: 'Password mismatch' }
+    ],
+    'password': [
+        { type: 'required', message: 'Password is required' },
+    ]
+  };
+
+  constructor(private _formBuilder: FormBuilder,
+              private fabricantService : FabricantCRUDService,
               private admins : AdminsCrudService,
               private router:Router) { }
 
   ngOnInit() {
-    this.userFormGroup = this._formBuilder.group({
-      username: ['', ],
-      usersurname: ['', ],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
-      address: ['', ],
-      phone: ['', ],
-      fabricant: ['', Validators.required],
-    });
-    this.loading = true;
-    this.fabricant.list()
+
+    this.fabricantService.list()
       .pipe(first()).subscribe(
         res => {
           this.loading = false;
@@ -48,13 +82,46 @@ export class FormUserComponent implements OnInit {
             this.loading = false;
         }
     );
+
+
+    this.userFormGroup = this._formBuilder.group({
+      username: ['', Validators.compose([
+    		Validators.maxLength(25),
+    		Validators.minLength(5),
+    		Validators.pattern('^(?=.*[a-zA-Z])[a-zA-Z]+$'),
+    		Validators.required
+    	])],
+      usersurname: ['', Validators.compose([
+    		Validators.maxLength(25),
+    		Validators.minLength(5),
+    		Validators.pattern('^(?=.*[a-zA-Z])[a-zA-Z]+$'),
+    		Validators.required
+    	])],
+      email: ['', Validators.compose([
+           Validators.required,
+           Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+      ])],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+      address: ['', Validators.compose([
+    		Validators.maxLength(25),
+    		Validators.minLength(5),
+    		Validators.required
+    	])],
+      phone: ['', Validators.required],
+      fabricant: [{value: ''}, Validators.required],
+    });
   }
 
   onSubmit(){
     console.log("Créer un utilisateur : ");
     this.admins.create(this.userFormGroup.get('fabricant').value.id,
                       this.userFormGroup.get('email').value,
-                      this.userFormGroup.get('password').value)
+                      this.userFormGroup.get('password').value,
+                      this.userFormGroup.get('username').value,
+                      this.userFormGroup.get('usersurname').value,
+                      this.userFormGroup.get('address').value,
+                      this.userFormGroup.get('phone').value)
     .pipe(first()).subscribe(
       res => {
           if (res.type == undefined) {
@@ -66,7 +133,7 @@ export class FormUserComponent implements OnInit {
           }
       },
       err => {
-        console.log("Error occured : "+ err);
+        console.log("Error occured : /n"+ err);
       }
   );
     

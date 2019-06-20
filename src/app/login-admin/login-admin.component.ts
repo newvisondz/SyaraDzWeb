@@ -6,10 +6,10 @@ import { first } from 'rxjs/operators';
 
 @Component({
     selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
+    templateUrl: './login-admin.component.html',
+    styleUrls: ['./login-admin.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginAdminComponent implements OnInit {
 
     username: string = "";
     password: string = "";
@@ -19,13 +19,13 @@ export class LoginComponent implements OnInit {
 
     constructor (   private auth:AuthentificationService,
                     private router:Router,
-    ) {}
+                ) {}
 
     ngOnInit() {}
 
     onSubmit() {
       this.loading = true;
-      this.auth.userLogin(this.username,this.password)
+      this.auth.login(this.username,this.password)
       .pipe(first()).subscribe(
           res => {
             if (res.token == undefined) {
@@ -33,12 +33,13 @@ export class LoginComponent implements OnInit {
               console.log("Show Error feedback!");
             } else {
               window.localStorage.setItem("accesToken", res.token);
+              window.localStorage.setItem("isSuperAdmin", 'true');
               this.router.navigate(["/dashboard"]);
             }
           },
           err => {
             this.loading = false;
-            this.error = err;
+            this.error = "Undefined username or wrong password.";
             console.log("Error occured : "+ err);
           }
         );

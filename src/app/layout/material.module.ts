@@ -16,7 +16,9 @@ import {
   MatCardModule,
   MatBadgeModule,
   MatSelectModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatTabsModule,
+  MatCheckboxModule
 } from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -40,7 +42,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatCardModule,
     MatBadgeModule,
     MatSelectModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatTabsModule,
+    MatCheckboxModule
   ],
   exports: [
     MatButtonModule,
@@ -61,7 +65,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatCardModule,
     MatBadgeModule,
     MatSelectModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatTabsModule,
+    MatCheckboxModule
   ]
 })
 

@@ -1,0 +1,69 @@
+  <div class="container-dialog">
+    <h2 mat-dialog-title>Modifier fabriquant</h2>
+    <mat-dialog-content class="mat-typography">
+      <form [formGroup]="userFormGroup">
+        <div class="d-flex flex-column">
+          <h5>Informations personnelles :</h5>
+          <div class="row">
+            <div class="col-sm-6 d-flex flex-column">
+              <mat-form-field>
+                <input matInput placeholder="Nom"  formControlName="lastName" [value]=user.lastName/>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-6 d-flex flex-column">
+              <mat-form-field>
+                <input matInput placeholder="Prénom" formControlName="firstName" [value]=user.firstName/>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 d-flex flex-column">
+              <mat-form-field>
+                <input matInput placeholder="Email" type="email" formControlName="email" [value] = user.email />
+                <mat-error *ngFor="let validation of account_validation_messages.email">
+                  <mat-error class="error-message" *ngIf="userFormGroup.get('email').hasError(validation.type) && (userFormGroup.get('email').dirty || userFormGroup.get('email').touched)">{{validation.message}}
+                  </mat-error>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-6 d-flex flex-column">
+              <mat-form-field>
+                <input matInput placeholder="Phone" formControlName="phone" [value]=user.phone />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <mat-form-field>
+            <input matInput placeholder="Address" formControlName="address" [value]=user.address />
+          </mat-form-field>
+          <br>
+          <h5>Choisir un mot de passe :</h5>
+          <div class="row" [formGroup] = "matching_passwords">
+            <div class="col-sm-6 d-flex flex-column">
+              <mat-form-field>
+                <input matInput placeholder="Mot de passe" type="password" formControlName="password"/>
+                <mat-error *ngFor="let validation of account_validation_messages.password">
+                  <mat-error class="error-message" *ngIf="matching_passwords.get('password').hasError(validation.type) && (matching_passwords.get('password').dirty || matching_passwords.get('password').touched)">{{validation.message}}
+                  </mat-error>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-6 d-flex flex-column">
+              <mat-form-field>
+                <input matInput placeholder="Confirmer le mot de passe" type="password" formControlName="confirmPassword"/>
+                <mat-error *ngFor="let validation of account_validation_messages.confirm_password">
+                  <mat-error class="error-message" *ngIf="matching_passwords.get('confirmPassword').hasError(validation.type) && (matching_passwords.get('confirmPassword').dirty || matching_passwords.get('confirmPassword').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+              </mat-form-field>
+              <p class="error-message mat-error mat-form-field-subscript-wrapper mat-form-field" *ngIf="matching_passwords.errors?.areEqual">Password does not match</p>
+            </div>
+          </div>
+          <br>
+        </div>
+      </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-raised-button  color = "primary" (click) = "onConfirm()">Confirmer</button>
+      <button mat-raised-button mat-dialog-close color = "warn">Annuler</button>
+    </mat-dialog-actions>
+  </div>

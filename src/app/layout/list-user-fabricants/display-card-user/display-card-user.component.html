@@ -1,28 +1,30 @@
 <mat-card class="example-card">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{user.name}} {{user.surname}}</mat-card-title>
-    <mat-card-subtitle>{{user.post}}</mat-card-subtitle>
+    <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
+    <mat-card-subtitle>{{user.isAdmin ? 'ADMIN FABRICANT' : 'UTILISATEUR FABRICANT'}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <p>Email :</p>
     <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
     <p>Fabricant :</p>
-    <mat-card-subtitle>{{user.marque}}</mat-card-subtitle>
+    <mat-card-subtitle>{{user.manufacturer}}</mat-card-subtitle>
     <p>Phone :</p>
     <mat-card-subtitle>{{user.phone}}</mat-card-subtitle>
     <p>Address :</p>
     <mat-card-subtitle>{{user.address}}</mat-card-subtitle>
   </mat-card-content>
   <mat-card-actions>
-    <button class="mx-2" mat-flat-button (click)="onDelete(user.id)">
+    <button class="mr-2" mat-flat-button (click)="onDelete(user.manufacturer,user.id)">
       <mat-icon>delete</mat-icon>
     </button>
+    <button class="mx-2" mat-flat-button (click)="onUpdate(user.manufacturer,user.id)">
+      <mat-icon>create</mat-icon>
+    </button>
     <mat-slide-toggle
-      class="mx-2"
       color="primary"
       >
-      activer!
+      activer
     </mat-slide-toggle>
   </mat-card-actions>
 </mat-card>

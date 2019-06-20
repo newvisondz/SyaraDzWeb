@@ -5,6 +5,8 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA , MatDialogConfig} from '@angular/material';
 import {DeleteConfirmDialogComponent} from './../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
 import {UpdateFabriquatDialogComponent} from './update-fabriquat-dialog/update-fabriquat-dialog.component';
+import { Fabricant} from '../../model/fabricant.model';
+import { Observable } from 'rxjs';
 @Component({
     selector: 'app-list-fabricants',
     templateUrl: './list-fabricants.component.html',
@@ -12,7 +14,7 @@ import {UpdateFabriquatDialogComponent} from './update-fabriquat-dialog/update-f
 })
 export class ListFabricantsComponent implements OnInit,AfterViewInit {
 
-    fabricants:MatTableDataSource<object>;
+    fabricants:MatTableDataSource<Observable<Fabricant>>;
     displayedColumns: string[] = ['index','marque', 'logo','createdAt', 'updatedAt', 'manipulations'];
     loading : boolean = false;
     error : string = "";

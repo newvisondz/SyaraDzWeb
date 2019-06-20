@@ -1,7 +1,7 @@
 <nav class="sidebar">
     <div class="list-group" id="accordion">
       <mat-accordion>
-        <mat-expansion-panel *ngFor= "let link of links">
+        <mat-expansion-panel *ngFor= "let link of links" [hidden]="link.hidden">
           <mat-expansion-panel-header  class="a-item">
                 <i [className]=link.icon></i>&nbsp;
                 <span>{{link.header}}</span>

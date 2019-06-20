@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+  isAdmin : boolean = false;
+  isSuperAdmin : boolean = false;
   links = [
     {
       header : "Vue d'ensemble",
@@ -68,7 +70,7 @@ export class SidebarComponent implements OnInit {
           icon : "fas fa-car-side",
           route : "/"
         },
-      ]
+      ],
     },
     {
       header : "Gestion des utilisateurs",
@@ -84,7 +86,7 @@ export class SidebarComponent implements OnInit {
           icon : "fas fa-list-alt",
           route : "afficherUsersFabricants"
         },
-      ]
+      ],
     },
     {
       header : "Avancées",
@@ -105,12 +107,26 @@ export class SidebarComponent implements OnInit {
           icon : "fas fa-question",
           route : "/"
         },
-      ]
+      ],
     }
-  ]
+  ];
   constructor() { }
 
   ngOnInit() {
+    this.isAdmin = (localStorage.getItem('isAdmin') =="true");
+    this.isSuperAdmin = (localStorage.getItem('isSuperAdmin') =="true");
+    if(this.isSuperAdmin){
+      //check if is the super admin and set the authorized links
+      console.log("super admin")
+    }else{
+      if(this.isAdmin){
+        //check if is the admin and set the authorized links
+        console.log("admin fabricant")
+      }else{
+        //set the authorized links for simple user
+        console.log("user fabricant")
+      }
+    }
   }
 
 }

@@ -3,7 +3,8 @@ import { first,tap } from 'rxjs/operators';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA , MatDialogConfig} from '@angular/material';
 import {DeleteConfirmDialogComponent} from './../../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
 import { UpdateUserFabricantDialogComponent } from './../update-user-fabricant-dialog/update-user-fabricant-dialog.component';
-import { FabricantAdmin} from '../../../model/fabricant-admin';
+import { AdminsCrudService } from "./../../../Services/Admins-CRUD/admins-crud.service"
+import { UsersCrudService } from "./../../../Services/Users-CRUD/users-crud.service"
 
 @Component({
   selector: 'app-display-card-user',
@@ -16,32 +17,51 @@ export class DisplayCardUserComponent implements OnInit {
   @Input() user:any;
 
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog,
+              private admins : AdminsCrudService,
+              private users : UsersCrudService) { }
 
-  ngOnInit() {
-  }
-  onDelete(id:number){
+  ngOnInit() {}
+
+  onDelete(mf:string,id:number){
+    const user = this.user;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
+    console.log('this is id = '+ id);
+    
+
     dialogConfig.data = {id: id};
 
     const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        console.log("delete");
+
+        if(user.isAdmin){
+          this.admins.delete(mf,id).subscribe(
+            res => {
+              console.log(res);
+            },
+            err => {
+              console.log("Error occured : "+ err);
+            }
+          );
+        } else {
+          this.users.delete(mf,id).subscribe(
+            res => {
+              console.log(res);
+            },
+            err => {
+              console.log("Error occured : "+ err);
+            }
+          );
+        }
       }
     });
   }
 
-  onUpdate(id:number){
-    const user : FabricantAdmin =   new FabricantAdmin("12d8azD885DZq8dzar",
-      "fs_bouhenniche@esi.dz",
-      "USER FABRICANT",
-      "kia",
-      "Bouhenniche","Sihem",
-      false,
-      "0551234567","hai elbadre,kouba, alger");
+  onUpdate(mf:string,id:number){
+    const user = this.user;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -50,7 +70,37 @@ export class DisplayCardUserComponent implements OnInit {
     const dialogRef = this.dialog.open(UpdateUserFabricantDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if(result.status){
-        console.log("update : "+result.user.firstName)
+
+        var body = {};
+        var obj = result.user;
+        
+        for(var att in obj){
+          if(obj[att] != ''){
+            body[att] = obj[att]
+          }else{
+            body[att] = user[att]
+          }
+        }
+        
+        if(user.isAdmin){
+          this.admins.update(mf,id,body).subscribe(
+            res => {
+              console.log(res);
+            },
+            err => {
+              console.log("Error occured : "+ err);
+            }
+          );
+        } else {
+          this.users.update(mf,id,body).subscribe(
+            res => {
+              console.log(res);
+            },
+            err => {
+              console.log("Error occured : "+ err);
+            }
+          );
+        }
       }
     });
   }

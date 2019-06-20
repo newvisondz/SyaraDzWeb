@@ -2,6 +2,7 @@ import { Component,ElementRef ,OnInit ,ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms'
 import { Router } from '@angular/router';
 import { FabricantCRUDService } from '../../Services/Fabricant-CRUD/fabricant-crud.service'
+import { AdminsCrudService } from '../../Services/Admins-CRUD/admins-crud.service'
 
 import { Fabricant} from '../../model/fabricant.model';
 import { first } from 'rxjs/operators';
@@ -26,6 +27,7 @@ export class FormFabricantComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder,
               private fabricant:FabricantCRUDService,
+              private admins : AdminsCrudService, 
               private router:Router) {}
 
   ngOnInit() {
@@ -112,6 +114,20 @@ export class FormFabricantComponent implements OnInit {
       console.log(manufacturer);
       this.loading = true;
       //create the admin of the manufacturer
-      console.log("call method of creation for : "+admin)
+      this.admins.create(manufacturer,
+                      admin.email,
+                      admin.password,
+                      admin.lastName,
+                      admin.firstName,
+                      admin.address,
+                      admin.phone)
+    .pipe(first()).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log("Error occured : /n"+ err);
+      }
+  );
   }
 }

@@ -68,7 +68,15 @@
           <br>
           <h5>Informations générales :</h5>
           <mat-form-field>
-            <input matInput placeholder="Fabricant" type="text" formControlName="fabricant" [value]=fabricant.brand />
+
+            <!-- <input matInput placeholder="Fabricant" type="text" formControlName="fabricant" [value]=fabricant.brand /> -->
+
+            <mat-select placeholder="Fabricant" formControlName="fabricant" required>
+              <mat-option *ngFor="let fabricant of fabricants" [value]="fabricant">
+                {{fabricant.brand}}
+              </mat-option>
+            </mat-select>
+            
           </mat-form-field>
         </div>
         <div class="d-flex flex-row-reverse">

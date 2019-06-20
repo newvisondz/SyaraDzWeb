@@ -1,7 +1,7 @@
 import { ListFabricantsModule } from './list-fabricants.module';
 
 describe('TablesModule', () => {
-  let listeFabricantsModule: TablesModule;
+  let listeFabricantsModule: any;
 
   beforeEach(() => {
     listeFabricantsModule = new ListFabricantsModule();

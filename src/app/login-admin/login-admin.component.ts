@@ -30,17 +30,20 @@ export class LoginAdminComponent implements OnInit {
           res => {
             if (res.token == undefined) {
               this.loading = false;
-              this.error = "Undefined username or wrong password";
               console.log("Show Error feedback!");
             } else {
               window.localStorage.setItem("accesToken", res.token);
+<<<<<<< HEAD
               window.localStorage.setItem("isSuperAdmin","true");
+=======
+              window.localStorage.setItem("isSuperAdmin", 'true');
+>>>>>>> 9be4607fbd5e08499f6b0ed37964beb8ce24056d
               this.router.navigate(["/dashboard"]);
             }
           },
           err => {
             this.loading = false;
-            this.error = err;
+            this.error = "Undefined username or wrong password.";
             console.log("Error occured : "+ err);
           }
         );

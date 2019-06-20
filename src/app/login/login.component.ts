@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthentificationService } from '../Services/Authentification/authentification.service';
 import { first } from 'rxjs/operators';
 
 
@@ -16,16 +17,31 @@ export class LoginComponent implements OnInit {
     error : string = "";
     loading : boolean = false;
 
-    constructor (    private router:Router,
-                ) {}
+    constructor (   private auth:AuthentificationService,
+                    private router:Router,
+    ) {}
 
     ngOnInit() {}
 
     onSubmit() {
-      //this.loading = true;
-      //login as user or admin fabricant
-      window.localStorage.setItem("accesToken", "fhqzhe5fz5efehfeyff55q12sd4");
-      window.localStorage.setItem("isAdmin","true");
-      this.router.navigate(["/dashboard"]);
+      this.loading = true;
+      this.auth.userLogin(this.username,this.password)
+      .pipe(first()).subscribe(
+          res => {
+            if (res.token == undefined) {
+              this.loading = false;
+              console.log("Show Error feedback!");
+            } else {
+              window.localStorage.setItem("accesToken", res.token);
+              window.localStorage.setItem("isAdmin","true");
+              this.router.navigate(["/dashboard"]);
+            }
+          },
+          err => {
+            this.loading = false;
+            this.error = err;
+            console.log("Error occured : "+ err);
+          }
+        );
     }
 }

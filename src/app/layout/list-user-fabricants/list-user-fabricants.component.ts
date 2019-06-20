@@ -1,5 +1,7 @@
 import { Component, OnInit ,ViewChild,AfterViewInit} from '@angular/core';
 import {MatPaginator} from '@angular/material';
+import { AuthentificationService } from "../../Services/Authentification/authentification.service";
+import { AdminsCrudService } from "../../Services/Admins-CRUD/admins-crud.service"
 
 
 @Component({
@@ -9,16 +11,24 @@ import {MatPaginator} from '@angular/material';
 })
 export class ListUserFabricantsComponent implements OnInit,AfterViewInit {
 
+    fabricants = [];
+
+    loading : boolean = false;
+    error : string = "";
+    lengthList : number = 0;
+    marque : string ;
+
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
-    constructor() {}
+    constructor(private auth:AuthentificationService,
+                private admins : AdminsCrudService,) {}
 
     ngOnInit() {
-
+      console.log("lol!");
+      
     }
 
-    ngAfterViewInit() {
-    }
+    ngAfterViewInit(){}
 
-}
+  }

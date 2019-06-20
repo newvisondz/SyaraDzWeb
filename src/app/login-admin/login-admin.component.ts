@@ -33,11 +33,7 @@ export class LoginAdminComponent implements OnInit {
               console.log("Show Error feedback!");
             } else {
               window.localStorage.setItem("accesToken", res.token);
-<<<<<<< HEAD
               window.localStorage.setItem("isSuperAdmin","true");
-=======
-              window.localStorage.setItem("isSuperAdmin", 'true');
->>>>>>> 9be4607fbd5e08499f6b0ed37964beb8ce24056d
               this.router.navigate(["/dashboard"]);
             }
           },
@@ -47,8 +43,5 @@ export class LoginAdminComponent implements OnInit {
             console.log("Error occured : "+ err);
           }
         );
-        /*window.localStorage.setItem("accesToken", "fhqzhe5fz5efehfeyff55q12sd4");
-        window.localStorage.setItem("isSuperAdmin","true");
-        this.router.navigate(["/dashboard"]);*/
     }
 }

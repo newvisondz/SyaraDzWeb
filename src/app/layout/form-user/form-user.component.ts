@@ -77,41 +77,6 @@ export class FormUserComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
 
-    
-
-    
-    if(this.isSuperAdmin){
-      //check if is the super admin and set the authorized links
-      this.fabricantService.list()
-        .pipe(first()).subscribe(
-          res => {
-            this.fabricants = res.manufacturers;
-            console.log(this.fabricants);
-          },
-          err => {
-              console.log("Error occured : "+ err);
-              
-          }
-      );
-    } else {
-      this.auth.showMe().pipe(first()).subscribe(
-          res => {
-            console.log(res.manufacturer);
-            var obj = {
-              brand : res.manufacturer,
-              id: res.manufacturer
-            }
-            this.fabricants.push(obj);
-          },
-          err => {
-              console.log("Error occured : "+ err);
-          }
-      );
-    }
-
-    this.loading = false;
-
-
     this.userFormGroup = this._formBuilder.group({
       username: ['', Validators.compose([
     		Validators.maxLength(25),
@@ -137,8 +102,39 @@ export class FormUserComponent implements OnInit {
     		Validators.required
     	])],
       phone: ['', Validators.required],
-      fabricant: [{value: ''}, Validators.required],
+      fabricant: [null, Validators.required],
     });
+
+    if(this.isSuperAdmin){
+      //check if is the super admin and set the authorized links
+      this.fabricantService.list()
+        .pipe(first()).subscribe(
+          res => {
+            this.fabricants = res.manufacturers;
+            console.log(this.fabricants);
+          },
+          err => {
+              console.log("Error occured : "+ err);
+              
+          }
+      );
+    } else {
+      this.auth.showMe().pipe(first()).subscribe(
+          res => {
+            var obj = {
+              brand : res.manufacturer,
+              id: res.manufacturer
+            }
+            this.fabricants.push(obj);
+            this.userFormGroup.get('fabricant').setValue(res.manufacturer);
+          },
+          err => {
+              console.log("Error occured : "+ err);
+          }
+      );
+    }
+
+    this.loading = false;
   }
 
   onSubmit(){

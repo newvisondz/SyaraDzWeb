@@ -5,6 +5,7 @@ import {DeleteConfirmDialogComponent} from './../../../shared/delete-confirm-dia
 import { UpdateUserFabricantDialogComponent } from './../update-user-fabricant-dialog/update-user-fabricant-dialog.component';
 import { AdminsCrudService } from "./../../../Services/Admins-CRUD/admins-crud.service"
 import { UsersCrudService } from "./../../../Services/Users-CRUD/users-crud.service"
+import {Router} from "@angular/router"
 
 @Component({
   selector: 'app-display-card-user',
@@ -16,10 +17,10 @@ export class DisplayCardUserComponent implements OnInit {
 
   @Input() user:any;
 
-
   constructor(public dialog: MatDialog,
               private admins : AdminsCrudService,
-              private users : UsersCrudService) { }
+              private users : UsersCrudService,
+              private router : Router) { }
 
   ngOnInit() {}
 
@@ -58,6 +59,7 @@ export class DisplayCardUserComponent implements OnInit {
         }
       }
     });
+
   }
 
   onUpdate(mf:string,id:number){
@@ -86,6 +88,7 @@ export class DisplayCardUserComponent implements OnInit {
           this.admins.update(mf,id,body).subscribe(
             res => {
               console.log(res);
+              
             },
             err => {
               console.log("Error occured : "+ err);
@@ -95,6 +98,7 @@ export class DisplayCardUserComponent implements OnInit {
           this.users.update(mf,id,body).subscribe(
             res => {
               console.log(res);
+              this.ngOnInit();
             },
             err => {
               console.log("Error occured : "+ err);

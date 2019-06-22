@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
             } else {
               window.localStorage.setItem("accesToken", res.token);
               window.localStorage.setItem("isAdmin","true");
+              window.localStorage.setItem("manufacturer",res.manufacturer);
               this.router.navigate(["/dashboard"]);
             }
           },

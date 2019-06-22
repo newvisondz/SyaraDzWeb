@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { AuthentificationService } from './../../../Services/Authentification/authentification.service';
+import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -11,17 +12,17 @@ export class SidebarComponent implements OnInit {
   links = []
   type : String = "";
   fullName : String = "";
-  constructor() { }
+  constructor(private auth:AuthentificationService) { }
 
   ngOnInit() {
     this.isAdmin = (localStorage.getItem('isAdmin') =="true");
     this.isSuperAdmin = (localStorage.getItem('isSuperAdmin') =="true");
 
-    //get the name of the current user
-    this.fullName = "Mounir Ilias";
+
 
     if(this.isSuperAdmin){
       //check if is the super admin and set the authorized links
+      this.fullName = "SayaraDz";
       this.type = "Administrateur";
       this.links  = [
         {
@@ -88,25 +89,23 @@ export class SidebarComponent implements OnInit {
             },
           ],
         },
-        {
-          header : "Données de références",
-          icon : "fas fa-car",
-          sublinks : [
-            {
-              header : "Gestion des modéles",
-              icon : "fas fa-car",
-              route : "modeles"
-            },
-            {
-              header : "Gestion des véhicules",
-              icon : "fas fa-car-side",
-              route : "vehicules"
-            },
-          ],
-        },
       ];
       console.log("super admin")
     }else{
+      //get the name of the current user
+      this.auth.showMe()
+      .pipe(first()).subscribe(
+          res => {
+            if (res == undefined) {
+              console.log("Show Error feedback!");
+            } else {
+              this.fullName = res.firstName + " " + res.lastName;
+            }
+          },
+          err => {
+            console.log("Error occured : "+ err);
+          }
+        );
       if(this.isAdmin){
         this.type = "Administrateur de fabricant";
         //check if is the admin and set the authorized links
@@ -155,7 +154,7 @@ export class SidebarComponent implements OnInit {
               {
                 header : "Afficher utilisateur",
                 icon : "fas fa-list-alt",
-                route : "afficherUsersFabricants"
+                route : "afficherUsersFabricants/users/" + localStorage.getItem('manufacturer')
               },
             ],
           },

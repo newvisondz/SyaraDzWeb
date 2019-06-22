@@ -52,7 +52,7 @@ export class AuthentificationService  {
     );
   }
 
-  public showMe() : Observable<Admin>{
+  public showMe() : Observable<FabricantAdmin>{
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
 
@@ -63,6 +63,8 @@ export class AuthentificationService  {
       return res;
     }));
   }
+
+
   public updateMe(email:string, password:string){
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
@@ -81,6 +83,7 @@ export class AuthentificationService  {
       id : string;
       token: string;
       type : string;
+      manufacturer : string
     }
     let data = {
       email : username,
@@ -114,5 +117,3 @@ export class AuthentificationService  {
   }
 
 }
-
-

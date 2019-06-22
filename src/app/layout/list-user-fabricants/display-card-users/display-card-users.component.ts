@@ -18,9 +18,8 @@ export class DisplayCardUsersComponent implements OnInit {
   loading : boolean = false;
   error : string = "";
   pathAdmins : string = "/dashboard/afficherUsersFabricants/admins/";
-  pathUsers : string = "/dashboard/afficherUsersFabricants/users/";
-  
-  
+
+
   constructor(private fabricant:FabricantCRUDService) { }
 
   ngOnInit() {

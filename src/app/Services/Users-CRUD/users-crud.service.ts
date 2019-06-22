@@ -15,8 +15,8 @@ export class UsersCrudService {
   public create(mfid:string,email:string,password:string,firstName:string,lastName:string,address:string,phone:string){
 
     const headers = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
-    
-    let body = { 
+
+    let body = {
       email : email,
       password : password,
       firstName : firstName,
@@ -51,12 +51,12 @@ export class UsersCrudService {
 
   public delete(mfid : string, id : number ){
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
-    
+
     class ResponseError {
       error: boolean;
       msg : string;
     }
-    
+
     return this.http.delete(this.ROOT_URL+'/manufacturers/'+mfid+'/users/'+id,{
       headers: header}).pipe(map(res => {
         if(res instanceof ResponseError){
@@ -70,7 +70,7 @@ export class UsersCrudService {
   }
 
   public update(mfid : string, id : number,body: any){
-    
+
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
 
     interface Response {
@@ -82,4 +82,6 @@ export class UsersCrudService {
       return res;
     }));
   }
+
+
 }

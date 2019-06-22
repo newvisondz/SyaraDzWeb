@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms'
 import { FabricantCRUDService } from "../../Services/Fabricant-CRUD/fabricant-crud.service";
 import { AdminsCrudService } from "../../Services/Admins-CRUD/admins-crud.service"
 import { UsersCrudService } from "../../Services/Users-CRUD/users-crud.service"
+import { AuthentificationService } from "../../Services/Authentification/authentification.service"
 import { first } from 'rxjs/operators';
 import { Fabricant} from '../../model/fabricant.model';
 import { Observable } from 'rxjs';
@@ -13,6 +14,7 @@ import { Router } from '@angular/router';
   templateUrl: './form-user.component.html',
   styleUrls: ['./form-user.component.scss']
 })
+
 export class FormUserComponent implements OnInit {
 
   infoPage = {
@@ -21,8 +23,9 @@ export class FormUserComponent implements OnInit {
   };
 
   userFormGroup: FormGroup;
-  fabricants = [];
+  fabricants : any[] = [];
   loading : boolean = false;
+  isSuperAdmin = (localStorage.getItem('isSuperAdmin') =="true");
 
   account_validation_messages = {
     'username' : [
@@ -67,26 +70,12 @@ export class FormUserComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder,
               private fabricantService : FabricantCRUDService,
               private admins : AdminsCrudService,
-              private users : UsersCrudService,
-              private router:Router) { }
+              private router:Router,
+              private auth: AuthentificationService,
+              private users: UsersCrudService) { }
 
   ngOnInit() {
-
-    this.fabricantService.list()
-      .pipe(first()).subscribe(
-        res => {
-          this.loading = false;
-          this.fabricants = res.manufacturers;
-          console.log(this.fabricants);
-        },
-        err => {
-            console.log("Error occured : "+ err);
-            this.loading = false;
-            this.fabricants.push({id : localStorage.getItem('manufacturer')})
-        }
-    );
-
-    //form error messages
+    this.loading = true;
     this.userFormGroup = this._formBuilder.group({
       username: ['', Validators.compose([
     		Validators.maxLength(25),
@@ -112,58 +101,72 @@ export class FormUserComponent implements OnInit {
     		Validators.required
     	])],
       phone: ['', Validators.required],
-      fabricant: [{value: ''}, Validators.required],
+      fabricant: [null, Validators.required],
     });
-  }
 
-  onSubmit(){
-    console.log("Créer un utilisateur : ");
-    if(localStorage.getItem('isSuperAdmin') =="true"){
-      this.admins.create(this.userFormGroup.get('fabricant').value.id,
-                        this.userFormGroup.get('email').value,
-                        this.userFormGroup.get('password').value,
-                        this.userFormGroup.get('username').value,
-                        this.userFormGroup.get('usersurname').value,
-                        this.userFormGroup.get('address').value,
-                        this.userFormGroup.get('phone').value)
-      .pipe(first()).subscribe(
-        res => {
-            if (res == undefined) {
-                this.loading = false;
-                console.log("Show Error feedback!");
-            } else {
-                console.log(res);
-                this.router.navigate(["dashboard/afficherUsersFabricants"]);
-            }
-        },
-        err => {
-          console.log("Error occured : /n"+ err);
-        }
+    if(this.isSuperAdmin){
+      //check if is the super admin and set the authorized links
+      this.fabricantService.list()
+        .pipe(first()).subscribe(
+          res => {
+            this.fabricants = res.manufacturers;
+            console.log(this.fabricants);
+          },
+          err => {
+              console.log("Error occured : "+ err);
+
+          }
       );
-    }else{
-      this.users.create(this.userFormGroup.get('fabricant').value.id,
-                        this.userFormGroup.get('email').value,
-                        this.userFormGroup.get('password').value,
-                        this.userFormGroup.get('username').value,
-                        this.userFormGroup.get('usersurname').value,
-                        this.userFormGroup.get('address').value,
-                        this.userFormGroup.get('phone').value)
-      .pipe(first()).subscribe(
-        res => {
-            if (res == undefined) {
-                this.loading = false;
-                console.log("Show Error feedback!");
-            } else {
-                console.log(res);
-                this.router.navigate(["dashboard/afficherUsersFabricants/users/"+this.fabricants[0].id]);
+    } else {
+      this.auth.showMe().pipe(first()).subscribe(
+          res => {
+            var obj = {
+              brand : res.manufacturer,
+              id: res.manufacturer
             }
-        },
-        err => {
-          console.log("Error occured : /n"+ err);
-        }
+            this.fabricants.push(obj);
+            this.userFormGroup.get('fabricant').setValue(res.manufacturer);
+          },
+          err => {
+              console.log("Error occured : "+ err);
+          }
       );
     }
 
+    this.loading = false;
+  }
+
+  onSubmit(){
+    this.loading = true;
+    console.log("Créer un utilisateur : ");    var service;
+    if(this.isSuperAdmin){
+      service = this.admins;
+    } else {
+      service = this.users;
+    }
+
+    service.create(this.userFormGroup.get('fabricant').value.id,
+                      this.userFormGroup.get('email').value,
+                      this.userFormGroup.get('password').value,
+                      this.userFormGroup.get('username').value,
+                      this.userFormGroup.get('usersurname').value,
+                      this.userFormGroup.get('address').value,
+                      this.userFormGroup.get('phone').value)
+    .pipe(first()).subscribe(
+      res => {
+          if (res.type == undefined) {
+              console.log("Show Error feedback!");
+          } else {
+              console.log(res);
+              this.router.navigate(["dashboard/afficherUsersFabricants"]);
+          }
+          this.loading = false;
+      },
+      err => {
+        console.log("Error occured : /n"+ err);
+        this.loading = false;
+      }
+  );
 
   }
 

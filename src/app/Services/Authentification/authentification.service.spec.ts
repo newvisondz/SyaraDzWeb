@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { AuthentificationService } from './authentification.service';
+import { FabricantAdmin } from '../../model/fabricant-admin';
 
 fdescribe('AuthentificationService', () => {
   let service: AuthentificationService;
@@ -18,22 +19,50 @@ fdescribe('AuthentificationService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return the email & a token', () => {
+  it('should return the email & a token of the admin', () => {
     
-    const dummyRes = [
-      {
-        createdOn: "2019-02-26T17:11:01.673Z",
-        id : "1",
-        marque : "Audi"
-      },
-      {
-        createdOn: "2019-01-26",
-        id : "5c75732560ebf70024f3c4a3",
-        marque : "Toyota"
-      }
-    ]
+    const dummyRes = {
+      token: 'string',
+    }
     
     service.login("test","test").subscribe(res => {
+      expect(res).toEqual(dummyRes);
+    });
+
+  });
+
+  it('should return the email & a token of the user', () => {
+    
+    const dummyRes = {
+      token: 'string',
+      email : 'string',
+      id : 'string',
+      type : 'string',
+    }
+    
+    service.userLogin("test","test").subscribe(res => {
+      expect(res).toEqual(dummyRes);
+    });
+
+  });
+
+  it('should return the User/Admin infos', () => {
+    
+    const dummyRes = new FabricantAdmin('test','test','test','test','test','test',true,'test','test',);
+    
+    service.showMe().subscribe(res => {
+      expect(res).toEqual(dummyRes);
+    });
+
+  });
+
+  it('should update the Admin infos', () => {
+    
+    const dummyRes = {
+      msg: 'string',
+    }
+    
+    service.updateMe("test","test").subscribe(res => {
       expect(res).toEqual(dummyRes);
     });
 

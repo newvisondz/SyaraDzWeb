@@ -52,30 +52,6 @@ export class AuthentificationService  {
     );
   }
 
-  public showMe() : Observable<FabricantAdmin>{
-
-    const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
-
-    return this.http.get<FabricantAdmin>(this.ROOT_URL+'/me',
-    { headers: header }
-    ).pipe(map(res => {
-      console.log(res);
-      return res;
-    }));
-  }
-
-
-  public updateMe(email:string, password:string){
-
-    const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
-    let body = {email : email, password:password};
-    return this.http.put(this.ROOT_URL+'/admins/me',body,
-    { headers: header }
-    ).pipe(map(res => {
-      return res;
-    }));
-  }
-
   public userLogin(username:string,password:string){
 
     interface LoginResponse {
@@ -114,6 +90,30 @@ export class AuthentificationService  {
         console.log(err);
       }
     );
+  }
+
+  public showMe(){
+
+    const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
+
+    return this.http.get<FabricantAdmin>(this.ROOT_URL+'/me',
+    { headers: header }
+    ).pipe(map(res => {
+      console.log(res);
+      return res;
+    }));
+  }
+
+
+  public updateMe(email:string, password:string){
+
+    const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
+    let body = {email : email, password:password};
+    return this.http.put(this.ROOT_URL+'/admins/me',body,
+    { headers: header }
+    ).pipe(map(res => {
+      return res;
+    }));
   }
 
 }

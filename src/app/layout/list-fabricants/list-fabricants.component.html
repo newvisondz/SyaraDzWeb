@@ -6,8 +6,30 @@
     <div class="row" [hidden]="loading">
         <div class="col col-xl-12 col-lg-12">
             <div class="card mb-3">
-                <div class="card-header">
-                    Liste des fabricants
+                <div class="card-header ">
+                  <div class="row">
+                    <div class="col-sm-7">
+                      <mat-form-field style="width : 100%">
+                        <mat-icon matPrefix>search</mat-icon>
+                        <input matInput placeholder="Fabricant..." />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-sm-5" style = "text-align:right">
+                      <mat-form-field>
+                        <mat-label>Critéres</mat-label>
+                        <mat-select matNativeControl required>
+                          <mat-option value="volvo">Marque</mat-option>
+                          <mat-option value="saab">Pays</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <button class="mx-2" mat-raised-button style="background : #FFAB00 ; color : #fff">
+                        <mat-icon>print</mat-icon>
+                      </button>
+                      <button class="mx-2" mat-raised-button (click) = "onCreate()" style="background : #228B22 ; color : #fff">
+                        <mat-icon>add</mat-icon>
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <app-notification class="ma-2" [error] = "error"></app-notification>
                 <div class="card-body table-responsive">
@@ -44,12 +66,15 @@
 
                       <ng-container matColumnDef="manipulations">
                         <th mat-header-cell *matHeaderCellDef> Manipulations </th>
-                        <td mat-cell *matCellDef="let element">
-                          <button class="mx-2" mat-flat-button  (click) = "onDelete(element.id)">
+                        <td mat-cell *matCellDef="let element, let i = index;">
+                          <button class="mx-2" mat-icon-button color="warn"  (click) = "onDelete(element.id,i)">
                             <mat-icon>delete</mat-icon>
                           </button>
-                          <button class="mx-2" mat-flat-button (click) = "onUpdate(element)">
+                          <button class="mx-2" mat-icon-button color="primary" (click) = "onUpdate(element,i)">
                             <mat-icon>create</mat-icon>
+                          </button>
+                          <button class="mx-2" mat-icon-button color="accent" (click) = "onDisplayAdminPage(element.id)">
+                            <mat-icon><i class="fas fa-user-tie"></i></mat-icon>
                           </button>
                         </td>
                       </ng-container>

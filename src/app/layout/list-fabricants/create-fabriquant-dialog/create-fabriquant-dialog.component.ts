@@ -3,17 +3,17 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 
 @Component({
-  selector: 'app-update-fabriquat-dialog',
-  templateUrl: './update-fabriquat-dialog.component.html',
-  styleUrls: ['./update-fabriquat-dialog.component.scss']
+  selector: 'app-create-fabriquant-dialog',
+  templateUrl: './create-fabriquant-dialog.component.html',
+  styleUrls: ['./create-fabriquant-dialog.component.scss']
 })
-export class UpdateFabriquatDialogComponent implements OnInit {
+export class CreateFabriquantDialogComponent implements OnInit {
   firstFormGroup: FormGroup;
   logo : string = '';
   @ViewChild('file') file;
 
   constructor(private _formBuilder: FormBuilder,
-              @Optional() public dialogRef: MatDialogRef<UpdateFabriquatDialogComponent>,
+              @Optional() public dialogRef: MatDialogRef<CreateFabriquantDialogComponent>,
               @Optional() @Inject(MAT_DIALOG_DATA) public data:any) { }
 
   ngOnInit() {
@@ -22,7 +22,6 @@ export class UpdateFabriquatDialogComponent implements OnInit {
       addressFabricant: ['', Validators.required],
       logoFabricant: ['', Validators.required]
     });
-    console.log(this.data.fabricant);
   }
   addFiles() {
       this.file.nativeElement.click();

@@ -27,7 +27,7 @@ export class FormFabricantComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder,
               private fabricant:FabricantCRUDService,
-              private admins : AdminsCrudService, 
+              private admins : AdminsCrudService,
               private router:Router) {}
 
   ngOnInit() {
@@ -85,9 +85,8 @@ export class FormFabricantComponent implements OnInit {
   }
   createFabricant(){
     let brand = this.firstFormGroup.controls['fabricant'].value;
-    let logo : File = this.file.nativeElement.files[0];
     this.loading = true;
-    this.fabricant.create(brand,this.logoImage)
+    this.fabricant.create(brand,this.logo)
     .pipe(first()).subscribe(
         res => {
             this.loading = false;

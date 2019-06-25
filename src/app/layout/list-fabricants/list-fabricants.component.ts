@@ -1,20 +1,29 @@
 import { Component, OnInit ,ViewChild,AfterViewInit} from '@angular/core';
+
 import { FabricantCRUDService } from "../../Services/Fabricant-CRUD/fabricant-crud.service";
+
 import { first,tap } from 'rxjs/operators';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA , MatDialogConfig} from '@angular/material';
 import {DeleteConfirmDialogComponent} from './../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
 import {UpdateFabriquatDialogComponent} from './update-fabriquat-dialog/update-fabriquat-dialog.component';
+import { CreateFabriquantDialogComponent } from './create-fabriquant-dialog/create-fabriquant-dialog.component';
+import { MessageSnackBarComponent } from './../../shared/message-snack-bar/message-snack-bar.component';
+
 import { Fabricant} from '../../model/fabricant.model';
-import { Observable } from 'rxjs';
+
+import { Router } from '@angular/router';
 @Component({
     selector: 'app-list-fabricants',
     templateUrl: './list-fabricants.component.html',
     styleUrls: ['./list-fabricants.component.scss'],
 })
 export class ListFabricantsComponent implements OnInit,AfterViewInit {
-
-    fabricants:MatTableDataSource<Observable<Fabricant>>;
+    durationInSeconds = 5;
+    fabricants:MatTableDataSource<Fabricant>;
+    dataFabricants = [];
     displayedColumns: string[] = ['index','marque', 'logo','createdAt', 'updatedAt', 'manipulations'];
     loading : boolean = false;
     error : string = "";
@@ -24,7 +33,11 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
     @ViewChild(MatSort) sort: MatSort;
 
 
-    constructor(private fabricant:FabricantCRUDService,public dialog: MatDialog) {}
+    constructor(private fabricant:FabricantCRUDService,
+                public dialog: MatDialog,
+                private router:Router,
+                private _snackBar: MatSnackBar
+                ) {}
 
     ngOnInit() {
       this.loading = true;
@@ -33,6 +46,7 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
             res => {
                 console.log(res);
                 this.fabricants = new MatTableDataSource(res.manufacturers);
+                this.dataFabricants = res.manufacturers;
                 this.lengthList = res.count;
                 this.fabricants.sort = this.sort;
                 this.loading = false;
@@ -60,6 +74,7 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
           res => {
             console.log(res);
             this.fabricants = new MatTableDataSource(res.manufacturers);
+            this.dataFabricants = res.manufacturers;
             this.fabricants.sort = this.sort;
             this.loading = false;
           },
@@ -71,7 +86,7 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
         );
     }
 
-    onDelete(id:number){
+    onDelete(id:number,i : number){
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
@@ -84,8 +99,14 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
           this.fabricant.delete(id).subscribe(
               res => {
                 console.log(res);
-                this.loadFabricantsPage();
+                this.dataFabricants.splice(i,1);
+                this.fabricants = new MatTableDataSource(this.dataFabricants);
+                this.lengthList --;
                 this.loading = false;
+                this._snackBar.openFromComponent(MessageSnackBarComponent, {
+                  duration: this.durationInSeconds * 1000,
+                  data : {message: 'la marque a bien était suprimée', icon : "delete"}
+                });
               },
               err => {
                 this.error = "Error occured : "+ err;
@@ -96,7 +117,7 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
         }
       });
     }
-    onUpdate(fabricant:any){
+    onUpdate(fabricant:any,i : number){
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
@@ -105,11 +126,16 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
       dialogRef.afterClosed().subscribe(result => {
         if(result.status){
           this.loading = true;
-          this.fabricant.update(fabricant.id,result.marque).subscribe(
+          this.fabricant.update(fabricant.id,result.marque,result.logo).subscribe(
               res => {
                 console.log(res);
-                this.loadFabricantsPage();
+                this.fabricants.data[i].brand = result.marque;
+                this.fabricants.data[i].logo = result.logo;
                 this.loading = false;
+                this._snackBar.openFromComponent(MessageSnackBarComponent, {
+                  duration: this.durationInSeconds * 1000,
+                  data : {message: 'la marque a bien était modifiée', icon : "check_circle"}
+                });
               },
               err => {
                 this.error = "Error occured : "+ err;
@@ -119,5 +145,42 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
             );
         }
       });
+    }
+
+    onCreate(){
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      const dialogRef = this.dialog.open(CreateFabriquantDialogComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(
+        result => {
+          if(result.status){
+            this.loading = true;
+            this.fabricant.create(result.marque,result.logo)
+            .pipe(first()).subscribe(
+                res => {
+                    this.loading = false;
+                    console.log(res);
+                    this.dataFabricants.push(res);
+                    this.fabricants = new MatTableDataSource(this.dataFabricants);
+                    this.lengthList ++;
+                    this._snackBar.openFromComponent(MessageSnackBarComponent, {
+                      duration: this.durationInSeconds * 1000,
+                      data : {message: 'la marque a bien était ajoutée',icon : "playlist_add_check"}
+                    });
+                },
+                err => {
+                    this.error = err;
+                    this.loading = false;
+                    //console.log("Error occured : "+ err);
+                }
+            );
+        }
+      });
+    }
+
+    onDisplayAdminPage(id : string){
+        console.log("/dashboard/afficherFabricants/admins/"+id);
+        this.router.navigate(["/dashboard/afficherUsersFabricants/admins/"+id]);
     }
 }

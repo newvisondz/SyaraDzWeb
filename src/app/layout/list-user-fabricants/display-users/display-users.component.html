@@ -6,8 +6,8 @@
   <div class="" [hidden]="loading">
     <app-notification class="ma-2" [error] = "error"></app-notification>
     <div class="row">
-      <div class="col-lg-4 mb-2" *ngFor = "let element of adminsfabricants">
-        <app-display-card-user [user] = "element"></app-display-card-user>
+      <div class="col-lg-4 mb-2" *ngFor = "let element of adminsfabricants, let j = index">
+        <app-display-card-user [user] = "element" [index] = "j"></app-display-card-user>
       </div>
     </div>
   </div>

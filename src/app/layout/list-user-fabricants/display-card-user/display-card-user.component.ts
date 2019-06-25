@@ -16,6 +16,7 @@ import {Router} from "@angular/router"
 export class DisplayCardUserComponent implements OnInit {
 
   @Input() user:any;
+  @Input() index = 0;
 
   constructor(public dialog: MatDialog,
               private admins : AdminsCrudService,
@@ -30,7 +31,7 @@ export class DisplayCardUserComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     console.log('this is id = '+ id);
-    
+
 
     dialogConfig.data = {id: id};
 
@@ -42,6 +43,7 @@ export class DisplayCardUserComponent implements OnInit {
           this.admins.delete(mf,id).subscribe(
             res => {
               console.log(res);
+              //this.adminsfabricants.splice(this.index,1);
             },
             err => {
               console.log("Error occured : "+ err);
@@ -51,6 +53,7 @@ export class DisplayCardUserComponent implements OnInit {
           this.users.delete(mf,id).subscribe(
             res => {
               console.log(res);
+              //this.adminsfabricants.splice(this.index,1);
             },
             err => {
               console.log("Error occured : "+ err);
@@ -75,7 +78,7 @@ export class DisplayCardUserComponent implements OnInit {
 
         var body = {};
         var obj = result.user;
-        
+
         for(var att in obj){
           if(obj[att] != ''){
             body[att] = obj[att]
@@ -83,12 +86,12 @@ export class DisplayCardUserComponent implements OnInit {
             body[att] = user[att]
           }
         }
-        
+
         if(user.isAdmin){
           this.admins.update(mf,id,body).subscribe(
             res => {
               console.log(res);
-              
+
             },
             err => {
               console.log("Error occured : "+ err);

@@ -11,6 +11,7 @@
             <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>{{element.brand}}</mat-card-title>
           </mat-card-header>
+          <img mat-card-image [src]="element.logo" [alt]="element.brand">
           <mat-card-actions style="text-align:right;">
               <button class="mx-1" mat-icon-button color="primary" [routerLink]="[pathAdmins+element.id]" >
                 <mat-icon><i class="fas fa-user-tie"></i></mat-icon>

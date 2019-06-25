@@ -3,7 +3,7 @@ import { first,tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { FabricantCRUDService } from "../../../Services/Fabricant-CRUD/fabricant-crud.service";
 import { Fabricant} from '../../../model/fabricant.model';
-
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-display-card-users',
@@ -19,7 +19,7 @@ export class DisplayCardUsersComponent implements OnInit {
   error : string = "";
   pathAdmins : string = "/dashboard/afficherUsersFabricants/admins/";
 
-
+  readonly ROOT_URL = environment.baseUrl;
   constructor(private fabricant:FabricantCRUDService) { }
 
   ngOnInit() {

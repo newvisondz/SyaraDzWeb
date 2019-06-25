@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
 import { first,tap } from 'rxjs/operators';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA , MatDialogConfig} from '@angular/material';
 import {DeleteConfirmDialogComponent} from './../../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
@@ -6,6 +6,8 @@ import { UpdateUserFabricantDialogComponent } from './../update-user-fabricant-d
 import { AdminsCrudService } from "./../../../Services/Admins-CRUD/admins-crud.service"
 import { UsersCrudService } from "./../../../Services/Users-CRUD/users-crud.service"
 import {Router} from "@angular/router"
+import { MessageSnackBarComponent } from './../../../shared/message-snack-bar/message-snack-bar.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-display-card-user',
@@ -14,11 +16,12 @@ import {Router} from "@angular/router"
 })
 
 export class DisplayCardUserComponent implements OnInit {
-
+  durationInSeconds = 5;
+  @Output() someEvent = new EventEmitter<number>();
   @Input() user:any;
   @Input() index = 0;
 
-  constructor(public dialog: MatDialog,
+  constructor(private _snackBar: MatSnackBar,public dialog: MatDialog,
               private admins : AdminsCrudService,
               private users : UsersCrudService,
               private router : Router) { }
@@ -43,7 +46,11 @@ export class DisplayCardUserComponent implements OnInit {
           this.admins.delete(mf,id).subscribe(
             res => {
               console.log(res);
-              //this.adminsfabricants.splice(this.index,1);
+              this._snackBar.openFromComponent(MessageSnackBarComponent, {
+                duration: this.durationInSeconds * 1000,
+                data : {message: 'Utilisateur supprimé', icon : "delete"}
+              });
+              this.callParent();
             },
             err => {
               console.log("Error occured : "+ err);
@@ -53,7 +60,11 @@ export class DisplayCardUserComponent implements OnInit {
           this.users.delete(mf,id).subscribe(
             res => {
               console.log(res);
-              //this.adminsfabricants.splice(this.index,1);
+              this._snackBar.openFromComponent(MessageSnackBarComponent, {
+                duration: this.durationInSeconds * 1000,
+                data : {message: 'Utilisateur supprimé', icon : "delete"}
+              });
+              this.callParent();
             },
             err => {
               console.log("Error occured : "+ err);
@@ -91,7 +102,10 @@ export class DisplayCardUserComponent implements OnInit {
           this.admins.update(mf,id,body).subscribe(
             res => {
               console.log(res);
-
+              this._snackBar.openFromComponent(MessageSnackBarComponent, {
+                duration: this.durationInSeconds * 1000,
+                data : {message: 'Utilisateur modifié', icon : "check_circle"}
+              });
             },
             err => {
               console.log("Error occured : "+ err);
@@ -101,7 +115,10 @@ export class DisplayCardUserComponent implements OnInit {
           this.users.update(mf,id,body).subscribe(
             res => {
               console.log(res);
-              this.ngOnInit();
+              this._snackBar.openFromComponent(MessageSnackBarComponent, {
+                duration: this.durationInSeconds * 1000,
+                data : {message: 'Utilisateur modifié', icon : "check_circle"}
+              });
             },
             err => {
               console.log("Error occured : "+ err);
@@ -110,5 +127,9 @@ export class DisplayCardUserComponent implements OnInit {
         }
       }
     });
+  }
+
+  callParent() {
+    this.someEvent.next(this.index);
   }
 }

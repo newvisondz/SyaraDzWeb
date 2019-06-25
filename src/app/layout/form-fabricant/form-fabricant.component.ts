@@ -55,7 +55,7 @@ export class FormFabricantComponent implements OnInit {
       return this.firstFormGroup.controls['fabricant'].value;
   }
   onFileChange($event){
-    this.logoImage = (<HTMLInputElement>event.target).files[0];
+    this.logoImage = (<HTMLInputElement>event.target).files.item(0);
     if ((<HTMLInputElement>event.target).files && (<HTMLInputElement>event.target).files[0]) {
       var reader = new FileReader();
 
@@ -86,13 +86,19 @@ export class FormFabricantComponent implements OnInit {
   createFabricant(){
     let brand = this.firstFormGroup.controls['fabricant'].value;
     this.loading = true;
-    this.fabricant.create(brand,this.logo)
+    this.fabricant.create(brand,this.logoImage)
     .pipe(first()).subscribe(
         res => {
-            this.loading = false;
-            //this.createAdminFabricant(res.id);
-            console.log(res);
-            this.router.navigate(["/dashboard/afficherFabricants"]);
+            if(res instanceof Fabricant){
+              this.loading = false;
+              console.log(res);
+              this.router.navigate(["/dashboard/afficherFabricants"]);
+            }else{
+              this.error = res;
+              this.loading = false;
+              console.log("Error occured : "+ res);
+            }
+
         },
         err => {
             this.error = err;

@@ -12,7 +12,7 @@ import { AdminsCrudService } from "../../Services/Admins-CRUD/admins-crud.servic
 export class ListUserFabricantsComponent implements OnInit,AfterViewInit {
 
     fabricants = [];
-    
+
 
     loading : boolean = false;
     error : string = "";

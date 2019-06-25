@@ -10,6 +10,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 export class CreateFabriquantDialogComponent implements OnInit {
   firstFormGroup: FormGroup;
   logo : string = '';
+  logoImage : File = null;
   @ViewChild('file') file;
 
   constructor(private _formBuilder: FormBuilder,
@@ -27,6 +28,7 @@ export class CreateFabriquantDialogComponent implements OnInit {
       this.file.nativeElement.click();
     }
   onFileChange($event){
+    this.logoImage = (<HTMLInputElement>event.target).files.item(0);
     if ((<HTMLInputElement>event.target).files && (<HTMLInputElement>event.target).files[0]) {
       var reader = new FileReader();
 
@@ -43,7 +45,7 @@ export class CreateFabriquantDialogComponent implements OnInit {
       status : true,
       marque : this.firstFormGroup.controls['fabricant'].value,
       address : this.firstFormGroup.controls['addressFabricant'].value,
-      logo : this.logo
+      logo : this.logoImage
     }
     this.dialogRef.close(data);
   }

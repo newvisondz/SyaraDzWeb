@@ -1,5 +1,8 @@
   <div class="container-dialog">
-    <h2 mat-dialog-title>Modifier fabriquant</h2>
+    <h2 mat-dialog-title>
+      Modifier fabricant
+      <div class="underline"></div>
+    </h2>
     <mat-dialog-content class="mat-typography">
       <form [formGroup]="firstFormGroup">
         <div class="d-flex flex-column">
@@ -20,8 +23,7 @@
 
             <br>
             <h5>Choisir un logo de la marque :</h5>
-            <div class="row">
-              <div class="col-sm-6">
+            <div style = "text-align : center">
                 <fieldset class="form-group">
                     <input
                       #file
@@ -34,12 +36,12 @@
                       style="display : none">
                 </fieldset>
                 <button mat-raised-button color="primary" (click) = "addFiles()">Choisir un logo du fabricant</button>
-              </div>
-              <div class="col-sm-6 d-flex flex-column">
+                <br>
+                <br>
                 <fieldset class="form-group">
                     <img [src]=logo alt="Aucun logo choisie" height="200px" width="200px">
                 </fieldset>
-              </div>
+
             </div>
             <br>
           </div>

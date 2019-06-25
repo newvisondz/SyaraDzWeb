@@ -20,15 +20,19 @@ export class FabricantCRUDService {
 
   readonly ROOT_URL = environment.baseUrl;
 
-  public create(marque:string,logo:string){
+  public create(marque:string,logo:File){
 
     const headers = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
-    let body = { brand : marque , logo : logo};
-    console.log(body);
-    return this.http.post<Fabricant>(this.ROOT_URL+'/manufacturers',body, { headers: headers }
+    let formData: FormData = new FormData();
+      formData.append('logo', logo);
+      formData.append('brand', marque);
+
+    return this.http.post<Fabricant>(this.ROOT_URL+'/manufacturers',formData, { headers: headers }
     ).pipe(map(res => {
       return res;
     }));
+
+
   }
 
   public list(){
@@ -87,7 +91,7 @@ export class FabricantCRUDService {
     }));
   }
 
-  public update(id : number , brand: string, logo : string){
+  public update(id : number , brand: string, logo : File){
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
 
     class ResponseError {
@@ -95,9 +99,12 @@ export class FabricantCRUDService {
       msg : string;
     }
 
-    let body = {brand : brand, logo : logo};
+    let formData: FormData = new FormData();
+      formData.append('logo', logo);
+      formData.append('brand', brand);
 
-    return this.http.put(this.ROOT_URL+"/manufacturers/"+id,body,{
+
+    return this.http.put(this.ROOT_URL+"/manufacturers/"+id,formData,{
       headers: header}).pipe(map(res => {
         if(res instanceof ResponseError){
           const result = res as ResponseError;

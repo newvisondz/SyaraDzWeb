@@ -1,13 +1,22 @@
 <div class="">
-  <h4>Les {{title}} de {{id}}</h4>
+  <div class="row">
+    <div class="col-sm-8">
+      <h4>Les {{title}} de {{id}}</h4>
+    </div>
+    <div class="col-sm-4" style="text-align : right">
+      <button class="mx-2" mat-raised-button style="background : #228B22 ; color : #fff" (click) = "onCreateUser()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
   <div class="d-flex justify-content-center">
       <mat-spinner [hidden]="!loading" class="mt-5"></mat-spinner>
   </div>
   <div class="" [hidden]="loading">
     <app-notification class="ma-2" [error] = "error"></app-notification>
     <div class="row">
-      <div class="col-lg-4 mb-2" *ngFor = "let element of adminsfabricants, let j = index">
-        <app-display-card-user [user] = "element" [index] = "j"></app-display-card-user>
+      <div class="col-xs-12 col-sm-2 col-md-4 mb-2" *ngFor = "let element of adminsfabricants, let j = index">
+        <app-display-card-user [user] = "element" [index] = "j" (someEvent)="deleteUser(j)"></app-display-card-user>
       </div>
     </div>
   </div>

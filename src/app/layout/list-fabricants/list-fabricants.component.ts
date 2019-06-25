@@ -15,6 +15,7 @@ import { MessageSnackBarComponent } from './../../shared/message-snack-bar/messa
 import { Fabricant} from '../../model/fabricant.model';
 
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 @Component({
     selector: 'app-list-fabricants',
     templateUrl: './list-fabricants.component.html',
@@ -32,7 +33,7 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
-
+    readonly ROOT_URL = environment.baseUrl;
     constructor(private fabricant:FabricantCRUDService,
                 public dialog: MatDialog,
                 private router:Router,
@@ -105,7 +106,7 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
                 this.loading = false;
                 this._snackBar.openFromComponent(MessageSnackBarComponent, {
                   duration: this.durationInSeconds * 1000,
-                  data : {message: 'la marque a bien était suprimée', icon : "delete"}
+                  data : {message: 'la marque a bien était supprimée', icon : "delete"}
                 });
               },
               err => {
@@ -161,8 +162,7 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
                 res => {
                     this.loading = false;
                     console.log(res);
-                    this.dataFabricants.push(res);
-                    this.fabricants = new MatTableDataSource(this.dataFabricants);
+                    this.loadFabricantsPage();
                     this.lengthList ++;
                     this._snackBar.openFromComponent(MessageSnackBarComponent, {
                       duration: this.durationInSeconds * 1000,
@@ -172,7 +172,6 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
                 err => {
                     this.error = err;
                     this.loading = false;
-                    //console.log("Error occured : "+ err);
                 }
             );
         }

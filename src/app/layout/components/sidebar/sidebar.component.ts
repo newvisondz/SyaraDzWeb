@@ -34,22 +34,22 @@ export class SidebarComponent implements OnInit {
               icon : "fas fa-tachometer-alt",
               route : "overview"
             },
-            {
+            /*{
               header : "Profile",
               icon : "fas fa-user",
               route : "profile"
-            },
+            },*/
           ]
         },
         {
           header : "Gestion des fabricants",
           icon : "fas fa-clipboard-list",
           sublinks : [
-            {
+            /*{
               header : "Créer fabricant",
               icon : "fas fa-plus",
               route : "creerFabricant"
-            },
+            },*/
             {
               header : "Afficher fabricants",
               icon : "fas fa-list-alt",
@@ -61,11 +61,11 @@ export class SidebarComponent implements OnInit {
           header : "Gestion des utilisateurs",
           icon : "fas fa-users",
           sublinks : [
-            {
+            /*{
               header : "Créer utilisateur",
               icon : "fas fa-plus",
               route : "creerUtilisateur"
-            },
+            },*/
             {
               header : "Afficher utilisateur",
               icon : "fas fa-list-alt",
@@ -146,11 +146,11 @@ export class SidebarComponent implements OnInit {
             header : "Gestion des utilisateurs",
             icon : "fas fa-users",
             sublinks : [
-              {
+              /*{
                 header : "Créer utilisateur",
                 icon : "fas fa-plus",
                 route : "creerUtilisateur"
-              },
+              },*/
               {
                 header : "Afficher utilisateur",
                 icon : "fas fa-list-alt",

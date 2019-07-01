@@ -16,6 +16,27 @@ export class AuthentificationService  {
 
   readonly ROOT_URL = environment.baseUrl;
 
+  public loginAll(username:string,password:string){
+
+    interface LoginResponse {
+      token: string;
+      type : string;
+      manufacturer : string;
+      isAdmin : boolean;
+    }
+    let data = {
+      email : username,
+      password : password,
+    }
+
+    return this.http.post<LoginResponse>(this.ROOT_URL+'/login',
+    data
+    ).pipe(map(res => {
+      console.log(res);
+      return res;
+    }));
+  }
+
   public login(username:string,password:string){
 
     interface LoginResponse {
@@ -85,6 +106,7 @@ export class AuthentificationService  {
         console.log(res);
         window.localStorage.setItem("accesToken", "");
         window.localStorage.setItem("isAdmin", "");
+        window.localStorage.setItem("manufacturer","");
       },
       err => {
         console.log(err);

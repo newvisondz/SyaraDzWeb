@@ -11,6 +11,7 @@ import {DeleteConfirmDialogComponent} from './../../shared/delete-confirm-dialog
 import {UpdateFabriquatDialogComponent} from './update-fabriquat-dialog/update-fabriquat-dialog.component';
 import { CreateFabriquantDialogComponent } from './create-fabriquant-dialog/create-fabriquant-dialog.component';
 import { MessageSnackBarComponent } from './../../shared/message-snack-bar/message-snack-bar.component';
+import { ContractFabricantDialogComponent } from './../shared/contract-fabricant-dialog/contract-fabricant-dialog.component';
 
 import { Fabricant} from '../../model/fabricant.model';
 
@@ -181,5 +182,12 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
     onDisplayAdminPage(id : string){
         console.log("/dashboard/afficherFabricants/admins/"+id);
         this.router.navigate(["/dashboard/afficherUsersFabricants/admins/"+id]);
+    }
+
+    onDisplayContract(id : string){
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      const dialogRef = this.dialog.open(ContractFabricantDialogComponent, dialogConfig);
     }
 }

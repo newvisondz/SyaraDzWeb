@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthentificationService } from './../../../Services/Authentification/authentification.service';
 import { first } from 'rxjs/operators';
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -12,6 +13,7 @@ export class SidebarComponent implements OnInit {
   links = []
   type : String = "";
   fullName : String = "";
+  manufacturer : String = "";
   constructor(private auth:AuthentificationService) { }
 
   ngOnInit() {
@@ -106,8 +108,10 @@ export class SidebarComponent implements OnInit {
             console.log("Error occured : "+ err);
           }
         );
+        this.manufacturer = localStorage.getItem('manufacturer');
+        this.type = "Administrateur de "+ this.manufacturer;
       if(this.isAdmin){
-        this.type = "Administrateur de fabricant";
+
         //check if is the admin and set the authorized links
         this.links  = [
           {

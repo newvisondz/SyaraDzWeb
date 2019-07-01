@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
     onSubmit() {
       this.loading = true;
-      this.auth.userLogin(this.username,this.password)
+      this.auth.loginAll(this.username,this.password)
       .pipe(first()).subscribe(
           res => {
             if (res.token == undefined) {
@@ -33,8 +33,12 @@ export class LoginComponent implements OnInit {
               console.log("Show Error feedback!");
             } else {
               window.localStorage.setItem("accesToken", res.token);
-              window.localStorage.setItem("isAdmin","true");
-              window.localStorage.setItem("manufacturer",res.manufacturer);
+              if(res.type === "ADMIN"){
+                window.localStorage.setItem("isSuperAdmin","true");
+              }else if(res.isAdmin){
+                window.localStorage.setItem("isAdmin","true");
+                window.localStorage.setItem("manufacturer",res.manufacturer);
+              }
               this.router.navigate(["/dashboard"]);
             }
           },

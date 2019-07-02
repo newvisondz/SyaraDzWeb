@@ -1,6 +1,7 @@
 import { Component, OnInit ,ViewChild,AfterViewInit} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA , MatDialogConfig} from '@angular/material';
 import {DeleteConfirmDialogComponent} from './../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
+import {ZoomImageDialogComponent} from './../../shared/zoom-image-dialog/zoom-image-dialog.component';
 import {UpdateModeleDialogComponent} from './update-modele-dialog/update-modele-dialog.component';
 import {CreateAttributeDialogComponent} from './create-attribute-dialog/create-attribute-dialog.component';
 import {CreateVersionDialogComponent} from './create-version-dialog/create-version-dialog.component';
@@ -13,26 +14,28 @@ import { CreateModeleDialogComponent } from './create-modele-dialog/create-model
 export class ListModelesComponent implements OnInit,AfterViewInit {
 
     //list des modéles à récupérer depuis la BDD
+    path = "versions/";
+    displayedColumns: string[] = ['index','model', 'photo','versions', 'couleurs', 'manipulations'];
     listModeles = [
       {
         name : "TOYOTA AURIS 3",
         photo : "../../assets/car1.jpg",
         couleurs : [
           {
-            name : "Rouge",
-            value : "#A91101"
+            name : "Bleu Nebula",
+            value : "#00467e"
           },
           {
-            name : "Noire",
-            value : "#00000"
+            name : "Rouge Allure Nacré",
+            value : "#580c1b"
           },
           {
-            name : "Blanc",
-            value : "#FFFFFF"
+            name : "Bleu Denim Métallisé",
+            value : "#2b4756"
           },
           {
-            name : "Gris",
-            value : "#cccccc"
+            name : "Gris Aluminium Métallisé",
+            value : "#939395"
           },
         ],
         versions : [
@@ -566,4 +569,14 @@ export class ListModelesComponent implements OnInit,AfterViewInit {
       });
     }
 
+    zoomOnPhoto(url : string){
+      const dialogConfig = new MatDialogConfig();
+      //dialogConfig.disableClose = true;
+      //dialogConfig.autoFocus = true;
+      dialogConfig.data = {
+        image : url
+      };
+      const dialogRef = this.dialog.open(ZoomImageDialogComponent, dialogConfig);
+
+    }
 }

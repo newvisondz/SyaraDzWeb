@@ -5,7 +5,8 @@ import { ListModelesComponent } from './list-modeles.component';
 const routes: Routes = [
     {
         path: '', component: ListModelesComponent
-    }
+    },
+    { path: 'versions/:id', loadChildren: './list-versions/list-versions.module#ListVersionsModule' },
 ];
 
 @NgModule({

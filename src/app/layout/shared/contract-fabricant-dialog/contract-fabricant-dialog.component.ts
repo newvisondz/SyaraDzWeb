@@ -27,8 +27,6 @@ export class ContractFabricantDialogComponent implements OnInit {
     number : 5,
     ceo : "Bouhenniche Sihem"
   };
-  date = new Date();
-  place = "Kouba, Alger";
   constructor(@Optional() public dialogRef: MatDialogRef<ContractFabricantDialogComponent>,
               @Optional() @Inject(MAT_DIALOG_DATA) public data:any) { }
 

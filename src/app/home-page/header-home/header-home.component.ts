@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header-home.component.scss']
 })
 export class HeaderHomeComponent implements OnInit {
-  header : object;
+  header = {};
 
   headerSubscription: Subscription;
   constructor(private homePageService:HomePageService) { }

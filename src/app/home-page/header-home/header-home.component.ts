@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header-home.component.scss']
 })
 export class HeaderHomeComponent implements OnInit {
-  header = {};
+  header :HeaderObject;
 
   headerSubscription: Subscription;
   constructor(private homePageService:HomePageService) { }
@@ -22,4 +22,10 @@ export class HeaderHomeComponent implements OnInit {
     this.homePageService.emitHeaderSubject();
   }
 
+}
+
+interface HeaderObject{
+  title: string;
+  citation : string;
+  statics : []
 }

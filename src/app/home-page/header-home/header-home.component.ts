@@ -15,7 +15,7 @@ export class HeaderHomeComponent implements OnInit {
 
   ngOnInit() {
     this.headerSubscription = this.homePageService.headerSubject.subscribe(
-    (header: object) => {
+    (header: HeaderObject) => {
         this.header = header;
       }
     );

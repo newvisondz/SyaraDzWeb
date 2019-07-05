@@ -9,14 +9,14 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./mission-home.component.scss']
 })
 export class MissionHomeComponent implements OnInit {
-  mission : object;
+  mission = {};
 
   missionSubscription: Subscription;
   constructor(private homePageService:HomePageService) { }
 
   ngOnInit() {
     this.missionSubscription = this.homePageService.missionSubject.subscribe(
-    (mission: object) => {
+    (mission) => {
         this.mission = mission;
       }
     );

@@ -9,18 +9,24 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./mission-home.component.scss']
 })
 export class MissionHomeComponent implements OnInit {
-  mission = {};
+  mission : MissionObject;
 
   missionSubscription: Subscription;
   constructor(private homePageService:HomePageService) { }
 
   ngOnInit() {
     this.missionSubscription = this.homePageService.missionSubject.subscribe(
-    (mission) => {
+    (mission : MissionObject) => {
         this.mission = mission;
       }
     );
     this.homePageService.emitMissionSubject();
   }
 
+}
+interface MissionObject{
+  title : string;
+  content : string;
+  author : string;
+  role : string
 }

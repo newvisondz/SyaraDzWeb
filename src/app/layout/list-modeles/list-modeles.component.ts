@@ -6,6 +6,8 @@ import {UpdateModeleDialogComponent} from './update-modele-dialog/update-modele-
 import {CreateAttributeDialogComponent} from './create-attribute-dialog/create-attribute-dialog.component';
 import {CreateVersionDialogComponent} from './create-version-dialog/create-version-dialog.component';
 import { CreateModeleDialogComponent } from './create-modele-dialog/create-modele-dialog.component';
+import { ListColorsDialogComponent } from './list-colors-dialog/list-colors-dialog.component';
+
 @Component({
     selector: 'app-list-modeles',
     templateUrl: './list-modeles.component.html',
@@ -15,7 +17,7 @@ export class ListModelesComponent implements OnInit,AfterViewInit {
 
     //list des modéles à récupérer depuis la BDD
     path = "versions/";
-    displayedColumns: string[] = ['index','model', 'photo','versions', 'couleurs', 'manipulations'];
+    displayedColumns: string[] = ['index', 'photo','model','versions', 'couleurs','disponibilte', 'manipulations'];
     listModeles = [
       {
         name : "TOYOTA AURIS 3",
@@ -416,137 +418,17 @@ export class ListModelesComponent implements OnInit,AfterViewInit {
     ngAfterViewInit() {
 
     }
-
-
-    //supprimer une option
-    onDeleteOption(id:number,idModele : number,idVersion : number){
+    //afficher les Couleurs
+    onDisplayColors(id:number){
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
 
-      dialogConfig.data = {id: id};
-      const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, dialogConfig);
-      dialogRef.afterClosed().subscribe(result => {
-        if(result){
-          //valider la suppression
-          console.log("delete option " + this.listModeles[idModele].versions[idVersion].options[id].name);
-          this.listModeles[idModele].versions[idVersion].options.splice(id,1);
-        }
-      });
-    }
-
-    //supprimer couleur
-    onDeleteCouleur(id:number,idModele : number){
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
-
-      dialogConfig.data = {id: id};
-      const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, dialogConfig);
-      dialogRef.afterClosed().subscribe(result => {
-        if(result){
-          //valider la suppression
-          console.log("delete couleur " + this.listModeles[idModele].couleurs[id].name);
-          this.listModeles[idModele].couleurs.splice(id,1);
-        }
-      });
-    }
-
-    //modifier une option
-    onUpdateOption(id:number,idModele:number,idVersion : number){
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
       dialogConfig.data = {
-        option: this.listModeles[idModele].versions[idVersion].options[id],
+        colors: this.listModeles[id].couleurs,
+        id : id
       };
-      const dialogRef = this.dialog.open(UpdateModeleDialogComponent, dialogConfig);
-      dialogRef.afterClosed().subscribe(result => {
-        if(result.status){
-          //valider la modification
-          console.log("update option " + this.listModeles[idModele].versions[idVersion].options[id].name);
-          this.listModeles[idModele].versions[idVersion].options[id] = {
-            name : result.name,
-            value : result.value
-          }
-        }
-      });
-    }
-
-    //modifier une couleur
-    onUpdateCouleur(id:number,idModele:number){
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
-      dialogConfig.data = {
-        option: this.listModeles[idModele].couleurs[id],
-      };
-      const dialogRef = this.dialog.open(UpdateModeleDialogComponent, dialogConfig);
-      dialogRef.afterClosed().subscribe(result => {
-        if(result.status){
-          //valider la modification
-          console.log("update couleur " + this.listModeles[idModele].couleurs[id].name);
-          this.listModeles[idModele].couleurs[id] = {
-            name : result.name,
-            value : result.value
-          }
-        }
-      });
-    }
-
-    //créer une option
-    onCreateOption(idVersion:number,idModele:number){
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
-      const dialogRef = this.dialog.open(CreateAttributeDialogComponent, dialogConfig);
-      dialogRef.afterClosed().subscribe(result => {
-        if(result.status){
-          //valider la création
-          console.log("add option " + result.name);
-          this.listModeles[idModele].versions[idVersion].options.push({
-            name : result.name,
-            value : result.value
-          })
-        }
-      });
-    }
-
-    //créer une couleur
-    onCreateCouleur(idModele:number){
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
-      const dialogRef = this.dialog.open(CreateAttributeDialogComponent, dialogConfig);
-      dialogRef.afterClosed().subscribe(result => {
-        if(result.status){
-          //valider la création
-          console.log("add couleur " + result.name);
-          this.listModeles[idModele].couleurs.push({
-            name : result.name,
-            value : result.value
-          })
-        }
-      });
-    }
-
-    //créer une version
-    onCreateVersion(idModele:number){
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
-      const dialogRef = this.dialog.open(CreateVersionDialogComponent, dialogConfig);
-      dialogRef.afterClosed().subscribe(result => {
-        if(result.status){
-          //valider la création
-          console.log("add version " + result.nameVersion);
-          let version = {
-            name : result.nameVersion,
-            options : result.options
-          };
-          this.listModeles[idModele].versions.push(version);
-        }
-      });
+      const dialogRef = this.dialog.open(ListColorsDialogComponent, dialogConfig);
     }
 
     //créer un modéle
@@ -569,10 +451,9 @@ export class ListModelesComponent implements OnInit,AfterViewInit {
       });
     }
 
+    //zoomer sur la photo de model
     zoomOnPhoto(url : string){
       const dialogConfig = new MatDialogConfig();
-      //dialogConfig.disableClose = true;
-      //dialogConfig.autoFocus = true;
       dialogConfig.data = {
         image : url
       };

@@ -1,21 +1,21 @@
-import { Component, OnInit ,ViewChild,AfterViewInit, Input} from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA , MatDialogConfig} from '@angular/material';
-import { DeleteConfirmDialogComponent} from './../../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
-import { ZoomImageDialogComponent} from './../../../shared/zoom-image-dialog/zoom-image-dialog.component';
-import { UpdateModeleDialogComponent} from './../update-modele-dialog/update-modele-dialog.component';
-import { CreateAttributeDialogComponent} from './../create-attribute-dialog/create-attribute-dialog.component';
+import { Component, OnInit ,ViewChild,AfterViewInit} from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA , MatDialogConfig, MatTableDataSource} from '@angular/material';
+
 import { CreateVersionDialogComponent} from './../create-version-dialog/create-version-dialog.component';
-import { CreateModeleDialogComponent } from './../create-modele-dialog/create-modele-dialog.component';
+import { ListOptionsDialogComponent } from './list-options-dialog/list-options-dialog.component';
+
 @Component({
     selector: 'app-list-versions',
     templateUrl: './list-versions.component.html',
     styleUrls: ['./list-versions.component.scss'],
 })
 export class ListVersionsComponent implements OnInit,AfterViewInit {
-    @Input() idModele ;
+    //récupérer idModel a partir de router
+    idModele ;
 
+    //list des modéles à récupérer depuis la BDD
     //we don't need to initialise once we fetch versions from database with idModele
-    @Input() listVersions = [
+    listVersions = [
       {
         name : "TOYOTA AURIS 2 TOURING SPORTS",
         options : [
@@ -122,9 +122,8 @@ export class ListVersionsComponent implements OnInit,AfterViewInit {
         ],
       },
     ];
-
-    //list des modéles à récupérer depuis la BDD
-    displayedColumns: string[] = ['index','version','options', 'manipulations'];
+    versionsTable:MatTableDataSource<Version>;
+    displayedColumns: string[] = ['index','version','options', 'disponibilite', 'prix', 'manipulations'];
 
 
     constructor(public dialog: MatDialog) {
@@ -132,70 +131,28 @@ export class ListVersionsComponent implements OnInit,AfterViewInit {
     }
 
     ngOnInit() {
-        //
+        //initialise versionsTable
+        this.versionsTable = new MatTableDataSource(this.listVersions);
     }
 
     ngAfterViewInit() {
 
     }
 
-
-    //supprimer une option
-    onDeleteOption(id:number,idVersion : number){
+    //aficher dialog des options
+    onDisplayOptions(id:number){
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
 
-      dialogConfig.data = {id: id};
-      const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, dialogConfig);
-      dialogRef.afterClosed().subscribe(result => {
-        if(result){
-          //valider la suppression
-          console.log("delete option " + this.listVersions[idVersion].options[id].name);
-          this.listVersions[idVersion].options.splice(id,1);
-        }
-      });
-    }
-
-    //modifier une option
-    onUpdateOption(id:number,idVersion : number){
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
       dialogConfig.data = {
-        option: this.listVersions[idVersion].options[id],
+        id: id,
+        options : this.listVersions[id].options
       };
-      const dialogRef = this.dialog.open(UpdateModeleDialogComponent, dialogConfig);
-      dialogRef.afterClosed().subscribe(result => {
-        if(result.status){
-          //valider la modification
-          console.log("update option " + this.listVersions[idVersion].options[id].name);
-          this.listVersions[idVersion].options[id] = {
-            name : result.name,
-            value : result.value
-          }
-        }
-      });
-    }
+      console.log(this.listVersions[id].options);
+      const dialogRef = this.dialog.open(ListOptionsDialogComponent, dialogConfig);
 
-    //créer une option
-    onCreateOption(idVersion:number,idModele:number){
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
-      const dialogRef = this.dialog.open(CreateAttributeDialogComponent, dialogConfig);
-      dialogRef.afterClosed().subscribe(result => {
-        if(result.status){
-          //valider la création
-          console.log("add option " + result.name);
-          this.listVersions[idVersion].options.push({
-            name : result.name,
-            value : result.value
-          })
-        }
-      });
     }
-
 
     //créer une version
     onCreateVersion(){
@@ -212,8 +169,19 @@ export class ListVersionsComponent implements OnInit,AfterViewInit {
             options : result.options
           };
           this.listVersions.push(version);
+          this.versionsTable = new MatTableDataSource(this.listVersions);
         }
       });
     }
 
+}
+
+//types utilisés
+interface Version{
+  name : string,
+  options : Option[]
+}
+interface Option{
+  name : string,
+  value : string
 }

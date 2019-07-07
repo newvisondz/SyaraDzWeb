@@ -1,0 +1,19 @@
+.container-dialog{
+  width: 100%;
+}
+.icon-logo{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+.underline{
+  border-bottom: solid 2px #FFAB00;
+  width: 100px;
+  margin-bottom: 20px;
+}
+td, th {
+  padding-left: 10px;
+  padding-right: 10px;
+}

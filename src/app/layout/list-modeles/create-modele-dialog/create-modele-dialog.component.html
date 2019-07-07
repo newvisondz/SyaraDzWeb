@@ -1,5 +1,6 @@
   <div class="container-dialog">
     <h2 mat-dialog-title>Modifier Modele</h2>
+    <div class="underline"></div>
     <mat-dialog-content class="mat-typography">
       <form [formGroup]="firstFormGroup">
         <div class="d-flex flex-column">
@@ -21,7 +22,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-2">
-                <button mat-icon-button color="primary" (click) = "onCreateCouleur()">
+                <button matTooltip="Ajouter une couleur" mat-icon-button color="primary" (click) = "onCreateCouleur()">
                   <mat-icon>add</mat-icon>
                 </button>
               </div>
@@ -32,7 +33,7 @@
                 <mat-icon mat-list-icon style="color : #228B22">check_circle</mat-icon>
                 <h4 mat-line>{{couleur.name}}</h4>
                 <p mat-line> {{couleur.value}} </p>
-                <button mat-icon-button color="warn" (click) = "onDeleteCouleur(i)">
+                <button matTooltip = "Supprimer" mat-icon-button color="warn" (click) = "onDeleteCouleur(i)">
                   <mat-icon>delete</mat-icon>
                 </button>
               </mat-list-item>
@@ -50,11 +51,12 @@
                 <mat-icon mat-list-icon style="color : #228B22">check_circle</mat-icon>
                 <h4 mat-line>{{version.name}}</h4>
                 <p mat-line> {{version.value}} </p>
-                <button mat-icon-button color="warn" (click) = "onDeleteVersion(i)">
+                <button matTooltip = "Supprimer" mat-icon-button color="warn" (click) = "onDeleteVersion(i)">
                   <mat-icon>delete</mat-icon>
                 </button>
               </mat-list-item>
             </mat-list>
+            <h5>Photo du modéle : </h5>
             <div class="row">
               <div class="col-sm-6">
                 <fieldset class="form-group">
@@ -68,11 +70,11 @@
                       required
                       style="display : none">
                 </fieldset>
-                <button mat-raised-button (click) = "addFiles()">Choisir un logo du fabricant</button>
+                <button matTooltip = "Ajouter une photo du modéle" mat-raised-button (click) = "addFiles()" color="primary">Choisir</button>
               </div>
               <div class="col-sm-6 d-flex flex-column">
                 <fieldset class="form-group">
-                    <img [src]=linkImage alt="Aucun logo choisie" height="200px" width="200px">
+                    <img [src]=linkImage alt="Aucune photo choisie" height="200px" width="200px">
                 </fieldset>
               </div>
             </div>

@@ -8,18 +8,24 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header-home.component.scss']
 })
 export class HeaderHomeComponent implements OnInit {
-  header : object;
+  header :HeaderObject;
 
   headerSubscription: Subscription;
   constructor(private homePageService:HomePageService) { }
 
   ngOnInit() {
     this.headerSubscription = this.homePageService.headerSubject.subscribe(
-    (header: object) => {
+    (header: HeaderObject) => {
         this.header = header;
       }
     );
     this.homePageService.emitHeaderSubject();
   }
 
+}
+
+interface HeaderObject{
+  title: string;
+  citation : string;
+  statics : []
 }

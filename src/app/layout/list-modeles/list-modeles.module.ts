@@ -13,6 +13,8 @@ import { UpdateModeleDialogComponent } from './update-modele-dialog/update-model
 import { CreateAttributeDialogComponent } from './create-attribute-dialog/create-attribute-dialog.component';
 import { CreateVersionDialogComponent } from './create-version-dialog/create-version-dialog.component';
 import { CreateModeleDialogComponent } from './create-modele-dialog/create-modele-dialog.component';
+import { ListColorsDialogComponent } from './list-colors-dialog/list-colors-dialog.component';
+
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
@@ -26,7 +28,7 @@ import {FormsModule,ReactiveFormsModule} from '@angular/forms';
       ZoomImageDialogModule,
       FormsModule,
       ReactiveFormsModule],
-    declarations: [ListModelesComponent, UpdateModeleDialogComponent,CreateAttributeDialogComponent,CreateVersionDialogComponent, CreateModeleDialogComponent],
-    entryComponents: [ZoomImageDialogComponent,DeleteConfirmDialogComponent,UpdateModeleDialogComponent,CreateAttributeDialogComponent,CreateVersionDialogComponent, CreateModeleDialogComponent],
+    declarations: [ListColorsDialogComponent, ListModelesComponent, UpdateModeleDialogComponent,CreateAttributeDialogComponent,CreateVersionDialogComponent, CreateModeleDialogComponent],
+    entryComponents: [ListColorsDialogComponent, ZoomImageDialogComponent,DeleteConfirmDialogComponent,UpdateModeleDialogComponent,CreateAttributeDialogComponent,CreateVersionDialogComponent, CreateModeleDialogComponent],
 })
 export class ListModelesModule {}

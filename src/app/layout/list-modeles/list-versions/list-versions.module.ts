@@ -13,6 +13,7 @@ import { CreateAttributeDialogComponent } from './../create-attribute-dialog/cre
 import { CreateVersionDialogComponent } from './../create-version-dialog/create-version-dialog.component';
 import { FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { ListModelesModule} from './../list-modeles.module';
+import { ListOptionsDialogComponent } from './list-options-dialog/list-options-dialog.component';
 @NgModule({
     imports: [
       CommonModule,
@@ -25,7 +26,7 @@ import { ListModelesModule} from './../list-modeles.module';
       FormsModule,
       ReactiveFormsModule,
       ListModelesModule],
-    declarations: [ListVersionsComponent],
-    entryComponents: [ZoomImageDialogComponent,DeleteConfirmDialogComponent,CreateAttributeDialogComponent,CreateVersionDialogComponent],
+    declarations: [ListOptionsDialogComponent, ListVersionsComponent],
+    entryComponents: [ListOptionsDialogComponent, ZoomImageDialogComponent,DeleteConfirmDialogComponent,CreateAttributeDialogComponent,CreateVersionDialogComponent],
 })
 export class ListVersionsModule {}

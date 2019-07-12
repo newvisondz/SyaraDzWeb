@@ -5,24 +5,18 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <div class="row">
-                      <div class="col-sm-7">
-                        <mat-form-field style="width : 100%">
+                      <div class="col-sm-8">
+                        <mat-form-field appearance="outline" style="width : 100%">
+                          <mat-label> Chercher un modéle</mat-label>
+                          <input matInput placeholder="entrez un mot clé">
                           <mat-icon matPrefix>search</mat-icon>
-                          <input matInput placeholder="Fabricant..." />
                         </mat-form-field>
                       </div>
-                      <div class="col-sm-5" style = "text-align:right">
-                        <mat-form-field>
-                          <mat-label>Critéres</mat-label>
-                          <mat-select matNativeControl required>
-                            <mat-option value="volvo">Année</mat-option>
-                            <mat-option value="saab">Pays</mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                        <button matTooltip="Imprimer" class="mx-2" mat-raised-button style="background : #FFAB00 ; color : #fff">
+                      <div class="col-sm-4" style = "text-align:right">
+                        <button matTooltip="Imprimer" class="mx-2" mat-icon-button color = "primary">
                           <mat-icon>print</mat-icon>
                         </button>
-                        <button matTooltip="Créer nouveau modéle" class="mx-2" mat-raised-button (click) = "onCreateModele()" style="background : #228B22 ; color : #fff">
+                        <button matTooltip="Créer nouveau modéle" class="mx-2" mat-icon-button (click) = "onCreateModele()" color = "primary">
                           <mat-icon>add</mat-icon>
                         </button>
                       </div>
@@ -63,7 +57,7 @@
                         <th mat-header-cell *matHeaderCellDef> Versions </th>
                         <td mat-cell *matCellDef="let element, let i = index;">
                           {{element.versions.length}}
-                          <button matTooltip = "Afficher les versions" class="mx-2" mat-icon-button color="accent" [routerLink] = "[path+i]">
+                          <button matTooltip = "Afficher les versions" class="mx-2" mat-icon-button color="primary" [routerLink] = "[path+i]">
                             <mat-icon>directions_car</mat-icon>
                           </button>
                         </td>

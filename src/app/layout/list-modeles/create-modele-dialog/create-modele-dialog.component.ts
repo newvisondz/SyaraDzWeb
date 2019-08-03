@@ -10,7 +10,6 @@ import {CreateVersionDialogComponent} from './../create-version-dialog/create-ve
 })
 export class CreateModeleDialogComponent implements OnInit {
   firstFormGroup: FormGroup;
-  versions = [];
   couleurs = [];
   modeleImage : File = null;
   linkImage : string = '';
@@ -47,41 +46,6 @@ export class CreateModeleDialogComponent implements OnInit {
     }
   }
 
-  onCreateVersion(){
-    //open create version modal
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    const dialogRef = this.dialog.open(CreateVersionDialogComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
-      if(result.status){
-        console.log("add version " + result.nameVersion);
-        let version = {
-          name : result.nameVersion,
-          options : result.options
-        };
-        this.versions.push(version);
-      }
-    });
-
-  }
-
-  onDeleteVersion(id:number){
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-
-    dialogConfig.data = {id: id};
-    const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        //confirm delete
-        console.log("delete option " + this.versions[id].name);
-        this.versions.splice(id,1);
-      }
-    });
-  }
-
   onCreateCouleur(){
     console.log("add couleur " + this.firstFormGroup.controls['name'].value);
     this.couleurs.push({
@@ -110,9 +74,8 @@ export class CreateModeleDialogComponent implements OnInit {
     const data = {
       status : true,
       nameModele : this.firstFormGroup.controls['nameModele'].value,
-      versions : this.versions,
       couleurs : this.couleurs,
-      photo : this.linkImage
+      photo : this.modeleImage
     }
     this.dialogRef.close(data);
   }

@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild,Optional,Inject } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA , MatDialogConfig, MatTableDataSource} from '@angular/material';
-
+import { first,tap } from 'rxjs/operators';
 import {DeleteConfirmDialogComponent} from './../../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
 import {UpdateModeleDialogComponent} from './../update-modele-dialog/update-modele-dialog.component';
 import {CreateAttributeDialogComponent} from './../create-attribute-dialog/create-attribute-dialog.component';
+import { ModelService } from "../../../Services/Model-CRUD/model.service";
 
 @Component({
   selector: 'app-list-colors-dialog',
@@ -15,16 +16,21 @@ export class ListColorsDialogComponent implements OnInit {
   displayedColumns: string[] = ['index', 'aperçu','couleur','tarif', 'manipulations'];
   colors = [];
   colorsTable:MatTableDataSource<Color>;
-  idModel = 0 ;
+  idModel = "" ;
+  idManufacturer = "";
+  loading = false;
+  error = "";
 
   constructor(@Optional() public dialogRef: MatDialogRef<ListColorsDialogComponent>,
               @Optional() @Inject(MAT_DIALOG_DATA) public data:any,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              private modelService : ModelService) { }
 
   ngOnInit() {
     this.colors = this.data.colors;
     this.colorsTable = new MatTableDataSource(this.colors);
-    this.idModel = this.data.id;
+    this.idModel = this.data.idModel;
+    this.idManufacturer = this.data.idManufacturer;
   }
   //créer une couleur
   onCreateCouleur(){
@@ -35,13 +41,32 @@ export class ListColorsDialogComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result.status){
         //valider la création
-        //insert new color into model using idModel
-        console.log("add couleur " + result.name);
+        console.log("add color " + result.name);
+        //ajouter la couleur
         this.colors.push({
           name : result.name,
           value : result.value
         })
-        this.colorsTable = new MatTableDataSource(this.colors);
+
+        let formData: FormData = new FormData();
+        formData.append('colors', JSON.stringify(this.colors));
+        console.log(formData);
+
+        this.loading = true;
+        this.modelService.update(this.idManufacturer,this.idModel,formData)
+        .pipe(first()).subscribe(
+            res => {
+                this.loading = false;
+                console.log(res);
+                //insert new color into model using idModel
+                console.log("add couleur " + result.name);
+                this.colorsTable = new MatTableDataSource(this.colors);
+            },
+            err => {
+                this.error = err;
+                this.loading = false;
+            }
+        );
       }
     });
   }

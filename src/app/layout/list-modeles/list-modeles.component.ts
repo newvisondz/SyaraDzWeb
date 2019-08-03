@@ -1,12 +1,19 @@
 import { Component, OnInit ,ViewChild,AfterViewInit} from '@angular/core';
+import { first,tap } from 'rxjs/operators';
+
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA , MatDialogConfig} from '@angular/material';
-import {DeleteConfirmDialogComponent} from './../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
-import {ZoomImageDialogComponent} from './../../shared/zoom-image-dialog/zoom-image-dialog.component';
-import {UpdateModeleDialogComponent} from './update-modele-dialog/update-modele-dialog.component';
-import {CreateAttributeDialogComponent} from './create-attribute-dialog/create-attribute-dialog.component';
-import {CreateVersionDialogComponent} from './create-version-dialog/create-version-dialog.component';
+import {MatTableDataSource} from '@angular/material';
+
+import { ModelService } from "../../Services/Model-CRUD/model.service";
+
+import { ZoomImageDialogComponent } from './../../shared/zoom-image-dialog/zoom-image-dialog.component';
+import { UpdateModeleDialogComponent } from './update-modele-dialog/update-modele-dialog.component';
+import { CreateAttributeDialogComponent } from './create-attribute-dialog/create-attribute-dialog.component';
+import { CreateVersionDialogComponent } from './create-version-dialog/create-version-dialog.component';
 import { CreateModeleDialogComponent } from './create-modele-dialog/create-modele-dialog.component';
 import { ListColorsDialogComponent } from './list-colors-dialog/list-colors-dialog.component';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 @Component({
     selector: 'app-list-modeles',
@@ -17,416 +24,52 @@ export class ListModelesComponent implements OnInit,AfterViewInit {
 
     //list des modéles à récupérer depuis la BDD
     path = "versions/";
+    loading = false;
+    error = "";
     displayedColumns: string[] = ['index', 'photo','model','versions', 'couleurs','disponibilte', 'manipulations'];
-    listModeles = [
-      {
-        name : "TOYOTA AURIS 3",
-        photo : "../../assets/car1.jpg",
-        couleurs : [
-          {
-            name : "Bleu Nebula",
-            value : "#00467e"
-          },
-          {
-            name : "Rouge Allure Nacré",
-            value : "#580c1b"
-          },
-          {
-            name : "Bleu Denim Métallisé",
-            value : "#2b4756"
-          },
-          {
-            name : "Gris Aluminium Métallisé",
-            value : "#939395"
-          },
-        ],
-        versions : [
-          {
-            name : "TOYOTA AURIS 2 TOURING SPORTS",
-            options : [
-              {
-                name : "Places",
-                value : "5"
-              },
-              {
-                name : "Air conditionné",
-                value : "De série"
-              },
-              {
-                name : "Navigateur",
-                value : "dès 450 €"
-              },
-              {
-                name : "inclut démarrage sans clé",
-                value : "Dés 650 €"
-              },
-            ],
-          },
-          {
-            name : "TOYOTA AURIS 2 TOURISM",
-            options : [
-              {
-                name : "Places",
-                value : "5"
-              },
-              {
-                name : "Air conditionné",
-                value : "De série"
-              },
-              {
-                name : "Navigateur",
-                value : "dès 450 €"
-              },
-              {
-                name : "inclut démarrage sans clé",
-                value : "Dés 650 €"
-              },
-            ],
-          },
-          {
-            name : "TOYOTA AURIS 2 TOURING",
-            options : [
-              {
-                name : "Places",
-                value : "5"
-              },
-              {
-                name : "Air conditionné",
-                value : "De série"
-              },
-              {
-                name : "Navigateur",
-                value : "dès 450 €"
-              },
-              {
-                name : "inclut démarrage sans clé",
-                value : "Dés 650 €"
-              },
-            ],
-          },
-          {
-            name : "TOYOTA AURIS 2 AFFAIRES",
-            options : [
-              {
-                name : "Places",
-                value : "5"
-              },
-              {
-                name : "Air conditionné",
-                value : "De série"
-              },
-              {
-                name : "Navigateur",
-                value : "dès 450 €"
-              },
-              {
-                name : "inclut démarrage sans clé",
-                value : "Dés 650 €"
-              },
-            ],
-          },
-          {
-            name : "TOYOTA AURIS 2 BUSINESS",
-            options : [
-              {
-                name : "Places",
-                value : "5"
-              },
-              {
-                name : "Air conditionné",
-                value : "De série"
-              },
-              {
-                name : "Navigateur",
-                value : "dès 450 €"
-              },
-              {
-                name : "inclut démarrage sans clé",
-                value : "Dés 650 €"
-              },
-            ],
-          },
-        ]
-      },
-      {
-        name : "TOYOTA AYGO 3 PORTES",
-        photo : "../../assets/car2.jpg",
-        couleurs : [
-          {
-            name : "Rouge",
-            value : "#A91101"
-          },
-          {
-            name : "Noire",
-            value : "#00000"
-          },
-          {
-            name : "Blanc",
-            value : "#FFFFFF"
-          },
-          {
-            name : "Gris",
-            value : "#cccccc"
-          },],
-          versions : [
-            {
-              name : "TOYOTA AURIS 2 TOURING SPORTS",
-              options : [
-                {
-                  name : "Places",
-                  value : "5"
-                },
-                {
-                  name : "Air conditionné",
-                  value : "De série"
-                },
-                {
-                  name : "Navigateur",
-                  value : "dès 450 €"
-                },
-                {
-                  name : "inclut démarrage sans clé",
-                  value : "Dés 650 €"
-                },
-              ],
-            },
-            {
-              name : "TOYOTA AURIS 2 TOURISM",
-              options : [
-                {
-                  name : "Places",
-                  value : "5"
-                },
-                {
-                  name : "Air conditionné",
-                  value : "De série"
-                },
-                {
-                  name : "Navigateur",
-                  value : "dès 450 €"
-                },
-                {
-                  name : "inclut démarrage sans clé",
-                  value : "Dés 650 €"
-                },
-              ],
-            },
-            {
-              name : "TOYOTA AURIS 2 TOURING",
-              options : [
-                {
-                  name : "Places",
-                  value : "5"
-                },
-                {
-                  name : "Air conditionné",
-                  value : "De série"
-                },
-                {
-                  name : "Navigateur",
-                  value : "dès 450 €"
-                },
-                {
-                  name : "inclut démarrage sans clé",
-                  value : "Dés 650 €"
-                },
-              ],
-            },
-            {
-              name : "TOYOTA AURIS 2 AFFAIRES",
-              options : [
-                {
-                  name : "Places",
-                  value : "5"
-                },
-                {
-                  name : "Air conditionné",
-                  value : "De série"
-                },
-                {
-                  name : "Navigateur",
-                  value : "dès 450 €"
-                },
-                {
-                  name : "inclut démarrage sans clé",
-                  value : "Dés 650 €"
-                },
-              ],
-            },
-            {
-              name : "TOYOTA AURIS 2 BUSINESS",
-              options : [
-                {
-                  name : "Places",
-                  value : "5"
-                },
-                {
-                  name : "Air conditionné",
-                  value : "De série"
-                },
-                {
-                  name : "Navigateur",
-                  value : "dès 450 €"
-                },
-                {
-                  name : "inclut démarrage sans clé",
-                  value : "Dés 650 €"
-                },
-              ],
-            },
-          ]
-      },
-      {
-        name : "TOYOTA YARIS",
-        photo : "../../assets/car3.jpg",
-        couleurs : [
-          {
-            name : "Rouge",
-            value : "#A91101"
-          },
-          {
-            name : "Noire",
-            value : "#00000"
-          },
-          {
-            name : "Blanc",
-            value : "#FFFFFF"
-          },
-          {
-            name : "Gris",
-            value : "#cccccc"
-          },
-        ],
-        versions : [
-          {
-            name : "TOYOTA AURIS 2 TOURING SPORTS",
-            options : [
-              {
-                name : "Places",
-                value : "5"
-              },
-              {
-                name : "Air conditionné",
-                value : "De série"
-              },
-              {
-                name : "Navigateur",
-                value : "dès 450 €"
-              },
-              {
-                name : "inclut démarrage sans clé",
-                value : "Dés 650 €"
-              },
-            ],
-          },
-          {
-            name : "TOYOTA AURIS 2 TOURISM",
-            options : [
-              {
-                name : "Places",
-                value : "5"
-              },
-              {
-                name : "Air conditionné",
-                value : "De série"
-              },
-              {
-                name : "Navigateur",
-                value : "dès 450 €"
-              },
-              {
-                name : "inclut démarrage sans clé",
-                value : "Dés 650 €"
-              },
-            ],
-          },
-          {
-            name : "TOYOTA AURIS 2 TOURING",
-            options : [
-              {
-                name : "Places",
-                value : "5"
-              },
-              {
-                name : "Air conditionné",
-                value : "De série"
-              },
-              {
-                name : "Navigateur",
-                value : "dès 450 €"
-              },
-              {
-                name : "inclut démarrage sans clé",
-                value : "Dés 650 €"
-              },
-            ],
-          },
-          {
-            name : "TOYOTA AURIS 2 AFFAIRES",
-            options : [
-              {
-                name : "Places",
-                value : "5"
-              },
-              {
-                name : "Air conditionné",
-                value : "De série"
-              },
-              {
-                name : "Navigateur",
-                value : "dès 450 €"
-              },
-              {
-                name : "inclut démarrage sans clé",
-                value : "Dés 650 €"
-              },
-            ],
-          },
-          {
-            name : "TOYOTA AURIS 2 BUSINESS",
-            options : [
-              {
-                name : "Places",
-                value : "5"
-              },
-              {
-                name : "Air conditionné",
-                value : "De série"
-              },
-              {
-                name : "Navigateur",
-                value : "dès 450 €"
-              },
-              {
-                name : "inclut démarrage sans clé",
-                value : "Dés 650 €"
-              },
-            ],
-          },
-        ]
-      },
-    ]
+    listModeles = [];
+    manufacturerId = "";
+    tabModels:MatTableDataSource<Model>;
 
-    constructor(public dialog: MatDialog) {
-
+    constructor(public dialog: MatDialog,
+                private modelService : ModelService) {
     }
 
     ngOnInit() {
+        this.manufacturerId = localStorage.getItem('manufacturer');
         //remplir la Liste des modéles
+        this.loading = true;
+        this.modelService.list(this.manufacturerId)
+            .pipe(first()).subscribe(
+              res => {
+                  console.log(res);
+                  this.tabModels = new MatTableDataSource(res.models);
+                  this.listModeles = res.models;
+                  //this.fabricants.sort = this.sort;
+                  this.loading = false;
+              },
+              err => {
+                  this.error = "Error occured : "+ err;
+                  console.log("Error occured : "+ err);
+                  this.loading = false;
+              }
+          );
     }
 
     ngAfterViewInit() {
 
     }
+
     //afficher les Couleurs
-    onDisplayColors(id:number){
+    onDisplayColors(id:string,colors:any){
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
 
       dialogConfig.data = {
-        colors: this.listModeles[id].couleurs,
-        id : id
+        colors: colors,
+        idModel : id,
+        idManufacturer : this.manufacturerId
       };
       const dialogRef = this.dialog.open(ListColorsDialogComponent, dialogConfig);
     }
@@ -440,24 +83,94 @@ export class ListModelesComponent implements OnInit,AfterViewInit {
       dialogRef.afterClosed().subscribe(result => {
         if(result.status){
           console.log("add modele " + result.nameModele);
-          let modele = {
-            name : result.nameModele,
-            couleurs : result.couleurs,
-            versions : result.versions,
-            photo : result.photo,
-          };
-          this.listModeles.push(modele);
+          //getting the model detials
+          let formData: FormData = new FormData();
+          formData.append('name',result.nameModele);
+          formData.append('colors', JSON.stringify(result.couleurs));
+          //formData.append('options',result.couleurs);
+          formData.append('images', result.photo);
+          console.log(formData);
+          this.loading = true;
+          this.modelService.create(this.manufacturerId,formData)
+          .pipe(first()).subscribe(
+              res => {
+                  this.loading = false;
+                  console.log(res);
+                  //add model to view
+                  this.listModeles.push(res);
+                  this.tabModels = new MatTableDataSource(this.listModeles);
+              },
+              err => {
+                  this.error = err;
+                  this.loading = false;
+              }
+          );
+        }
+      });
+    }
+
+    //modifier un model
+    onUpdateModel(id:string,name : string,image : string){
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = {
+        idModel : id,
+        name : name,
+        image : image,
+      };
+      const dialogRef = this.dialog.open(UpdateModeleDialogComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if(result.status){
+          //valider la création
+          console.log("update model " + result.nameModele);
+
+          let formData: FormData = new FormData();
+          if(result.name != ""){
+            formData.append('name', result.nameModele);
+          }
+          if(result.photo != null){
+            formData.append('images', result.photo);
+          }
+          console.log(formData);
+
+          this.loading = true;
+          this.modelService.update(this.manufacturerId,id,formData)
+          .pipe(first()).subscribe(
+              res => {
+                  this.loading = false;
+                  console.log(res);
+
+              },
+              err => {
+                  this.error = err;
+                  this.loading = false;
+              }
+          );
         }
       });
     }
 
     //zoomer sur la photo de model
     zoomOnPhoto(url : string){
+      let base = new String("https://sayaradz2.herokuapp.com");
       const dialogConfig = new MatDialogConfig();
       dialogConfig.data = {
-        image : url
+        image : base.concat(url)
       };
       const dialogRef = this.dialog.open(ZoomImageDialogComponent, dialogConfig);
 
     }
+
+    //print in pdf
+    printModels(){
+      let doc = new jsPDF();
+      doc.autoTable({html: '#my-table'});
+      doc.save('modéles.pdf')
+    }
+}
+interface Model{
+  id : string;
+  name : string;
+  images : any;
+  colors : any;
+  options : any;
 }

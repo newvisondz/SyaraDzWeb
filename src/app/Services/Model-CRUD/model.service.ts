@@ -12,7 +12,7 @@ export class ModelService {
 
   readonly ROOT_URL = environment.baseUrl;
 
-  public create(mfid:string,body:object){
+  public create(mfid:string,body:FormData){
 
     interface Response {
       models: [];
@@ -58,8 +58,8 @@ export class ModelService {
     }));
   }
 
-  public update(mfid : string, id : number,body: any){
-    
+  public update(mfid : string, id : string,body: any){
+
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
 
     interface Response {

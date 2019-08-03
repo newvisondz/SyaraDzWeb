@@ -1,31 +1,38 @@
   <div class="container-dialog">
-    <h2 mat-dialog-title>Modifier Modele</h2>
-    <div class="underline"></div>
+    <h2 mat-dialog-title class = "underline">Créer Modéle</h2>
     <mat-dialog-content class="mat-typography">
       <form [formGroup]="firstFormGroup">
         <div class="d-flex flex-column">
           <div class="d-flex flex-column">
             <h5>Créer un nouveau modéle :</h5>
-            <mat-form-field>
-              <input formControlName="nameModele" matInput placeholder="Nom du modéle" />
+            
+            <mat-form-field appearance="outline" style="width : 100%">
+              <mat-label> Créer une couleur</mat-label>
+              <input formControlName="nameModele" matInput placeholder="Nom du modéle">
             </mat-form-field>
-            <h6>Veuillez introduire la liste des couleurs disponibles ainsi que les versions: </h6>
+
+            <h6>Veuillez introduire la liste des couleurs disponibles : </h6>
             <div class="row">
               <div class="col-sm-5">
-                <mat-form-field>
-                  <input formControlName="name" matInput placeholder="Nom de la couleur" />
+                <mat-form-field appearance="outline" style="width : 100%">
+                  <mat-label> Créer une couleur</mat-label>
+                  <input formControlName="name" matInput placeholder="Nom de la couleur">
                 </mat-form-field>
               </div>
+
               <div class="col-sm-5">
-                <mat-form-field>
-                  <input formControlName="value" matInput placeholder="La valeur de la couleur" />
+                <mat-form-field appearance="outline" style="width : 100%">
+                  <mat-label> Créer une couleur</mat-label>
+                  <input formControlName="value" matInput placeholder="Valeur de la couleur">
                 </mat-form-field>
               </div>
+
               <div class="col-sm-2">
                 <button matTooltip="Ajouter une couleur" mat-icon-button color="primary" (click) = "onCreateCouleur()">
                   <mat-icon>add</mat-icon>
                 </button>
               </div>
+
             </div>
             <mat-list>
               <h3 mat-subheader>Couleurs</h3>
@@ -38,27 +45,9 @@
                 </button>
               </mat-list-item>
             </mat-list>
-            <div class="row">
-              <div class="col-sm-2">
-                <button mat-raised-button  color="primary" (click) = "onCreateVersion()">
-                  Créer une version
-                </button>
-              </div>
-            </div>
-            <mat-list>
-              <h3 mat-subheader>Versions</h3>
-              <mat-list-item *ngFor="let version of versions, let i =index">
-                <mat-icon mat-list-icon style="color : #228B22">check_circle</mat-icon>
-                <h4 mat-line>{{version.name}}</h4>
-                <p mat-line> {{version.value}} </p>
-                <button matTooltip = "Supprimer" mat-icon-button color="warn" (click) = "onDeleteVersion(i)">
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </mat-list-item>
-            </mat-list>
             <h5>Photo du modéle : </h5>
-            <div class="row">
-              <div class="col-sm-6">
+            <div style="text-align : center">
+              <div style="text-align : center">
                 <fieldset class="form-group">
                     <input
                       #file
@@ -70,9 +59,9 @@
                       required
                       style="display : none">
                 </fieldset>
-                <button matTooltip = "Ajouter une photo du modéle" mat-raised-button (click) = "addFiles()" color="primary">Choisir</button>
+                <button matTooltip = "Ajouter une photo du modéle" mat-raised-button (click) = "addFiles()" color="primary">Choisir une photo du modéle</button>
               </div>
-              <div class="col-sm-6 d-flex flex-column">
+              <div style="text-align : center; margin-top : 10px;">
                 <fieldset class="form-group">
                     <img [src]=linkImage alt="Aucune photo choisie" height="200px" width="200px">
                 </fieldset>
@@ -84,6 +73,6 @@
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-raised-button  color = "primary" (click) = "onConfirm()">Confirmer</button>
-      <button mat-raised-button mat-dialog-close color = "warn">Annuler</button>
+      <button mat-raised-button mat-dialog-close color = "accent">Annuler</button>
     </mat-dialog-actions>
   </div>

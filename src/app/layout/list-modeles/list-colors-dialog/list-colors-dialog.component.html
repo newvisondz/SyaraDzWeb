@@ -1,12 +1,15 @@
   <div class="container-dialog">
-    <h2 mat-dialog-title>
+    <h2 mat-dialog-title class="underline">
       Couleurs disponibles
-      <button matTooltip="Créer nouvelle couleur" class="mx-2" mat-raised-button (click)= "onCreateCouleur()" style="float : right; background : #228B22 ; color : #fff">
-        <mat-icon>add</mat-icon>
-      </button>
     </h2>
-    <div class="underline"></div>
-    <mat-dialog-content class="mat-typography">
+    <button matTooltip="Créer nouvelle couleur" class="mx-2" mat-icon-button (click)= "onCreateCouleur()" color = "primary" style="float : right;">
+      <mat-icon>add</mat-icon>
+    </button>
+    <div class="d-flex justify-content-center">
+        <mat-spinner  class="mt-5" [hidden]="!loading"></mat-spinner>
+    </div>
+    <mat-dialog-content class="mat-typography" [hidden]="loading">
+      <app-notification class="ma-2" [error] = "error"></app-notification>
       <table mat-table [dataSource]="colorsTable" matSort class="mat-elevation-z8" style="width : 100%">
 
         <ng-container matColumnDef="index">

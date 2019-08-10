@@ -16,6 +16,27 @@ export class AuthentificationService  {
 
   readonly ROOT_URL = environment.baseUrl;
 
+  public loginAll(username:string,password:string){
+
+    interface LoginResponse {
+      token: string;
+      type : string;
+      manufacturer : string;
+      isAdmin : boolean;
+    }
+    let data = {
+      email : username,
+      password : password,
+    }
+
+    return this.http.post<LoginResponse>(this.ROOT_URL+'/login',
+    data
+    ).pipe(map(res => {
+      console.log(res);
+      return res;
+    }));
+  }
+
   public login(username:string,password:string){
 
     interface LoginResponse {
@@ -59,6 +80,7 @@ export class AuthentificationService  {
       id : string;
       token: string;
       type : string;
+      manufacturer : string
     }
     let data = {
       email : username,
@@ -84,6 +106,7 @@ export class AuthentificationService  {
         console.log(res);
         window.localStorage.setItem("accesToken", "");
         window.localStorage.setItem("isAdmin", "");
+        window.localStorage.setItem("manufacturer","");
       },
       err => {
         console.log(err);
@@ -94,7 +117,7 @@ export class AuthentificationService  {
   public showMe(){
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
-    
+
     return this.http.get<FabricantAdmin>(this.ROOT_URL+'/me',
     { headers: header }
     ).pipe(map(res => {
@@ -103,7 +126,7 @@ export class AuthentificationService  {
     }));
   }
 
-  
+
   public updateMe(email:string, password:string){
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
@@ -116,5 +139,3 @@ export class AuthentificationService  {
   }
 
 }
-
-

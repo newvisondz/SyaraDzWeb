@@ -4,7 +4,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA , MatDialogConfig} from '@angul
 import { first } from 'rxjs/operators';
 import { PasswordValidator } from '../../validators/password.validator';
 import { FabricantAdmin } from '../../model/fabricant-admin';
-
+import { AuthentificationService } from './../../Services/Authentification/authentification.service';
 import {DeleteConfirmDialogComponent} from './../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
 
 
@@ -47,11 +47,27 @@ export class ProfileComponent implements OnInit {
         { type: 'required', message: 'Password is required' },
       ]
     };
-  constructor(private _formBuilder: FormBuilder,public dialog: MatDialog) { }
+  constructor(private _formBuilder: FormBuilder,public dialog: MatDialog,private auth:AuthentificationService) { }
 
   ngOnInit() {
     //get user infos
-
+    this.loading = true;
+    this.auth.showMe()
+    .pipe(first()).subscribe(
+        res => {
+          if (res == undefined) {
+            console.log("Show Error feedback!");
+          } else {
+            this.user = res;
+          }
+          this.loading = false;
+        },
+        err => {
+          this.loading = false;
+          this.error = err;
+          console.log("Error occured : "+ err);
+        }
+      );
     //init form
     this.userFormGroup = this._formBuilder.group({
       username: ['', Validators.compose([

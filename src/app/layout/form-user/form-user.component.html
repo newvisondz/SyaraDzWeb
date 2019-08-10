@@ -73,10 +73,10 @@
 
             <mat-select placeholder="Fabricant" formControlName="fabricant" required>
               <mat-option *ngFor="let fabricant of fabricants" [value]="fabricant">
-                {{fabricant.brand}}
+                {{fabricant.id}}
               </mat-option>
             </mat-select>
-            
+
           </mat-form-field>
         </div>
         <div class="d-flex flex-row-reverse">

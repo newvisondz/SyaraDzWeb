@@ -31,15 +31,15 @@ export class HomePageService {
     statics : [
       {
         content : "Voitures exposées",
-        number : "1000"
+        number : "+1000"
       },
       {
-        content : "Voitures vendus",
-        number : "250"
+        content : "Marques",
+        number : "+250"
       },
       {
-        content : "Partenaires",
-        number : "43"
+        content : "Modéles et versions",
+        number : "+500"
       },
     ]
   }
@@ -48,9 +48,9 @@ export class HomePageService {
   missionSubject = new Subject<object>();
   private mission = {
     title : "Notre Mission",
-    content : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    author : "Bouhenniche Sihem",
-    role : "Scrum Master"
+    content : "Rendez-vous sur notre application mobile et découvrez environ 250 entreprises et plus de 50 000 vendeurs de voitures d'occasion dans toute l’Algérie. Sur SayaraDz, vous aurez accès à le meilleur service de gestion des ventes et aprés ventes en Algérie, ainsi notre site vous offre une gestion des modéles de références plus efficaces et vous donne la main por bien gérer les commandes de vos client, tout ça avec un outil facile à utiliser et trés fluid. Notre mission est vous rendre la vie plus facile",
+    author : "Bouflane Flan",
+    role : "PDG-SayaraDz"
   }
 
   //tarifs home attributes :
@@ -58,26 +58,26 @@ export class HomePageService {
   private tarifArray = [
     {
       type : "BASIC",
-      description : "Consectetur adipisicing elit, sed do eiusmodtempor onsectetur adipisicing elit, sed do eiusmodtempor.",
+      description : "Idéal pour commencer votre expérience avec SayaraDz, vous aurez accées à presque tous les services",
       features : [
         {
-          description : "Cras justo odio",
+          description : "un admnistrateur et 5 simple utilisateurs",
           available : true
         },
         {
-          description : "Cras justo odio",
+          description : "200 voitures exposées",
           available : true
         },
         {
-          description : "Cras justo odio",
+          description : "Notifiaction sur e-mails",
           available : false
         },
         {
-          description : "Cras justo odio",
+          description : "Strockage illimité",
           available : false
         },
         {
-          description : "Cras justo odio",
+          description : "Historique des manipulations",
           available : false
         },
       ],
@@ -85,26 +85,26 @@ export class HomePageService {
     },
     {
       type : "MEDUIM",
-      description : "Consectetur adipisicing elit, sed do eiusmodtempor onsectetur adipisicing elit, sed do eiusmodtempor.",
+      description : "Idéal pour gérer vos modéles de références en toute fluidité.",
       features : [
         {
-          description : "Cras justo odio",
+          description : "un admnistrateur et 10 simple utilisateurs",
           available : true
         },
         {
-          description : "Cras justo odio",
+          description : "400 voitures exposées et modéles de références illimités",
           available : true
         },
         {
-          description : "Cras justo odio",
+          description : "Notifiaction sur e-mails",
           available : true
         },
         {
-          description : "Cras justo odio",
+          description : "Strockage illimité",
           available : false
         },
         {
-          description : "Cras justo odio",
+          description : "Historique des manipulations",
           available : false
         },
       ],
@@ -112,26 +112,26 @@ export class HomePageService {
     },
     {
       type : "AVANCEE",
-      description : "Consectetur adipisicing elit, sed do eiusmodtempor onsectetur adipisicing elit, sed do eiusmodtempor.",
+      description : "Idéal pour domminer le marché en ligne algérien des véhicules, ainsi vous aurez accées à tous les services",
       features : [
         {
-          description : "Cras justo odio",
+          description : "un admnistrateur et 15 simple utilisateurs",
           available : true
         },
         {
-          description : "Cras justo odio",
+          description : "Strockage illimité",
           available : true
         },
         {
-          description : "Cras justo odio",
+          description : "Notifiaction e-mails",
           available : true
         },
         {
-          description : "Cras justo odio",
+          description : "Historique des manipulations",
           available : true
         },
         {
-          description : "Cras justo odio",
+          description : "Automatisation",
           available : true
         },
       ],

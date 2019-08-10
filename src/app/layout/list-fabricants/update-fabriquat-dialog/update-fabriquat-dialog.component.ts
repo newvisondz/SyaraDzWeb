@@ -43,7 +43,8 @@ export class UpdateFabriquatDialogComponent implements OnInit {
     const data = {
       status : true,
       marque : this.firstFormGroup.controls['fabricant'].value,
-      address : this.firstFormGroup.controls['addressFabricant'].value
+      address : this.firstFormGroup.controls['addressFabricant'].value,
+      logo : this.logo
     }
     this.dialogRef.close(data);
   }

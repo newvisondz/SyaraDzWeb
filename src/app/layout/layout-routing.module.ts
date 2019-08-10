@@ -15,8 +15,8 @@ const routes: Routes = [
             { path: 'creerFabricant', loadChildren: './form-fabricant/form-fabricant.module#FormFabricantModule' },
             { path: 'creerUtilisateur', loadChildren: './form-user/form-user.module#FormUserModule' },
             { path: 'afficherUsersFabricants', loadChildren: './list-user-fabricants/list-user-fabricants.module#ListUserFabricantsModule' },
-            //{ path: 'grid', loadChildren: './grid/grid.module#GridModule' },
-            //{ path: 'components', loadChildren: './bs-component/bs-component.module#BsComponentModule' },
+            { path: 'modeles', loadChildren: './list-modeles/list-modeles.module#ListModelesModule' },
+            { path: 'vehicules', loadChildren: './list-vehicules/list-vehicules.module#ListVehiculesModule' },
             //{ path: 'blank-page', loadChildren: './blank-page/blank-page.module#BlankPageModule' }
         ]
     }

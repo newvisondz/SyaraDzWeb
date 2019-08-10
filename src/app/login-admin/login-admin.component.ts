@@ -33,7 +33,7 @@ export class LoginAdminComponent implements OnInit {
               console.log("Show Error feedback!");
             } else {
               window.localStorage.setItem("accesToken", res.token);
-              window.localStorage.setItem("isSuperAdmin", 'true');
+              window.localStorage.setItem("isSuperAdmin","true");
               this.router.navigate(["/dashboard"]);
             }
           },

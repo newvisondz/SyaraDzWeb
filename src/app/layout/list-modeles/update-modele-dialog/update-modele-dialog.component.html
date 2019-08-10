@@ -1,0 +1,44 @@
+<div class="container-dialog">
+  <h2 mat-dialog-title class = "underline">Modifier Modéle</h2>
+  <mat-dialog-content class="mat-typography">
+    <form [formGroup]="firstFormGroup">
+      <div class="d-flex flex-column">
+        <div class="d-flex flex-column">
+          <h5>Modifier un modéle :</h5>
+
+          <mat-form-field appearance="outline" style="width : 100%">
+            <mat-label> Modifier un modéle</mat-label>
+            <input formControlName="nameModele" matInput placeholder="Nom du modéle">
+          </mat-form-field>
+          
+          <h5>Photo du modéle : </h5>
+          <div style="text-align : center">
+            <div style="text-align : center">
+              <fieldset class="form-group">
+                  <input
+                    #file
+                    type="file"
+                    formControlName="modeleImage"
+                    class="form-control"
+                    accept="image/jpeg,image/png"
+                    (change)="onFileChange($event)"
+                    required
+                    style="display : none">
+              </fieldset>
+              <button matTooltip = "Ajouter une photo du modéle" mat-raised-button (click) = "addFiles()" color="primary">Choisir une photo du modéle</button>
+            </div>
+            <div style="text-align : center; margin-top : 10px;">
+              <fieldset class="form-group">
+                  <img [src]=linkImage alt="Aucune photo choisie" height="200px" width="200px">
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button  color = "primary" (click) = "onConfirm()">Confirmer</button>
+    <button mat-raised-button mat-dialog-close color = "accent">Annuler</button>
+  </mat-dialog-actions>
+</div>

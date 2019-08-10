@@ -6,11 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-  
+
   loading : boolean = false;
   error : string = "";
 
-  constructor() { }
+  constructor() {
+      console.log(localStorage.getItem('accesToken'));
+  }
 
   ngOnInit() {
   }

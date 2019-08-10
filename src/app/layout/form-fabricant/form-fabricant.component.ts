@@ -1,4 +1,4 @@
-import { Component, OnInit ,ViewChild} from '@angular/core';
+import { Component,ElementRef ,OnInit ,ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms'
 import { Router } from '@angular/router';
 import { FabricantCRUDService } from '../../Services/Fabricant-CRUD/fabricant-crud.service'
@@ -21,12 +21,13 @@ export class FormFabricantComponent implements OnInit {
   submitted = false;
   logo : string = '';
   error : string = "";
+  logoImage : File = null;
   loading : boolean = false;
-  @ViewChild('file') file;
+  @ViewChild('file') file : ElementRef;
 
   constructor(private _formBuilder: FormBuilder,
               private fabricant:FabricantCRUDService,
-              private admins : AdminsCrudService, 
+              private admins : AdminsCrudService,
               private router:Router) {}
 
   ngOnInit() {
@@ -49,11 +50,12 @@ export class FormFabricantComponent implements OnInit {
 
   addFiles() {
       this.file.nativeElement.click();
-    }
-    getFabricantName(){
+  }
+  getFabricantName(){
       return this.firstFormGroup.controls['fabricant'].value;
-    }
+  }
   onFileChange($event){
+    this.logoImage = (<HTMLInputElement>event.target).files.item(0);
     if ((<HTMLInputElement>event.target).files && (<HTMLInputElement>event.target).files[0]) {
       var reader = new FileReader();
 
@@ -73,22 +75,30 @@ export class FormFabricantComponent implements OnInit {
           console.log("Unvalid input");
           return;
       }
-      if (this.secondFormGroup.invalid) {
+      /*if (this.secondFormGroup.invalid) {
         this.error = "Unvalid input";
         console.log("Unvalid input");
         return;
-      }
+      }*/
       this.createFabricant();
 
   }
   createFabricant(){
+    let brand = this.firstFormGroup.controls['fabricant'].value;
     this.loading = true;
-    this.fabricant.create(this.firstFormGroup.controls['fabricant'].value)
+    this.fabricant.create(brand,this.logoImage)
     .pipe(first()).subscribe(
         res => {
-            this.loading = false;
-            this.createAdminFabricant(res.id);
-            this.router.navigate(["/dashboard/afficherFabricants"]);
+            if(res instanceof Fabricant){
+              this.loading = false;
+              console.log(res);
+              this.router.navigate(["/dashboard/afficherFabricants"]);
+            }else{
+              this.error = res;
+              this.loading = false;
+              console.log("Error occured : "+ res);
+            }
+
         },
         err => {
             this.error = err;

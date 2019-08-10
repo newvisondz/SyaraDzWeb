@@ -1,0 +1,49 @@
+  <div class="container-dialog">
+    <h2 mat-dialog-title>Créer version</h2>
+    <div class="underline"></div>
+    <mat-dialog-content class="mat-typography">
+      <form [formGroup]="firstFormGroup">
+        <div class="d-flex flex-column">
+          <div class="d-flex flex-column">
+            <h5>Créer un nouvelle version :</h5>
+            <mat-form-field>
+              <input formControlName="nameVersion" matInput placeholder="Nom de la version" />
+            </mat-form-field>
+            <h6>Veuillez introduire la liste des options compatibles avec cette version : </h6>
+            <div class="row">
+              <div class="col-sm-5">
+                <mat-form-field>
+                  <input formControlName="name" matInput placeholder="Nom de l'attribut" />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-5">
+                <mat-form-field>
+                  <input formControlName="value" matInput placeholder="La valeur de l'attribut" />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-2">
+                <button mat-icon-button color="primary" (click) = "onCreateOption()">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+            </div>
+            <mat-list>
+              <h3 mat-subheader>Options</h3>
+              <mat-list-item *ngFor="let option of options, let i =index">
+                <mat-icon mat-list-icon style="color : #228B22">check_circle</mat-icon>
+                <h4 mat-line>{{option.name}}</h4>
+                <p mat-line> {{option.value}} </p>
+                <button mat-icon-button color="warn" (click) = "onDeleteOption(i)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </mat-list-item>
+            </mat-list>
+          </div>
+        </div>
+      </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-raised-button  color = "primary" (click) = "onConfirm()">Confirmer</button>
+      <button mat-raised-button mat-dialog-close color = "warn">Annuler</button>
+    </mat-dialog-actions>
+  </div>

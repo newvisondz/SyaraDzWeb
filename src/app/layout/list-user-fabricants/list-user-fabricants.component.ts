@@ -13,6 +13,7 @@ export class ListUserFabricantsComponent implements OnInit,AfterViewInit {
 
     fabricants = [];
 
+
     loading : boolean = false;
     error : string = "";
     lengthList : number = 0;
@@ -25,8 +26,7 @@ export class ListUserFabricantsComponent implements OnInit,AfterViewInit {
                 private admins : AdminsCrudService,) {}
 
     ngOnInit() {
-      console.log("lol!");
-      
+
     }
 
     ngAfterViewInit(){}

@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+//@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import 'custom-theme.scss';
 html,body{
     min-height: 100vh;
 }
@@ -18,9 +19,9 @@ html,body{
     background-color: rgba(0,0, 0, 0.5);
 }
 .a-item:hover{
-  border-left: 4px solid #FFAB00;
+  border-left: 4px solid #ff5722s;
   i{
-    color : #FFAB00;
+    color : #ff5722s;
   }
 }
 .btn-search{

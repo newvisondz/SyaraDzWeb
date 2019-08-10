@@ -1,4 +1,10 @@
 $topnav-background-color: #fff;
+$primary : #FA5F1A;
+.example-header-image {
+  background-image: url('../../../../assets/images/icon_admin.png');
+  background-size: cover;
+}
+
 .sidebar {
   overflow-y: auto;
   background-color: $topnav-background-color;
@@ -16,11 +22,11 @@ $topnav-background-color: #fff;
                 margin-right: 10px;
             }
         }
-        a:hover {
+        a:hover,.a-item:hover {
             background: darken($topnav-background-color, 5%);
-            border-left: 4px solid #FFAB00;
+            border-left: 4px solid $primary;
             i{
-              color : #FFAB00;
+              color : $primary;
             }
         }
         a.router-link-active {

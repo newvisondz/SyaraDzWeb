@@ -1,0 +1,27 @@
+  <div class="container-dialog">
+    <h2 mat-dialog-title class="underline">Créer nouveau attribut</h2>
+    <mat-dialog-content class="mat-typography">
+      <form [formGroup]="firstFormGroup">
+        <div class="d-flex flex-column">
+          <div class="d-flex flex-column">
+            <h5>Créer un nouveau attribut :</h5>
+
+            <mat-form-field appearance="outline" style="width : 100%">
+              <mat-label> Créer un attribut</mat-label>
+              <input formControlName="name" matInput placeholder="Nom de l'attribut">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width : 100%">
+              <mat-label> Créer un attribut</mat-label>
+              <input formControlName="value" matInput placeholder="Valeur de l'attribut">
+
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-raised-button  color = "primary" (click) = "onConfirm()">Confirmer</button>
+      <button mat-raised-button mat-dialog-close color = "accent">Annuler</button>
+    </mat-dialog-actions>
+  </div>

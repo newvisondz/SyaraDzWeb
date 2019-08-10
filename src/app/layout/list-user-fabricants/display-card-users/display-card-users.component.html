@@ -5,18 +5,16 @@
   <div class="" [hidden]="loading">
     <app-notification class="ma-2" [error] = "error"></app-notification>
     <div class="row">
-      <div class="col-lg-4 mb-2" *ngFor = "let element of fabricants">
+      <div class="col-xs-12 col-sm-6 col-md-4 mb-2" *ngFor = "let element of fabricants">
         <mat-card class="example-card">
           <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>{{element.brand}}</mat-card-title>
           </mat-card-header>
+          <img mat-card-image src="{{ROOT_URL}}/{{element.logo}}" [alt]="element.brand" height="200px">
           <mat-card-actions style="text-align:right;">
-              <button class="mx-1" mat-icon-button color="primary" [routerLink]="[pathAdmins+element.id]" >
+              <button class="mx-1" mat-icon-button color="accent" [routerLink]="[pathAdmins+element.id]" >
                 <mat-icon><i class="fas fa-user-tie"></i></mat-icon>
-              </button>
-              <button class="mx-1" mat-icon-button color="primary" [routerLink]="[pathUsers+element.id]" >
-                <mat-icon><i class="fas fa-users"></i></mat-icon>
               </button>
           </mat-card-actions>
         </mat-card>

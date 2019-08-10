@@ -3,13 +3,13 @@
         <div class="d-flex justify-content-center">
             <mat-spinner [hidden]="!loading" class="mt-5"></mat-spinner>
         </div>
-        <div class="col-sm-6" [hidden]="loading">
+        <div class="col-sm-8" [hidden]="loading">
           <app-notification [error] = "error"></app-notification>
           <div class="card box-shadow">
             <div class="card-body">
               <div class="row">
-                <div class="col-sm-12 col-xl-6">
-                  <h4 class="card-title">Log in</h4>
+                <div class="col-sm-12 col-md-8" style="margin-top : 20px; margin-bottom: 20px;">
+                  <h4 class="card-title">Se connecter à Sayara <span style="color : #FFAB00;">DZ</span></h4>
                   <div style="width: 100px; border: 1px solid #FFAB00;"></div>
                   <div class="card-text">
                     <form (submit)="onSubmit()">
@@ -26,8 +26,8 @@
                     </form>
                   </div>
                 </div>
-                <div class="col-xl-6 d-none d-sm-none d-md-none d-lg-none d-xl-block">
-                  <img src="../../assets/car3.jpg" height="400">
+                <div class="col-md-4 d-none d-sm-none d-md-block d-lg-block d-xl-block" style="background : url(../../assets/car3.jpg)  ; background-size: cover;">
+
                 </div>
               </div>
             </div>

@@ -76,7 +76,6 @@ export class FormUserComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-
     this.userFormGroup = this._formBuilder.group({
       username: ['', Validators.compose([
     		Validators.maxLength(25),
@@ -115,7 +114,7 @@ export class FormUserComponent implements OnInit {
           },
           err => {
               console.log("Error occured : "+ err);
-              
+
           }
       );
     } else {
@@ -139,8 +138,7 @@ export class FormUserComponent implements OnInit {
 
   onSubmit(){
     this.loading = true;
-    console.log("Créer un utilisateur : ");
-    var service;
+    console.log("Créer un utilisateur : ");    var service;
     if(this.isSuperAdmin){
       service = this.admins;
     } else {
@@ -169,7 +167,7 @@ export class FormUserComponent implements OnInit {
         this.loading = false;
       }
   );
-    
+
   }
 
 }

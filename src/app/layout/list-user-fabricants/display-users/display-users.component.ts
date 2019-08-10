@@ -4,7 +4,10 @@ import { first,tap } from 'rxjs/operators';
 import { FabricantAdmin} from '../../../model/fabricant-admin';
 import { AdminsCrudService } from "../../../Services/Admins-CRUD/admins-crud.service";
 import { UsersCrudService } from "../../../Services/Users-CRUD/users-crud.service";
-
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA , MatDialogConfig} from '@angular/material';
+import { CreateUserFabricantDialogComponent } from './../create-user-fabricant-dialog/create-user-fabricant-dialog.component';
+import { MessageSnackBarComponent } from './../../../shared/message-snack-bar/message-snack-bar.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-display-users',
@@ -14,7 +17,7 @@ import { UsersCrudService } from "../../../Services/Users-CRUD/users-crud.servic
 
 
 export class DisplayUsersComponent implements OnInit {
-
+  durationInSeconds = 5;
   adminsfabricants : FabricantAdmin[] = [];
 
   id : string;
@@ -24,7 +27,8 @@ export class DisplayUsersComponent implements OnInit {
   error : string = "";
 
 
-  constructor(private router: Router,
+  constructor(private _snackBar: MatSnackBar,public dialog: MatDialog,
+              private router: Router,
               private route: ActivatedRoute,
               private admins: AdminsCrudService,
               private users: UsersCrudService) { }
@@ -100,5 +104,60 @@ export class DisplayUsersComponent implements OnInit {
               this.loading = false;
           }
       );
+  }
+
+  deleteUser(i : number){
+    this.adminsfabricants.splice(i,1);
+    console.log("hanii"+ i);
+  }
+
+  onCreateUser(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.dialog.open(CreateUserFabricantDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.status){
+
+        if(this.title === "Administrateurs"){
+          this.admins.create(this.id,result.user.email,result.user.password,result.user.firstName,result.user.lastName,result.user.address,result.user.phone).subscribe(
+            res => {
+              console.log(res);
+              this.adminsfabricants.push(new FabricantAdmin( "0",
+                                  result.user.email,
+                                  "Admin Fabricant",
+                                  this.id,
+                                  result.user.lastName,result.user.firstName,
+                                  true,
+                                  result.user.phone,result.user.address));
+            this._snackBar.openFromComponent(MessageSnackBarComponent, {
+              duration: this.durationInSeconds * 1000,
+              data : {message: 'Utilisateur ajouté', icon : "check_circle"}
+            });
+            },
+            err => {
+              console.log("Error occured : "+ err);
+            }
+          );
+        } else {
+          this.users.create(this.id,result.user.email,result.user.password,result.user.firstName,result.user.lastName,result.user.address,result.user.phone).subscribe(
+            res => {
+              console.log(res);
+              this.adminsfabricants.push(new FabricantAdmin( "0",
+                                  result.user.email,
+                                  "User Fabricant",
+                                  this.id,
+                                  result.user.lastName,result.user.firstName,
+                                  true,
+                                  result.user.phone,result.user.address));
+            },
+            err => {
+              console.log("Error occured : "+ err);
+            }
+          );
+        }
+      }
+    });
   }
 }

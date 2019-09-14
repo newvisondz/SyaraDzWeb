@@ -16,7 +16,6 @@ const routes: Routes = [
             { path: 'creerUtilisateur', loadChildren: './form-user/form-user.module#FormUserModule' },
             { path: 'afficherUsersFabricants', loadChildren: './list-user-fabricants/list-user-fabricants.module#ListUserFabricantsModule' },
             { path: 'modeles', loadChildren: './list-modeles/list-modeles.module#ListModelesModule' },
-            { path: 'vehicules', loadChildren: './list-vehicules/list-vehicules.module#ListVehiculesModule' },
             //{ path: 'blank-page', loadChildren: './blank-page/blank-page.module#BlankPageModule' }
         ]
     }

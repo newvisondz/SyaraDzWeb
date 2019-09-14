@@ -7,19 +7,19 @@ h4{
 }
 .example-card{
   text-align: center;
+
 }
 
 :host {
     display: block;
 }
 .login-page {
+  background:url('../../assets/images/splash_bg.png');
+  background-size: cover;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     overflow-x: hidden;
-    background: $topnav-background-color;
-
-
 }

@@ -1,11 +1,10 @@
-.nav-home .navbar-nav .nav-item .nav-link{
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    color: #fff!important;
-    transition: color 0.5s ease!important;
+
+.example-spacer {
+  flex: 1 1 auto;
 }
-.nav-home .navbar-nav .nav-item .nav-link:hover{
-    color: #FFAB00!important;
+a:hover{
+  text-decoration: none;
+  color: #fff;
 }
 .brand{
 	font-family: 'Montserrat', sans-serif;
@@ -14,4 +13,9 @@
 .brand::after{
 	content: "DZ";
 	color: #FFAB00;
+}
+.box-shadow{
+  position: fixed;
+  z-index: 10;
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }

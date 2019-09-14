@@ -15,7 +15,11 @@ export class ModelService {
   public create(mfid:string,body:FormData){
 
     interface Response {
-      models: [];
+      id : string;
+      name : string;
+      images : any;
+      colors : any;
+      options : any;
     }
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
@@ -27,10 +31,14 @@ export class ModelService {
     }));
   }
 
-  public getDetails(mfid:string, id : number){
+  public getDetails(mfid:string, id : string){
 
     interface Response {
-      type: any;
+      id : string;
+      name : string;
+      images : any;
+      colors : any;
+      options : any;
     }
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
@@ -72,5 +80,23 @@ export class ModelService {
     }));
   }
 
+  public delete(manufacturerId:string,id : string ){
+    const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
 
+    class ResponseError {
+      error: boolean;
+      msg : string;
+    }
+
+    return this.http.delete(this.ROOT_URL+"/manufacturers/"+manufacturerId+"/models/"+id,{
+      headers: header}).pipe(map(res => {
+        if(res instanceof ResponseError){
+          const result = res as ResponseError;
+          if(result.error){
+            throw(result.msg);
+          }
+        }
+      return res;
+    }));
+  }
 }

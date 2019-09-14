@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthentificationService } from '../Services/Authentification/authentification.service';
 import { first } from 'rxjs/operators';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
@@ -11,21 +12,26 @@ import { first } from 'rxjs/operators';
 })
 export class LoginComponent implements OnInit {
 
-    username: string = "";
-    password: string = "";
+  loginFormGroup: FormGroup;
+  error : string = "";
+  loading : boolean = false;
 
-    error : string = "";
-    loading : boolean = false;
 
     constructor (   private auth:AuthentificationService,
                     private router:Router,
+                    private _formBuilder: FormBuilder,
     ) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+      this.loginFormGroup = this._formBuilder.group({
+        email : ['', Validators.required],
+        password: ['', Validators.required]
+      });
+    }
 
     onSubmit() {
       this.loading = true;
-      this.auth.loginAll(this.username,this.password)
+      this.auth.loginAll(this.loginFormGroup.controls['email'].value,this.loginFormGroup.controls['password'].value)
       .pipe(first()).subscribe(
           res => {
             if (res.token == undefined) {

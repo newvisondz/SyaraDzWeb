@@ -10,9 +10,7 @@ import { AuthentificationService } from '../../../Services//Authentification/aut
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  @Input() loading : boolean = false;
-  @Input() error : string = "";
-  
+
   constructor(private auth:AuthentificationService,
               private router:Router) { }
 

@@ -3,35 +3,28 @@
         <div class="d-flex justify-content-center">
             <mat-spinner [hidden]="!loading" class="mt-5"></mat-spinner>
         </div>
-        <div class="col-sm-8" [hidden]="loading">
+        <div class="col-sm-5" [hidden]="loading">
           <app-notification [error] = "error"></app-notification>
-          <div class="card box-shadow">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-sm-12 col-md-8" style="margin-top : 20px; margin-bottom: 20px;">
-                  <h4 class="card-title">Se connecter à Sayara <span style="color : #FFAB00;">DZ</span></h4>
-                  <div style="width: 100px; border: 1px solid #FFAB00;"></div>
-                  <div class="card-text">
-                    <form (submit)="onSubmit()">
-                        <div class="form-content">
-                            <div class="form-group">
-                                <input type="text" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" class="form-control input-underline input-lg" placeholder="Email">
-                            </div>
-
-                            <div class="form-group">
-                                <input type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" class="form-control input-underline input-lg" placeholder="Password">
-                            </div>
-                        </div>
-                        <button class="btn btn-search" type="submit">Connect</button>
-                    </form>
-                  </div>
-                </div>
-                <div class="col-md-4 d-none d-sm-none d-md-block d-lg-block d-xl-block" style="background : url(../../assets/car3.jpg)  ; background-size: cover;">
-
-                </div>
-              </div>
-            </div>
-          </div>
+          <mat-card class="example-card">
+            <mat-card-content>
+              <h4>CONNEXION</h4>
+              <h6>Connectez vous à votre compte</h6>
+              <img src="../assets/images/logo.png" alt="Logo SAYARADZ" width="200"/>
+              <form [formGroup]="loginFormGroup">
+                <mat-form-field appearance="outline" style="width : 100%">
+                  <mat-label>Entrez votre address e-mail</mat-label>
+                  <input matInput placeholder="xxx@yyy.zzz" type="text" formControlName="email">
+                  <mat-icon matSuffix>email</mat-icon>
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width : 100%">
+                  <mat-label>Entrez votre mot de passe</mat-label>
+                  <input matInput placeholder="********" type="password" formControlName="password">
+                  <mat-icon matSuffix>lock</mat-icon>
+                </mat-form-field>
+                <button mat-raised-button color="primary" (click) = "onSubmit()">Se connecter</button>
+              </form>
+            </mat-card-content>
+          </mat-card>
         </div>
     </div>
 </div>

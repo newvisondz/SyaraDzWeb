@@ -5,46 +5,93 @@
         <div class="d-flex flex-column">
           <div class="d-flex flex-column">
             <h5>Créer un nouveau modéle :</h5>
-            
+
             <mat-form-field appearance="outline" style="width : 100%">
-              <mat-label> Créer une couleur</mat-label>
+              <mat-label> Introduire le nom </mat-label>
               <input formControlName="nameModele" matInput placeholder="Nom du modéle">
             </mat-form-field>
-
-            <h6>Veuillez introduire la liste des couleurs disponibles : </h6>
             <div class="row">
-              <div class="col-sm-5">
-                <mat-form-field appearance="outline" style="width : 100%">
-                  <mat-label> Créer une couleur</mat-label>
-                  <input formControlName="name" matInput placeholder="Nom de la couleur">
-                </mat-form-field>
-              </div>
+              <div class="col-sm-6">
+                <h6>Veuillez introduire la liste des couleurs disponibles : </h6>
+                <div class="row">
+                  <div class="col-sm-5">
+                    <mat-form-field appearance="outline" style="width : 100%">
+                      <mat-label> Créer une couleur</mat-label>
+                      <input formControlName="name" matInput placeholder="Nom de la couleur">
+                    </mat-form-field>
+                  </div>
 
-              <div class="col-sm-5">
-                <mat-form-field appearance="outline" style="width : 100%">
-                  <mat-label> Créer une couleur</mat-label>
-                  <input formControlName="value" matInput placeholder="Valeur de la couleur">
-                </mat-form-field>
-              </div>
+                  <div class="col-sm-5">
+                    <mat-form-field appearance="outline" style="width : 100%">
+                      <mat-label> Créer une couleur</mat-label>
+                      <input formControlName="value" matInput placeholder="Valeur de la couleur">
+                    </mat-form-field>
+                  </div>
 
-              <div class="col-sm-2">
-                <button matTooltip="Ajouter une couleur" mat-icon-button color="primary" (click) = "onCreateCouleur()">
-                  <mat-icon>add</mat-icon>
-                </button>
-              </div>
+                  <div class="col-sm-2">
+                    <button matTooltip="Ajouter une couleur" mat-icon-button color="primary" (click) = "onCreateCouleur()">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                  </div>
 
+                </div>
+                <mat-list>
+                  <h3 mat-subheader>Couleurs</h3>
+                  <mat-list-item *ngFor="let couleur of couleurs, let i =index">
+                    <mat-icon mat-list-icon style="color : #228B22">check_circle</mat-icon>
+                    <h4 mat-line>{{couleur.name}}</h4>
+                    <p mat-line> {{couleur.value}} </p>
+                    <button matTooltip = "Supprimer" mat-icon-button color="warn" (click) = "onDeleteCouleur(i)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+              <div class="col-sm-6">
+                <h6>Veuillez introduire la liste des options disponibles : </h6>
+                <div class="row">
+                  <div class="col-sm-5">
+                    <mat-form-field appearance="outline" style="width : 100%">
+                    <mat-label> Nom de l'option </mat-label>
+                     <input formControlName="nameOption" matInput placeholder="Energie" [matAutocomplete]="auto">
+                     <mat-autocomplete #auto="matAutocomplete">
+                       <mat-option *ngFor="let option of optionsList" [value]="option">
+                         <span>{{option}}</span>
+                       </mat-option>
+                     </mat-autocomplete>
+                   </mat-form-field>
+                  </div>
+
+                  <div class="col-sm-5">
+                    <mat-form-field appearance="outline" style="width : 100%">
+                      <mat-label> Valeur de l'option </mat-label>
+                      <input formControlName="valueOption" matInput placeholder="Valeur de l'option">
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-sm-2">
+                    <button matTooltip="Ajouter une option" mat-icon-button color="primary" (click) = "onCreateOption()">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                  </div>
+
+                </div>
+                <mat-list>
+                  <h3 mat-subheader>Options</h3>
+                  <mat-list-item *ngFor="let option of options, let i =index">
+                    <mat-icon mat-list-icon style="color : #228B22">check_circle</mat-icon>
+                    <h4 mat-line>{{option.name}}</h4>
+                    <p mat-line> {{option.values}} </p>
+                    <button matTooltip = "Supprimer" mat-icon-button color="warn" (click) = "onDeleteOption(i)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </mat-list-item>
+                </mat-list>
+              </div>
             </div>
-            <mat-list>
-              <h3 mat-subheader>Couleurs</h3>
-              <mat-list-item *ngFor="let couleur of couleurs, let i =index">
-                <mat-icon mat-list-icon style="color : #228B22">check_circle</mat-icon>
-                <h4 mat-line>{{couleur.name}}</h4>
-                <p mat-line> {{couleur.value}} </p>
-                <button matTooltip = "Supprimer" mat-icon-button color="warn" (click) = "onDeleteCouleur(i)">
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </mat-list-item>
-            </mat-list>
+
+
+
             <h5>Photo du modéle : </h5>
             <div style="text-align : center">
               <div style="text-align : center">
@@ -52,7 +99,7 @@
                     <input
                       #file
                       type="file"
-                      formControlName="modeleImage"
+                      formControlName="modeleImages"
                       class="form-control"
                       accept="image/jpeg,image/png"
                       (change)="onFileChange($event)"
@@ -61,10 +108,11 @@
                 </fieldset>
                 <button matTooltip = "Ajouter une photo du modéle" mat-raised-button (click) = "addFiles()" color="primary">Choisir une photo du modéle</button>
               </div>
-              <div style="text-align : center; margin-top : 10px;">
-                <fieldset class="form-group">
-                    <img [src]=linkImage alt="Aucune photo choisie" height="200px" width="200px">
-                </fieldset>
+
+              <div class="row">
+                <div class="col-sm-4" *ngFor="let photo of linkImages; let i = index">
+                  <img [src]=photo alt="Aucune photo choisie" height="150px" width="150px">
+                </div>
               </div>
             </div>
           </div>

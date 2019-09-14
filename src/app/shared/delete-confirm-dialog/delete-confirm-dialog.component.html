@@ -1,11 +1,11 @@
 
   <div>
-    <h2 mat-dialog-title>Confirmer</h2>
+    <h2 mat-dialog-title class="underline">{{title}}</h2>
     <mat-dialog-content class="mat-typography">
-      Voulez-vous {{data.message}}?
+      {{message}}?
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-raised-button (click)="onConfirm()" color = "primary">Confirmer</button>
-      <button mat-raised-button mat-dialog-close color = "warn">Annuler</button>
+      <button mat-raised-button mat-dialog-close color = "accent">Annuler</button>
     </mat-dialog-actions>
   </div>

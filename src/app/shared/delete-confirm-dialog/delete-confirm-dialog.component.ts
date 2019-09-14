@@ -10,7 +10,11 @@ export class DeleteConfirmDialogComponent implements OnInit {
   constructor( @Optional() public dialogRef: MatDialogRef<DeleteConfirmDialogComponent>,
                @Optional() @Inject(MAT_DIALOG_DATA) public data:any) { }
 
+   message = "";
+   title = "";
   ngOnInit() {
+    this.title = this.data.title;
+    this.message = this.data.message;
   }
   onConfirm(){
     this.dialogRef.close(true);

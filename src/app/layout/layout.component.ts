@@ -7,9 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-  loading : boolean = false;
-  error : string = "";
-
   constructor() {
       console.log(localStorage.getItem('accesToken'));
   }

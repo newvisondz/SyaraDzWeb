@@ -1,4 +1,14 @@
-$topnav-background-color: #BDBDBD;
+$topnav-background-color: #F7F0F0;
+$primary : #fa5f1a;
+
+h4{
+  font-weight: 700;
+  color: $primary;
+}
+.example-card{
+  text-align: center;
+}
+
 :host {
     display: block;
 }
@@ -8,81 +18,8 @@ $topnav-background-color: #BDBDBD;
     left: 0;
     right: 0;
     bottom: 0;
-    overflow: auto;
+    overflow-x: hidden;
     background: $topnav-background-color;
-    color: #000;
-    padding: 3em;
-    .input-lg {
-        height: 46px;
-        padding: 10px 16px;
-        font-size: 18px;
-        line-height: 1.3333333;
-        border-radius: 0;
-    }
-    .input-underline {
-        background: 0 0;
-        border: none;
-        box-shadow: none;
-        border-bottom: 2px solid rgba(0, 0, 0, 0.5);
-        color: #000;
-        border-radius: 0;
-    }
-    .input-underline:focus {
-        border-bottom: 2px solid #000;
-        box-shadow: none;
-    }
-    .rounded-btn {
-        color: rgba(255, 255, 255, 0.8);
-        background: #FFAB00;
-        border: 2px solid rgba(255, 255, 255, 0.8);
-        font-size: 18px;
-        line-height: 40px;
-        padding: 0 25px;
-    }
-    .rounded-btn:hover,
-    .rounded-btn:focus,
-    .rounded-btn:active,
-    .rounded-btn:visited {
-        color: rgba(255, 255, 255, 1);
-        border: 2px solid rgba(255, 255, 255, 1);
-        outline: none;
-    }
 
-    h1 {
-        font-weight: 300;
-        margin-top: 20px;
-        margin-bottom: 10px;
-        font-size: 36px;
-        small {
-            color: rgba(0, 0, 0, 0.7);
-        }
-    }
 
-    .form-group {
-        padding: 8px 0;
-        input::-webkit-input-placeholder {
-            color: rgba(0, 0, 0, 0.6) !important;
-        }
-
-        input:-moz-placeholder {
-            /* Firefox 18- */
-            color: rgba(0, 0, 0, 0.6) !important;
-        }
-
-        input::-moz-placeholder {
-            /* Firefox 19+ */
-            color: rgba(0, 0, 0, 0.6) !important;
-        }
-
-        input:-ms-input-placeholder {
-            color: rgba(0, 0, 0, 0.6) !important;
-        }
-    }
-    .form-content {
-        padding: 40px 0;
-    }
-}
-.box-shadow{
-  border-radius: 0px;
-	box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12) !important;
 }

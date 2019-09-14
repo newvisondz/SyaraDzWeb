@@ -1,11 +1,8 @@
 import { Component, OnInit, ViewChild,Optional,Inject } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA , MatDialogConfig, MatTableDataSource} from '@angular/material';
-import { first,tap } from 'rxjs/operators';
 import {DeleteConfirmDialogComponent} from './../../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
-import {UpdateModeleDialogComponent} from './../update-modele-dialog/update-modele-dialog.component';
 import {CreateAttributeDialogComponent} from './../create-attribute-dialog/create-attribute-dialog.component';
-import { ModelService } from "../../../Services/Model-CRUD/model.service";
 
 @Component({
   selector: 'app-list-colors-dialog',
@@ -14,59 +11,37 @@ import { ModelService } from "../../../Services/Model-CRUD/model.service";
 })
 export class ListColorsDialogComponent implements OnInit {
   displayedColumns: string[] = ['index', 'aperçu','couleur','tarif', 'manipulations'];
-  colors = [];
   colorsTable:MatTableDataSource<Color>;
-  idModel = "" ;
-  idManufacturer = "";
-  loading = false;
-  error = "";
-
+  originLength = 0
   constructor(@Optional() public dialogRef: MatDialogRef<ListColorsDialogComponent>,
               @Optional() @Inject(MAT_DIALOG_DATA) public data:any,
-              public dialog: MatDialog,
-              private modelService : ModelService) { }
+              public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.colors = this.data.colors;
-    this.colorsTable = new MatTableDataSource(this.colors);
-    this.idModel = this.data.idModel;
-    this.idManufacturer = this.data.idManufacturer;
+    this.colorsTable = new MatTableDataSource(this.data.colors);
+    this.originLength = this.data.colors.length
   }
   //créer une couleur
   onCreateCouleur(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      title : "Créer une couleur"
+    };
     const dialogRef = this.dialog.open(CreateAttributeDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if(result.status){
         //valider la création
         console.log("add color " + result.name);
-        //ajouter la couleur
-        this.colors.push({
+        const color = {
           name : result.name,
           value : result.value
-        })
-
-        let formData: FormData = new FormData();
-        formData.append('colors', JSON.stringify(this.colors));
-        console.log(formData);
-
-        this.loading = true;
-        this.modelService.update(this.idManufacturer,this.idModel,formData)
-        .pipe(first()).subscribe(
-            res => {
-                this.loading = false;
-                console.log(res);
-                //insert new color into model using idModel
-                console.log("add couleur " + result.name);
-                this.colorsTable = new MatTableDataSource(this.colors);
-            },
-            err => {
-                this.error = err;
-                this.loading = false;
-            }
-        );
+        }
+        //ajouter la couleur
+        let data = this.colorsTable.data
+        data.push(color)
+        this.colorsTable = new MatTableDataSource(data)
       }
     });
   }
@@ -82,9 +57,10 @@ export class ListColorsDialogComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         //valider la suppression
-        console.log("delete couleur " + this.colors[id].name);
-        this.colors.splice(id,1);
-        this.colorsTable = new MatTableDataSource(this.colors);
+        console.log("delete couleur " + this.colorsTable.data[id].name);
+        let data = this.colorsTable.data
+        data.splice(id,1);
+        this.colorsTable = new MatTableDataSource(data);
       }
     });
   }
@@ -96,20 +72,40 @@ export class ListColorsDialogComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
-      option: this.colors[id],
+      title : "Modifier la couleur"
     };
-    const dialogRef = this.dialog.open(UpdateModeleDialogComponent, dialogConfig);
+    const dialogRef = this.dialog.open(CreateAttributeDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if(result.status){
         //valider la modification
-        console.log("update couleur " + this.colors[id].name);
-        this.colors[id] = {
+        console.log("update couleur " + this.colorsTable.data[id].name);
+        let data = this.colorsTable.data
+        data[id] = {
           name : result.name,
           value : result.value
         }
-        this.colorsTable = new MatTableDataSource(this.colors);
+        this.colorsTable = new MatTableDataSource(data);
       }
     });
+  }
+
+  onClose(){
+    const data = {
+      status : true,
+      colors : this.colorsTable.data
+    }
+    console.log(data)
+    this.dialogRef.close(data);
+  }
+  onCancel(){
+    const data = {
+      status : false,
+    }
+    for(let i = 0 ; i< (this.colorsTable.data.length - this.originLength); i++){
+      this.colorsTable.data.pop();
+    }
+
+    this.dialogRef.close(data);
   }
 
 }

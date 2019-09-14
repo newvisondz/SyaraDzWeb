@@ -51,6 +51,7 @@
       </table>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
-      <button matTooltip="Fermer la list" mat-raised-button mat-dialog-close color = "primary">OK</button>
+      <button matTooltip="Enregisterer les modification" mat-raised-button  color = "primary" (click) = "onClose()">OK</button>
+      <button matTooltip="Annuler" mat-raised-button color = "accent" (click) = "onCancel()">Annuler</button>
     </mat-dialog-actions>
   </div>

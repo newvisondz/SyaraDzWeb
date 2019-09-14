@@ -10,15 +10,19 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 export class CreateAttributeDialogComponent implements OnInit {
   firstFormGroup: FormGroup;
 
+  title : String = "";
 
   constructor(private _formBuilder: FormBuilder,
               @Optional() public dialogRef: MatDialogRef<CreateAttributeDialogComponent>,
               @Optional() @Inject(MAT_DIALOG_DATA) public data:any) { }
 
   ngOnInit() {
+    this.title = this.data.title;
+    console.log(this.title)
     this.firstFormGroup = this._formBuilder.group({
       name: ['', Validators.required],
       value: ['', Validators.required],
+      price : ['', Validators.required]
     });
   }
 
@@ -26,7 +30,8 @@ export class CreateAttributeDialogComponent implements OnInit {
     const data = {
       status : true,
       name : this.firstFormGroup.controls['name'].value,
-      value : this.firstFormGroup.controls['value'].value
+      value : this.firstFormGroup.controls['value'].value,
+      price : this.firstFormGroup.controls['price'].value
     }
     this.dialogRef.close(data);
   }

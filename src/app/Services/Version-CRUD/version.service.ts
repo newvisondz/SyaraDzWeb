@@ -12,10 +12,10 @@ export class VersionService {
 
   readonly ROOT_URL = environment.baseUrl;
 
-  public create(mfid:string, id : string,body:object){
+  public create(mfid:string, id : string,body:FormData){
 
     interface Response {
-      models: [];
+      versions: [];
     }
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
@@ -45,8 +45,7 @@ export class VersionService {
   public list(mfid:string, id : string){
 
     interface Response {
-      models: [];
-      count: any,
+      versions: any[]
     }
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
@@ -59,7 +58,7 @@ export class VersionService {
   }
 
   public update(mfid : string, mid : string, vid : string,body: any){
-    
+
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
 
     interface Response {

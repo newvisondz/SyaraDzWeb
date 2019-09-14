@@ -1,7 +1,16 @@
 
   <div class="dialog">
+    <h2 mat-dialog-title class="underline">
+      {{title}}
+    </h2>
     <mat-dialog-content class="mat-typography">
-      <img [src]="data.image" alt="zoomed image" width="100%">
+      <img [src]="current" alt="zoomed image" height="200">
+      <h5>Autres photos</h5>
+      <div class="row">
+        <div class="col-sm-4 p-3" *ngFor="let photo of photos; let i = index">
+          <img [src]="photo" alt="zoomed image" width="200" (click) = "onDisplayOne(i)">
+        </div>
+      </div>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-raised-button mat-dialog-close color = "primary">OK</button>

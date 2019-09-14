@@ -11,6 +11,9 @@ import {DeleteConfirmDialogComponent} from './../../../shared/delete-confirm-dia
 export class CreateVersionDialogComponent implements OnInit {
   firstFormGroup: FormGroup;
   options = [];
+  colors = [];
+  optionsList = [];
+  colorsList = [];
 
   constructor(private _formBuilder: FormBuilder,
               @Optional() public dialogRef: MatDialogRef<CreateVersionDialogComponent>,
@@ -18,19 +21,45 @@ export class CreateVersionDialogComponent implements OnInit {
               public dialog: MatDialog) { }
 
   ngOnInit() {
+    console.log(this.data);
+    this.optionsList = this.data.optionsList;
+    this.colorsList = this.data.colorsList;
+
     this.firstFormGroup = this._formBuilder.group({
       nameVersion : ['', Validators.required],
-      name: ['', Validators.required],
-      value: ['', Validators.required],
+      name: [''],
+      nameColor : [''],
+      valueColor : ['']
     });
   }
 
   onCreateOption(){
-    console.log("add option " + this.firstFormGroup.controls['name'].value.name);
+    let name = this.firstFormGroup.controls['name'].value;
+    let values = {};
+    for(let i=0; i<this.optionsList.length; i++){
+      if(this.optionsList[i].name == name){
+        values = this.optionsList[i].values;
+        console.log(values);
+      }
+    }
     this.options.push({
-      name : this.firstFormGroup.controls['name'].value,
-      value : this.firstFormGroup.controls['value'].value
-    })
+      name : name,
+      values : values
+    });
+  }
+
+  onCreateColor(){
+    let name = this.firstFormGroup.controls['nameColor'].value;
+    let value = "";
+    for(let i=0; i<this.colorsList.length; i++){
+      if(this.colorsList[i].name == name){
+        value = this.colorsList[i].values;
+      }
+    }
+    this.colors.push({
+      name : name,
+      value : value
+    });
   }
 
   onDeleteOption(id:number){
@@ -38,7 +67,10 @@ export class CreateVersionDialogComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
-    dialogConfig.data = {id: id};
+    dialogConfig.data = {
+      title : "Supprimer option",
+      message : "Êtes vous sûre de supprimer cette option ?"
+    };
     const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if(result){
@@ -48,11 +80,30 @@ export class CreateVersionDialogComponent implements OnInit {
     });
   }
 
+  onDeleteColor(id:number){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      title : "Supprimer couleur",
+      message : "Êtes vous sûre de supprimer cette couleur ?"
+    };
+    const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        console.log("delete color " + this.colors[id].name);
+        this.colors.splice(id,1);
+      }
+    });
+  }
+
   onConfirm(){
     const data = {
       status : true,
       nameVersion : this.firstFormGroup.controls['nameVersion'].value,
-      options : this.options
+      options : this.options,
+      colors : this.colors
     }
     this.dialogRef.close(data);
   }

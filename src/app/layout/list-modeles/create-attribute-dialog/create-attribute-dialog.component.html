@@ -1,20 +1,23 @@
   <div class="container-dialog">
-    <h2 mat-dialog-title class="underline">Créer nouveau attribut</h2>
+    <h2 mat-dialog-title class="underline">{{title}}</h2>
     <mat-dialog-content class="mat-typography">
       <form [formGroup]="firstFormGroup">
         <div class="d-flex flex-column">
           <div class="d-flex flex-column">
-            <h5>Créer un nouveau attribut :</h5>
 
             <mat-form-field appearance="outline" style="width : 100%">
-              <mat-label> Créer un attribut</mat-label>
-              <input formControlName="name" matInput placeholder="Nom de l'attribut">
+              <mat-label> Nom </mat-label>
+              <input formControlName="name" matInput placeholder="Nom">
             </mat-form-field>
 
             <mat-form-field appearance="outline" style="width : 100%">
-              <mat-label> Créer un attribut</mat-label>
-              <input formControlName="value" matInput placeholder="Valeur de l'attribut">
+              <mat-label> Valeur</mat-label>
+              <input formControlName="value" matInput placeholder="Valeur">
+            </mat-form-field>
 
+            <mat-form-field appearance="outline" style="width : 100%">
+              <mat-label> Prix</mat-label>
+              <input formControlName="price" matInput placeholder="500.00">
             </mat-form-field>
           </div>
         </div>

@@ -66,9 +66,16 @@ export class CreateModeleDialogComponent implements OnInit {
 
   onCreateOption(){
     console.log("add Option " + this.firstFormGroup.controls['nameOption'].value);
+    let valuesString = this.firstFormGroup.controls['valueOption'].value;
+    let values = valuesString.split(";");
+    console.log(values);
     this.options.push({
       name : this.firstFormGroup.controls['nameOption'].value,
+<<<<<<< HEAD
       values : [this.firstFormGroup.controls['valueOption'].value]
+=======
+      values : values
+>>>>>>> b8eb8633f47df44857d2b87d22b65236d9bb49fb
     })
 
     console.log(this.options);

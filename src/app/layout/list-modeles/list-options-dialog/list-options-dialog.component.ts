@@ -10,7 +10,7 @@ import {CreateAttributeDialogComponent} from './../create-attribute-dialog/creat
   styleUrls: ['./list-options-dialog.component.scss']
 })
 export class ListOptionsDialogComponent implements OnInit {
-  displayedColumns: string[] = ['index', 'aperçu','option','tarif', 'manipulations'];
+  displayedColumns: string[] = ['index', 'option','aperçu','tarif', 'manipulations'];
   optionsTable:MatTableDataSource<Option>;
   originLength = 0
   constructor(@Optional() public dialogRef: MatDialogRef<ListOptionsDialogComponent>,

@@ -36,7 +36,10 @@ export class DisplayCardUserComponent implements OnInit {
     console.log('this is id = '+ id);
 
 
-    dialogConfig.data = {id: id};
+    dialogConfig.data = {
+      title : "Confirmer la suppression",
+      message : "Êtes vous sûre de supprimer cet utilisateur ?"
+    };
 
     const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {

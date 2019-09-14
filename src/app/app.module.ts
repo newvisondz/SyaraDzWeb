@@ -14,7 +14,7 @@ import { ServiceViewComponent } from './home-page/service-view/service-view.comp
 import { ServiceComponent } from './home-page/service/service.component';
 import { HomePageService } from './home-page/services/home-page.service';
 import { FooterHomeComponent } from './home-page/footer-home/footer-home.component';
-
+import { MaterialModule } from './layout/material.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,8 @@ import { FooterHomeComponent } from './home-page/footer-home/footer-home.compone
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MaterialModule
   ],
   providers: [
     {

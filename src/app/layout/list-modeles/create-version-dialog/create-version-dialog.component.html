@@ -45,12 +45,23 @@
               <div class="col-sm-6">
                 <h6>Veuillez introduire la liste des options de cette version : </h6>
                 <div class="row">
-                  <div class="col-sm-10">
+                  <div class="col-sm-5">
                     <mat-form-field appearance="outline" style="width : 100%">
-                      <mat-label> Créer une option</mat-label>
+                      <mat-label> Ajouter une option</mat-label>
                       <mat-select formControlName="name">
-                       <mat-option *ngFor="let option of optionsList" [value]="option.name">
+                       <mat-option *ngFor="let option of optionsList" [value]="option.name" (click) = "setSelectedOption(option)">
                          <span>{{option.name}}</span>
+                       </mat-option>
+                    </mat-select>
+                   </mat-form-field>
+                  </div>
+
+                  <div class="col-sm-5">
+                    <mat-form-field appearance="outline" style="width : 100%">
+                      <mat-label> Choisir sa valeur</mat-label>
+                      <mat-select formControlName="value">
+                       <mat-option *ngFor="let value of selectedOption.values" [value]="value.value">
+                         <span>{{value.value}}</span>
                        </mat-option>
                     </mat-select>
                    </mat-form-field>

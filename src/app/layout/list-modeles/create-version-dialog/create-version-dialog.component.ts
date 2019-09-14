@@ -14,6 +14,7 @@ export class CreateVersionDialogComponent implements OnInit {
   colors = [];
   optionsList = [];
   colorsList = [];
+  selectedOption = {};
 
   constructor(private _formBuilder: FormBuilder,
               @Optional() public dialogRef: MatDialogRef<CreateVersionDialogComponent>,
@@ -28,11 +29,13 @@ export class CreateVersionDialogComponent implements OnInit {
     this.firstFormGroup = this._formBuilder.group({
       nameVersion : ['', Validators.required],
       name: [''],
+      value : [''],
       nameColor : [''],
-      valueColor : ['']
     });
   }
-
+  setSelectedOption(option : any){
+    this.selectedOption = option;
+  }
   onCreateOption(){
     let name = this.firstFormGroup.controls['name'].value;
     let values = {};

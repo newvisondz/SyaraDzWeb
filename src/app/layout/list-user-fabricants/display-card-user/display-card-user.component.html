@@ -14,16 +14,16 @@
     <p>Address :</p>
     <mat-card-subtitle>{{user.address}}</mat-card-subtitle>
   </mat-card-content>
-  <mat-card-actions>
-    <button class="mr-2"color = "warn" mat-icon-button (click)="onDelete(user.manufacturer,user.id)">
-      <mat-icon>delete</mat-icon>
-    </button>
-    <button class="mx-2"color = "primary" mat-icon-button (click)="onUpdate(user.manufacturer,user.id)">
-      <mat-icon>create</mat-icon>
-    </button>
-    <mat-slide-toggle
-      >
-      activer
-    </mat-slide-toggle>
+  <mat-card-actions >
+    <div style="float : right">
+      <button matTooltip="Supprimer" class="mr-2"color = "warn" mat-icon-button (click)="onDelete(user.manufacturer,user.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button matTooltip="Modifier" class="mx-2"color = "accent" mat-icon-button (click)="onUpdate(user.manufacturer,user.id)">
+        <mat-icon>create</mat-icon>
+      </button>
+    </div>
+    <div style = "clear : both">
+    </div>
   </mat-card-actions>
 </mat-card>

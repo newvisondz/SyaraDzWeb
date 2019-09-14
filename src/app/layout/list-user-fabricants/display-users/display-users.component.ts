@@ -115,7 +115,9 @@ export class DisplayUsersComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-
+    dialogConfig.data = {
+      title : "Créer un nouvel Utilisateur"
+    };
     const dialogRef = this.dialog.open(CreateUserFabricantDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if(result.status){

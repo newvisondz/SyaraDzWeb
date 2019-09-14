@@ -1,25 +1,28 @@
   <div class="container-dialog">
-    <h2 mat-dialog-title>Modifier fabriquant</h2>
+    <h2 mat-dialog-title class="underline">Céer un Utilisateur</h2>
     <mat-dialog-content class="mat-typography">
       <form [formGroup]="userFormGroup">
         <div class="d-flex flex-column">
           <h5>Informations personnelles :</h5>
           <div class="row">
             <div class="col-sm-6 d-flex flex-column">
-              <mat-form-field>
-                <input matInput placeholder="Nom"  formControlName="lastName"/>
+              <mat-form-field appearance="outline" style="width : 100%;">
+                <mat-label> Entrez le nom</mat-label>
+                <input matInput placeholder="Nom..."  formControlName="lastName"/>
               </mat-form-field>
             </div>
             <div class="col-sm-6 d-flex flex-column">
-              <mat-form-field>
+              <mat-form-field appearance="outline" style="width : 100%;">
+                <mat-label> Entrez le prénom</mat-label>
                 <input matInput placeholder="Prénom" formControlName="firstName"/>
               </mat-form-field>
             </div>
           </div>
           <div class="row">
             <div class="col-sm-6 d-flex flex-column">
-              <mat-form-field>
-                <input matInput placeholder="Email" type="email" formControlName="email" />
+              <mat-form-field appearance="outline" style="width : 100%;">
+                <mat-label> Entrez l'email</mat-label>
+                <input matInput placeholder="xxx@yyy.zzz" type="email" formControlName="email" />
                 <mat-error *ngFor="let validation of account_validation_messages.email">
                   <mat-error class="error-message" *ngIf="userFormGroup.get('email').hasError(validation.type) && (userFormGroup.get('email').dirty || userFormGroup.get('email').touched)">{{validation.message}}
                   </mat-error>
@@ -27,21 +30,23 @@
               </mat-form-field>
             </div>
             <div class="col-sm-6 d-flex flex-column">
-              <mat-form-field>
-                <input matInput placeholder="Phone" formControlName="phone"  />
+              <mat-form-field appearance="outline" style="width : 100%;">
+                <mat-label> Entrez le numéro de téléphone</mat-label>
+                <input matInput placeholder="0551234567" formControlName="phone"  />
               </mat-form-field>
             </div>
           </div>
-
-          <mat-form-field>
-            <input matInput placeholder="Address" formControlName="address"  />
+          <mat-form-field appearance="outline" style="width : 100%;">
+            <mat-label> Entrez l'adresse de l'Utilisateur</mat-label>
+            <input matInput placeholder="Appartement 25 ......." formControlName="address"  />
           </mat-form-field>
           <br>
           <h5>Choisir un mot de passe :</h5>
           <div class="row" [formGroup] = "matching_passwords">
             <div class="col-sm-6 d-flex flex-column">
-              <mat-form-field>
-                <input matInput placeholder="Mot de passe" type="password" formControlName="password"/>
+              <mat-form-field appearance="outline" style="width : 100%;">
+                <mat-label> Entrez  un mot de passe</mat-label>
+                <input matInput placeholder="***************" type="password" formControlName="password"/>
                 <mat-error *ngFor="let validation of account_validation_messages.password">
                   <mat-error class="error-message" *ngIf="matching_passwords.get('password').hasError(validation.type) && (matching_passwords.get('password').dirty || matching_passwords.get('password').touched)">{{validation.message}}
                   </mat-error>
@@ -49,8 +54,9 @@
               </mat-form-field>
             </div>
             <div class="col-sm-6 d-flex flex-column">
-              <mat-form-field>
-                <input matInput placeholder="Confirmer le mot de passe" type="password" formControlName="confirmPassword"/>
+              <mat-form-field appearance="outline" style="width : 100%;">
+                <mat-label> Confirmer le mot de passe</mat-label>
+                <input matInput placeholder="*****************" type="password" formControlName="confirmPassword"/>
                 <mat-error *ngFor="let validation of account_validation_messages.confirm_password">
                   <mat-error class="error-message" *ngIf="matching_passwords.get('confirmPassword').hasError(validation.type) && (matching_passwords.get('confirmPassword').dirty || matching_passwords.get('confirmPassword').touched)">{{validation.message}}</mat-error>
                 </mat-error>
@@ -64,6 +70,6 @@
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-raised-button  color = "primary" (click) = "onConfirm()">Confirmer</button>
-      <button mat-raised-button mat-dialog-close color = "warn">Annuler</button>
+      <button mat-raised-button mat-dialog-close color = "accent">Annuler</button>
     </mat-dialog-actions>
   </div>

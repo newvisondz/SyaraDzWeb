@@ -5,11 +5,6 @@ import { map } from 'rxjs/operators';
 import { Fabricant} from '../../model/fabricant.model';
 import { environment } from '../../../environments/environment';
 
-interface Response {
-  manufacturers: Observable<Fabricant>[],
-  count : number
-}
-
 @Injectable({
   providedIn: 'root'
 })

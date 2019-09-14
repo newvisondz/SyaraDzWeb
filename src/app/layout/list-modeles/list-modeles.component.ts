@@ -20,7 +20,7 @@ import {DeleteConfirmDialogComponent} from './../../shared/delete-confirm-dialog
 
 
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+// import 'jspdf-autotable';
 
 import { environment } from '../../../environments/environment';
 @Component({

@@ -11,7 +11,7 @@ import { ListOptionsDialogComponent } from '../list-options-dialog/list-options-
 import { ListColorsDialogComponent } from '../list-colors-dialog/list-colors-dialog.component';
 
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+// import 'jspdf-autotable';
 
 @Component({
     selector: 'app-list-versions',

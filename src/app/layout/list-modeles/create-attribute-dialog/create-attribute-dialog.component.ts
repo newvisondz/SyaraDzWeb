@@ -22,7 +22,7 @@ export class CreateAttributeDialogComponent implements OnInit {
     this.firstFormGroup = this._formBuilder.group({
       name: ['', Validators.required],
       value: ['', Validators.required],
-      price : ['', Validators.required]
+      price : ['',]
     });
   }
 

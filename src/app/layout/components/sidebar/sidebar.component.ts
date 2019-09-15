@@ -28,68 +28,29 @@ export class SidebarComponent implements OnInit {
       this.type = "Administrateur";
       this.links  = [
         {
-          header : "Vue d'ensemble",
+          header : "Tableau de bords",
           icon : "fas fa-tachometer-alt",
-          sublinks : [
-            {
-              header : "Tableau de bords",
-              icon : "fas fa-tachometer-alt",
-              route : "overview"
-            },
-            /*{
-              header : "Profile",
-              icon : "fas fa-user",
-              route : "profile"
-            },*/
-          ]
+          route : "overview",
         },
         {
           header : "Gestion des fabricants",
-          icon : "fas fa-clipboard-list",
-          sublinks : [
-            /*{
-              header : "Créer fabricant",
-              icon : "fas fa-plus",
-              route : "creerFabricant"
-            },*/
-            {
-              header : "Afficher fabricants",
-              icon : "fas fa-list-alt",
-              route : "afficherFabricants"
-            },
-          ]
+          icon : "fas fa-list-alt",
+          route : "afficherFabricants"
         },
         {
           header : "Gestion des utilisateurs",
           icon : "fas fa-users",
-          sublinks : [
-            /*{
-              header : "Créer utilisateur",
-              icon : "fas fa-plus",
-              route : "creerUtilisateur"
-            },*/
-            {
-              header : "Afficher utilisateur",
-              icon : "fas fa-list-alt",
-              route : "afficherUsersFabricants"
-            },
-          ],
+          route : "afficherUsersFabricants"
         },
         {
-          header : "Avancées",
-          icon : "fas fa-folder-plus",
-          sublinks : [
-            {
-              header : "Paramétres",
-              icon : "fa fa-fw fa-wrench",
-              route : "/"
-            },
-            {
-              header : "Aide",
-              icon : "fas fa-question",
-              route : "/"
-            },
-          ],
+          header : "Paramétres",
+          icon : "fa fa-fw fa-wrench",
+          route : "/"
+        },
+        {
+          header : "Aide",
+          icon : "fas fa-question",
+          route : "/"
         },
       ];
       console.log("super admin")
@@ -115,74 +76,40 @@ export class SidebarComponent implements OnInit {
         //check if is the admin and set the authorized links
         this.links  = [
           {
-            header : "Vue d'ensemble",
+            header : "Tableau de bords",
             icon : "fas fa-tachometer-alt",
-            sublinks : [
-              {
-                header : "Tableau de bords",
-                icon : "fas fa-tachometer-alt",
-                route : "overview"
-              },
-              {
-                header : "Profile",
-                icon : "fas fa-user",
-                route : "profile"
-              },
-            ]
+            route : "overview"
           },
           {
-            header : "Données de références",
+            header : "Profile",
+            icon : "fas fa-user",
+            route : "profile"
+          },
+          {
+            header : "Gestion des modéles",
             icon : "fas fa-car",
-            sublinks : [
-              {
-                header : "Gestion des modéles",
-                icon : "fas fa-car",
-                route : "modeles"
-              },
-              {
-                header : "Gestion des véhicules",
-                icon : "fas fa-car-side",
-                route : "vehicules"
-              },
-            ],
+            route : "modeles"
           },
           {
             header : "Gestion des utilisateurs",
             icon : "fas fa-users",
-            sublinks : [
-              /*{
-                header : "Créer utilisateur",
-                icon : "fas fa-plus",
-                route : "creerUtilisateur"
-              },*/
-              {
-                header : "Afficher utilisateur",
-                icon : "fas fa-list-alt",
-                route : "afficherUsersFabricants/users/" + localStorage.getItem('manufacturer')
-              },
-            ],
+            route : "afficherUsersFabricants/users/" + localStorage.getItem('manufacturer')
           },
           {
-            header : "Avancées",
-            icon : "fas fa-folder-plus",
-            sublinks : [
-              {
-                header : "Simulation tarif",
-                icon : "fas fa-fw fa-desktop",
-                route : "/"
-              },
-              {
-                header : "Paramétres",
-                icon : "fa fa-fw fa-wrench",
-                route : "/"
-              },
-              {
-                header : "Aide",
-                icon : "fas fa-question",
-                route : "/"
-              },
-            ],
-          }
+            header : "Simulation tarif",
+            icon : "fas fa-fw fa-desktop",
+            route : "/"
+          },
+          {
+            header : "Paramétres",
+            icon : "fa fa-fw fa-wrench",
+            route : "/"
+          },
+          {
+            header : "Aide",
+            icon : "fas fa-question",
+            route : "/"
+          },
         ];
         console.log("admin fabricant")
       }else{
@@ -190,62 +117,38 @@ export class SidebarComponent implements OnInit {
         this.type = "Utilisateur fabricant";
         this.links  = [
           {
-            header : "Vue d'ensemble",
+            header : "Tableau de bords",
             icon : "fas fa-tachometer-alt",
-            sublinks : [
-              {
-                header : "Tableau de bords",
-                icon : "fas fa-tachometer-alt",
-                route : "overview"
-              },
-              {
-                header : "Profile",
-                icon : "fas fa-user",
-                route : "profile"
-              },
-            ]
+            route : "overview"
           },
           {
-            header : "Données de références",
+            header : "Profile",
+            icon : "fas fa-user",
+            route : "profile"
+          },
+          {
+            header : "Gestion des modéles",
             icon : "fas fa-car",
-            sublinks : [
-              {
-                header : "Gestion des modéles",
-                icon : "fas fa-car",
-                route : "modeles"
-              },
-              {
-                header : "Gestion des véhicules",
-                icon : "fas fa-car-side",
-                route : "vehicules"
-              },
-            ],
+            route : "modeles"
           },
           {
-            header : "Avancées",
-            icon : "fas fa-folder-plus",
-            sublinks : [
-              {
-                header : "Simulation tarif",
-                icon : "fas fa-fw fa-desktop",
-                route : "/"
-              },
-              {
-                header : "Paramétres",
-                icon : "fa fa-fw fa-wrench",
-                route : "/"
-              },
-              {
-                header : "Aide",
-                icon : "fas fa-question",
-                route : "/"
-              },
-            ],
-          }
+            header : "Simulation tarif",
+            icon : "fas fa-fw fa-desktop",
+            route : "/"
+          },
+          {
+            header : "Paramétres",
+            icon : "fa fa-fw fa-wrench",
+            route : "/"
+          },
+          {
+            header : "Aide",
+            icon : "fas fa-question",
+            route : "/"
+          },
         ];
         console.log("user fabricant")
       }
     }
   }
-
 }

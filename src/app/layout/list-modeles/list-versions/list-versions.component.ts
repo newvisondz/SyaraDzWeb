@@ -28,7 +28,7 @@ export class ListVersionsComponent implements OnInit,AfterViewInit {
     manufacturerId = "";
     optionsList = [];
     colorsList = [];
-    path = "vehicules";
+    path = "vehicules/";
 
     //list des modéles à récupérer depuis la BDD
     //we don't need to initialise once we fetch versions from database with idModele

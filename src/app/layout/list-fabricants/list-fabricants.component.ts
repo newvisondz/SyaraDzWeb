@@ -11,12 +11,15 @@ import {DeleteConfirmDialogComponent} from './../../shared/delete-confirm-dialog
 import {UpdateFabriquatDialogComponent} from './update-fabriquat-dialog/update-fabriquat-dialog.component';
 import { CreateFabriquantDialogComponent } from './create-fabriquant-dialog/create-fabriquant-dialog.component';
 import { MessageSnackBarComponent } from './../../shared/message-snack-bar/message-snack-bar.component';
-import { ContractFabricantDialogComponent } from './../shared/contract-fabricant-dialog/contract-fabricant-dialog.component';
+import { AccountFabricantDialogComponent } from './../shared/account-fabricant-dialog/account-fabricant-dialog.component';
 
 import { Fabricant} from '../../model/fabricant.model';
 
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
+
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 @Component({
     selector: 'app-list-fabricants',
     templateUrl: './list-fabricants.component.html',
@@ -26,7 +29,7 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
     durationInSeconds = 5;
     fabricants:MatTableDataSource<Fabricant>;
     dataFabricants = [];
-    displayedColumns: string[] = ['index','marque', 'logo','createdAt', 'updatedAt', 'manipulations'];
+    displayedColumns: string[] = ['logo','marque', 'createdAt', 'updatedAt', 'manipulations'];
     loading : boolean = false;
     error : string = "";
     lengthList : number = 0;
@@ -88,12 +91,15 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
         );
     }
 
-    onDelete(id:number,i : number){
+    onDelete(id:string,i : number){
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
 
-      dialogConfig.data = {id: id};
+      dialogConfig.data = {
+        title : "Confirmer la suppression",
+        message : "Êtes vous sûre de supprimer cette marque ?"
+      };
       const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(result => {
         if(result){
@@ -128,7 +134,14 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
       dialogRef.afterClosed().subscribe(result => {
         if(result.status){
           this.loading = true;
-          this.fabricant.update(fabricant.id,result.marque,result.logo).subscribe(
+          let formData: FormData = new FormData();
+          if(result.marque != ""){
+            formData.append('brand', result.marque);
+          }
+          if(result.logo != null){
+            formData.append('images', result.logo);
+          }
+          this.fabricant.update(fabricant.id,formData).subscribe(
               res => {
                 console.log(res);
                 this.fabricants.data[i].brand = result.marque;
@@ -188,6 +201,12 @@ export class ListFabricantsComponent implements OnInit,AfterViewInit {
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
-      const dialogRef = this.dialog.open(ContractFabricantDialogComponent, dialogConfig);
+      const dialogRef = this.dialog.open(AccountFabricantDialogComponent, dialogConfig);
+    }
+
+    onPrint(){
+      let doc = new jsPDF();
+      doc.autoTable({html: '#my-table'});
+      doc.save('fabricants.pdf')
     }
 }

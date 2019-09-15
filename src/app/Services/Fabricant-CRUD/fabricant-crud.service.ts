@@ -71,7 +71,7 @@ export class FabricantCRUDService {
     }));
   }
 
-  public delete(id : number ){
+  public delete(id : string){
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
 
     class ResponseError {
@@ -91,7 +91,7 @@ export class FabricantCRUDService {
     }));
   }
 
-  public update(id : number , brand: string, logo : File){
+  public update(id : number , body : FormData){
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
 
     class ResponseError {
@@ -99,12 +99,7 @@ export class FabricantCRUDService {
       msg : string;
     }
 
-    let formData: FormData = new FormData();
-      formData.append('logo', logo);
-      formData.append('brand', brand);
-
-
-    return this.http.put(this.ROOT_URL+"/manufacturers/"+id,formData,{
+    return this.http.put(this.ROOT_URL+"/manufacturers/"+id,body,{
       headers: header}).pipe(map(res => {
         if(res instanceof ResponseError){
           const result = res as ResponseError;

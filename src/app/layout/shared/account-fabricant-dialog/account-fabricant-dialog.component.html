@@ -1,0 +1,31 @@
+  <div class="container-dialog">
+    <h2 mat-dialog-title class="underline">
+      Ajouter un compte de paiment
+    </h2>
+    <mat-dialog-content class="mat-typography">
+      <form [formGroup]="firstFormGroup">
+        <div class="d-flex flex-column">
+          <div class="d-flex flex-column">
+            <mat-form-field appearance="outline" style="width : 100%">
+              <mat-label> Pays </mat-label>
+              <input formControlName="country" matInput  placeholder="Pays" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width : 100%">
+              <mat-label> Monaie </mat-label>
+              <input formControlName="currency" matInput placeholder="Monaie" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width : 100%">
+              <mat-label> Numéro de compte </mat-label>
+              <input formControlName="account_number" matInput placeholder="1253389..." />
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-raised-button mat-dialog-close color = "primary">Ajouter</button>
+      <button mat-raised-button mat-dialog-close color = "accent">Annuler</button>
+    </mat-dialog-actions>
+  </div>

@@ -1,7 +1,6 @@
   <div class="container-dialog">
-    <h2 mat-dialog-title>
+    <h2 mat-dialog-title class="underline">
       Créer Fabricant
-      <div class="underline"></div>
     </h2>
 
     <mat-dialog-content class="mat-typography">
@@ -11,12 +10,14 @@
             <h5>Informations générales :</h5>
             <div class="row">
               <div class="col-sm-6 d-flex flex-column">
-                <mat-form-field>
+                <mat-form-field appearance="outline" style="width : 100%">
+                  <mat-label> Nom de fabricant </mat-label>
                   <input formControlName="fabricant" matInput  placeholder="Nom de fabricant" />
                 </mat-form-field>
               </div>
               <div class="col-sm-6 d-flex flex-column">
-                <mat-form-field>
+                <mat-form-field appearance="outline" style="width : 100%">
+                  <mat-label> Adresse de fabricant </mat-label>
                   <input formControlName="addressFabricant" matInput placeholder="Adresse de fabricant" />
                 </mat-form-field>
               </div>
@@ -51,6 +52,6 @@
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-raised-button  color = "primary" (click) = "onConfirm()">Confirmer</button>
-      <button mat-raised-button mat-dialog-close color = "warn">Annuler</button>
+      <button mat-raised-button mat-dialog-close color = "accent">Annuler</button>
     </mat-dialog-actions>
   </div>

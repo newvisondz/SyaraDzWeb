@@ -28,7 +28,7 @@ export class CreateFabriquantDialogComponent implements OnInit {
       this.file.nativeElement.click();
     }
   onFileChange($event){
-    this.logoImage = (<HTMLInputElement>event.target).files.item(0);
+    this.logoImage = (<HTMLInputElement>event.target).files[0];
     if ((<HTMLInputElement>event.target).files && (<HTMLInputElement>event.target).files[0]) {
       var reader = new FileReader();
 

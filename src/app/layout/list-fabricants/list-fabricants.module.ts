@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { ListFabricantsRoutingModule } from './list-fabricants-routing.module';
 import { ListFabricantsComponent } from './list-fabricants.component';
-import { PageHeaderModule,ContractFabricantDialogModule } from './../shared';
-import { ContractFabricantDialogComponent } from './../shared/contract-fabricant-dialog/contract-fabricant-dialog.component';
+import { PageHeaderModule,AccountFabricantDialogModule } from './../shared';
+import { AccountFabricantDialogComponent } from './../shared/account-fabricant-dialog/account-fabricant-dialog.component';
 import { MaterialModule } from './../material.module';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import { NotificationModule,DeleteConfirmDialogModule, MessageSnackBarModule } from './../../shared';
@@ -26,8 +26,8 @@ import {FormsModule,ReactiveFormsModule} from '@angular/forms';
       FormsModule,
       ReactiveFormsModule,
       MessageSnackBarModule,
-      ContractFabricantDialogModule],
+      AccountFabricantDialogModule],
     declarations: [ListFabricantsComponent, UpdateFabriquatDialogComponent, CreateFabriquantDialogComponent],
-    entryComponents: [DeleteConfirmDialogComponent,UpdateFabriquatDialogComponent, CreateFabriquantDialogComponent,MessageSnackBarComponent,ContractFabricantDialogComponent],
+    entryComponents: [DeleteConfirmDialogComponent,UpdateFabriquatDialogComponent, CreateFabriquantDialogComponent,MessageSnackBarComponent,AccountFabricantDialogComponent],
 })
 export class ListFabricantsModule {}

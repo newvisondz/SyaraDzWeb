@@ -2,8 +2,8 @@ import { Component, OnInit ,ViewChild,AfterViewInit} from '@angular/core';
 import { MatTableDataSource} from '@angular/material';
 import { first,tap } from 'rxjs/operators';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA , MatDialogConfig} from '@angular/material';
-import { DeleteConfirmDialogComponent} from './../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
-import { VehicleService } from './../../Services/Vehicle-CRUD/vehicle.service';
+import { DeleteConfirmDialogComponent} from './../../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
+import { VehicleService } from './../../../Services/Vehicle-CRUD/vehicle.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

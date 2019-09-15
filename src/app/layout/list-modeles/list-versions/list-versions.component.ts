@@ -163,6 +163,7 @@ export class ListVersionsComponent implements OnInit,AfterViewInit {
         if(result.status){
           //valider la création
           console.log("add version " + result.nameVersion);
+          console.log(this.optionsList)
           //getting the model detials
           let formData: FormData = new FormData();
           formData.append('name',result.nameVersion);

@@ -38,6 +38,8 @@ export class CreateVersionDialogComponent implements OnInit {
   }
   onCreateOption(){
     let name = this.firstFormGroup.controls['name'].value;
+    console.log(this.optionsList);
+    //il faut recuperer optionsList.value et la comparer avec le choix du client
     let values = {};
     for(let i=0; i<this.optionsList.length; i++){
       if(this.optionsList[i].name == name){

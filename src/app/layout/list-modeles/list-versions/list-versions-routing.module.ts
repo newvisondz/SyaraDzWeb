@@ -6,7 +6,7 @@ const routes: Routes = [
     {
         path: '', component: ListVersionsComponent
     },
-    { path: 'vehicules/:vid', loadChildren: './../list-vehicules/list-vehicules.module#ListVehiculesModule' },
+    { path: 'vehicules/:vid', loadChildren: '../../list-vehicules/list-vehicules.module#ListVehiculesModule' },
 ];
 
 @NgModule({

@@ -45,7 +45,7 @@ export class ListVersionsComponent implements OnInit,AfterViewInit {
         //initialise versionsTable
         this.idModel = this._Activatedroute.snapshot.paramMap.get("id");
         this.manufacturerId = localStorage.getItem('manufacturer');
-        console.log(this.idModel)
+        
         this._ModelService.getDetails(this.manufacturerId,this.idModel)
         .pipe(first()).subscribe(res => {
               this.optionsList = res.options;
@@ -55,17 +55,17 @@ export class ListVersionsComponent implements OnInit,AfterViewInit {
                   .pipe(first()).subscribe(
                     res => {
                         this.loading = false;
-                        console.log(res);
+                        
                         let tab = [];
                         for(var version in res){
-                          console.log(res[version]);
+                          
                           tab.push(res[version]);
                         }
                         this.versionsTable = new MatTableDataSource(tab);
                     },
                     err => {
                         this.error = "Error occured : "+ err;
-                        console.log("Error occured : "+ err);
+                        
                         this.loading = false;
                     }
                 );
@@ -98,13 +98,10 @@ export class ListVersionsComponent implements OnInit,AfterViewInit {
           let formData: FormData = new FormData();
           formData.append('options', JSON.stringify(result.options));
 
-          console.log(formData);
-
           this.loading = true;
           this._VersionService.update(this.manufacturerId,this.idModel,id,formData)
           .pipe(first()).subscribe(res => {
                 this.loading = false;
-                console.log(res);
             },err => {
                 this.error = err;
                 this.loading = false;
@@ -132,13 +129,11 @@ export class ListVersionsComponent implements OnInit,AfterViewInit {
 
           let formData: FormData = new FormData();
           formData.append('colors', JSON.stringify(result.colors));
-          console.log(formData);
 
           this.loading = true;
           this._VersionService.update(this.manufacturerId,this.idModel,id,formData)
           .pipe(first()).subscribe(res => {
                 this.loading = false;
-                console.log(res);
             },err => {
                 this.error = err;
                 this.loading = false;
@@ -161,19 +156,12 @@ export class ListVersionsComponent implements OnInit,AfterViewInit {
 
       dialogRef.afterClosed().subscribe(result => {
         if(result.status){
-          //valider la création
-          console.log("add version " + result.nameVersion);
-          console.log(this.optionsList)
-          //getting the model detials
-          let formData: FormData = new FormData();
-          formData.append('name',result.nameVersion);
-          console.log(JSON.stringify(result.colors));
-          formData.append('colors', JSON.stringify(result.colors));
-          console.log(JSON.stringify(result.options));
-          formData.append('options', JSON.stringify(result.options));
+          console.log(result);
+          delete result.status;
+          console.log(result);
 
           this.loading = true;
-          this._VersionService.create(this.manufacturerId,this.idModel,formData)
+          this._VersionService.create(this.manufacturerId,this.idModel,result)
           .pipe(first()).subscribe(
               res => {
                   this.loading = false;
@@ -181,7 +169,7 @@ export class ListVersionsComponent implements OnInit,AfterViewInit {
                   //add model to view
                   let data = this.versionsTable.data
                   for(var version in res){
-                    console.log(res[version]);
+                    
                     data.push(res[version]);
                   }
                   this.versionsTable = new MatTableDataSource(data);

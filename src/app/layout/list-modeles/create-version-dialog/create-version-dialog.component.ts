@@ -22,7 +22,6 @@ export class CreateVersionDialogComponent implements OnInit {
               public dialog: MatDialog) { }
 
   ngOnInit() {
-    console.log(this.data);
     this.optionsList = this.data.optionsList;
     this.colorsList = this.data.colorsList;
 
@@ -38,13 +37,16 @@ export class CreateVersionDialogComponent implements OnInit {
   }
   onCreateOption(){
     let name = this.firstFormGroup.controls['name'].value;
-    console.log(this.optionsList);
+    let value = this.firstFormGroup.controls['value'].value;
     //il faut recuperer optionsList.value et la comparer avec le choix du client
-    let values = {};
+    let values = [];
     for(let i=0; i<this.optionsList.length; i++){
       if(this.optionsList[i].name == name){
-        values = this.optionsList[i].values;
-        console.log(values);
+        for (let index = 0; index < this.optionsList[i].values.length; index++) {
+          if (this.optionsList[i].values[index].value == value) {
+            values.push(this.optionsList[i].values[index].id);
+          }
+        }
       }
     }
     this.options.push({
@@ -55,15 +57,16 @@ export class CreateVersionDialogComponent implements OnInit {
 
   onCreateColor(){
     let name = this.firstFormGroup.controls['nameColor'].value;
-    let value = "";
+    let id = "";
+    
     for(let i=0; i<this.colorsList.length; i++){
       if(this.colorsList[i].name == name){
-        value = this.colorsList[i].values;
+        id = this.colorsList[i].id;
       }
     }
     this.colors.push({
       name : name,
-      value : value
+      id : id
     });
   }
 
@@ -79,7 +82,6 @@ export class CreateVersionDialogComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        console.log("delete option " + this.options[id].name);
         this.options.splice(id,1);
       }
     });
@@ -97,19 +99,34 @@ export class CreateVersionDialogComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        console.log("delete color " + this.colors[id].name);
         this.colors.splice(id,1);
       }
     });
   }
 
   onConfirm(){
+    let option = [];
+    let color = [];
+
+    this.options.forEach(element => {
+      option.push(...element.values)
+    });
+
+    this.colors.forEach(element => {
+      color.push(element.id)
+    });
+
     const data = {
       status : true,
-      nameVersion : this.firstFormGroup.controls['nameVersion'].value,
-      options : this.options,
-      colors : this.colors
+      name : this.firstFormGroup.controls['nameVersion'].value,
+      options : option,
+      colors : color,
     }
+
+    // console.log(data.name);
+    // console.log(data.options);
+    // console.log(data.colors);
+    
     this.dialogRef.close(data);
   }
 }

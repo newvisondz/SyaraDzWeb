@@ -14,6 +14,7 @@ const routes: Routes = [
             { path: 'afficherFabricants', loadChildren: './list-fabricants/list-fabricants.module#ListFabricantsModule' },
             { path: 'afficherUsersFabricants', loadChildren: './list-user-fabricants/list-user-fabricants.module#ListUserFabricantsModule' },
             { path: 'modeles', loadChildren: './list-modeles/list-modeles.module#ListModelesModule' },
+            { path: 'commandes', loadChildren: './list-commandes/list-commandes.module#ListCommandesModule' },
         ]
     }
 ];

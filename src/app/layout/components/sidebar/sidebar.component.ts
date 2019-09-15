@@ -101,14 +101,9 @@ export class SidebarComponent implements OnInit {
             route : "/"
           },
           {
-            header : "Paramétres",
-            icon : "fa fa-fw fa-wrench",
-            route : "/"
-          },
-          {
-            header : "Aide",
-            icon : "fas fa-question",
-            route : "/"
+            header : "Gestion des commandes",
+            icon : "fas fa-store",
+            route : "commandes"
           },
         ];
         console.log("admin fabricant")
@@ -137,14 +132,9 @@ export class SidebarComponent implements OnInit {
             route : "/"
           },
           {
-            header : "Paramétres",
-            icon : "fa fa-fw fa-wrench",
-            route : "/"
-          },
-          {
-            header : "Aide",
-            icon : "fas fa-question",
-            route : "/"
+            header : "Gestion des commandes",
+            icon : "fas fa-store",
+            route : "commandes"
           },
         ];
         console.log("user fabricant")

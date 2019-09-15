@@ -29,4 +29,20 @@ export class CommandsService {
     }));
   }
 
+  public accept(mfid:string,cmdid:string,decision:boolean){
+
+    interface Response {
+      commands: [],
+    }
+
+    const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
+
+    return this.http.put<Response>(this.ROOT_URL+'/manufacturers/'+mfid+'/commands/'+cmdid,
+    {accepted:decision},{
+      headers: header
+    }).pipe(map(res => {
+      return res;
+    }));
+  }
+
 }

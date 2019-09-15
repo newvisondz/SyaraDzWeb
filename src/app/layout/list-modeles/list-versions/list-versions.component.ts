@@ -173,6 +173,7 @@ export class ListVersionsComponent implements OnInit,AfterViewInit {
                     data.push(res[version]);
                   }
                   this.versionsTable = new MatTableDataSource(data);
+                  location.reload();
               },
               err => {
                   this.error = err;

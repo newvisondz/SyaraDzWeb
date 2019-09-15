@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild,Optional,Inject } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, FormArray} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 
 @Component({
@@ -8,6 +8,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
   styleUrls: ['./create-attribute-dialog.component.scss']
 })
 export class CreateAttributeDialogComponent implements OnInit {
+
   firstFormGroup: FormGroup;
 
   title : String = "";
@@ -18,7 +19,6 @@ export class CreateAttributeDialogComponent implements OnInit {
 
   ngOnInit() {
     this.title = this.data.title;
-    console.log(this.title)
     this.firstFormGroup = this._formBuilder.group({
       name: ['', Validators.required],
       value: ['', Validators.required],

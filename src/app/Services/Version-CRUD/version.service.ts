@@ -12,7 +12,7 @@ export class VersionService {
 
   readonly ROOT_URL = environment.baseUrl;
 
-  public create(mfid:string, id : string,body:FormData){
+  public create(mfid:string, id : string,body:object){
 
     interface Response {
       versions: [];

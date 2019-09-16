@@ -71,8 +71,11 @@ export class CreateModeleDialogComponent implements OnInit {
     console.log(values);
     this.options.push({
       name : this.firstFormGroup.controls['nameOption'].value,
-      values : values
+      values : [this.firstFormGroup.controls['valueOption'].value]
     })
+
+    console.log(this.options);
+    
   }
 
   onDeleteCouleur(id:number){

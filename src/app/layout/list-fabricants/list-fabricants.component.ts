@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+// import 'jspdf-autotable';
 @Component({
     selector: 'app-list-fabricants',
     templateUrl: './list-fabricants.component.html',

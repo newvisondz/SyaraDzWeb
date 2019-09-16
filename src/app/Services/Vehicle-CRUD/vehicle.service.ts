@@ -15,7 +15,7 @@ export class VehicleService {
   public create(mfid:string, mid : string, vid : string,body:object){
 
     interface Response {
-      models: [];
+      vehicles: [];
     }
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});
@@ -47,8 +47,11 @@ export class VehicleService {
   public list(mfid:string, mid : string, vid : string){
 
     interface Response {
-      models: [];
-      count: any,
+      vehicles: [{
+        id:any,
+        vin:any,
+        ordered:any,
+      }];
     }
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});

@@ -19,7 +19,8 @@ export class ListOptionsDialogComponent implements OnInit {
 
   ngOnInit() {
     this.optionsTable = new MatTableDataSource(this.data.options);
-    this.originLength = this.data.options.length
+    this.originLength = this.data.options.length;
+    
   }
   //créer une couleur
   onCreateOption(){

@@ -38,11 +38,6 @@
                         <td mat-cell *matCellDef="let element"> {{element.numChassis}} </td>
                       </ng-container>
 
-                      <ng-container matColumnDef="version">
-                        <th mat-header-cell *matHeaderCellDef> Version </th>
-                        <td mat-cell *matCellDef="let element">{{element.version}}</td>
-                      </ng-container>
-
                       <ng-container matColumnDef="couleur">
                         <th mat-header-cell *matHeaderCellDef> Couleur </th>
                         <td mat-cell *matCellDef="let element" [matTooltip] = "element.couleur.name+ ' ' + element.couleur.value">
@@ -51,9 +46,9 @@
                          </td>
                       </ng-container>
 
-                      <ng-container matColumnDef="concessionnaire">
-                        <th mat-header-cell *matHeaderCellDef> concessionnaire </th>
-                        <td mat-cell *matCellDef="let element"> {{element.concessionnaire}} </td>
+                      <ng-container matColumnDef="Vendue">
+                        <th mat-header-cell *matHeaderCellDef> Vendue </th>
+                        <td mat-cell *matCellDef="let element"> {{element.Vendue}} </td>
                       </ng-container>
 
                       <ng-container matColumnDef="manipulations">

@@ -16,16 +16,30 @@
               </ng-container>
 
               <ng-container matColumnDef="vehicle">
-                <th mat-header-cell *matHeaderCellDef> vehicule </th>
+                <th mat-header-cell *matHeaderCellDef> Vehicule </th>
                 <td mat-cell *matCellDef="let element">
-                  {{element.vehicle}}
+                  {{element.id}}
                 </td>
               </ng-container>
 
+              <ng-container matColumnDef="montant">
+                  <th mat-header-cell *matHeaderCellDef> Montant </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{element.amount}}
+                  </td>
+                </ng-container>
+
+              <ng-container matColumnDef="Status">
+                  <th mat-header-cell *matHeaderCellDef> Status </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{element.payed}}
+                  </td>
+                </ng-container>
+
               <ng-container matColumnDef="manipulations">
-                <th mat-header-cell *matHeaderCellDef> Accepter les commandes </th>
+                <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell *matCellDef="let element, let i = index;">
-                  <button matTooltip = "Accepter commande" class="mx-2" mat-button color="primary" (click) = "onAcceptCommand(element.id,i)">
+                  <button matTooltip = "Accepter commande" class="mx-2" mat-button color="primary" (click) = "onAcceptCommand(element.id)">
                     Cliquer pour confirmer<mat-icon>check_circle</mat-icon>
                   </button>
                 </td>

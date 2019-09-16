@@ -17,7 +17,12 @@ export class CommandsService {
   public list(mfid:string){
 
     interface Response {
-      commands: [],
+      commands: [{
+        id : any,
+        vehicle : any,
+        amount: any,
+        accepted: any,
+      }],
     }
 
     const header = new HttpHeaders({'Authorization':localStorage.getItem('accesToken')});

@@ -8,6 +8,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import { MessageSnackBarComponent } from './../../shared/message-snack-bar/message-snack-bar.component';
 
 import {DeleteConfirmDialogComponent} from './../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
+import { CommandsService } from 'src/app/Services/Commands/commands.service';
 
 @Component({
     selector: 'app-list-commandes',
@@ -16,36 +17,51 @@ import {DeleteConfirmDialogComponent} from './../../shared/delete-confirm-dialog
 })
 export class ListCommandesComponent implements OnInit {
     titleView = "";
+    manufacturerId = "";
     //for loading and displaying errors
     loading = false;
     error = "";
     //header of the table
-    displayedColumns: string[] = ['index','vehicle', 'manipulations'];
+    displayedColumns: string[] = ['index','vehicle','montant','Status', 'manipulations'];
     tabCommandes:MatTableDataSource<commande>;
-
-    manufacturerId = "";
 
     durationInSeconds = 5;
 
 
     constructor(public dialog: MatDialog,
-                private _snackBar: MatSnackBar) {
+                private _snackBar: MatSnackBar,
+                private cmd : CommandsService) {
     }
 
     ngOnInit() {
-        this.manufacturerId = localStorage.getItem('manufacturer');
-        this.titleView = "Tout les commandes de "+ this.manufacturerId;
-        //get the commandes list
-        let tab = [
-          {
-            id : "2d5azfa4f4ae48f8e8f",
-            vehicle : "dqff5f5e5e5f8ef5e"
-          }
-        ];
-        this.tabCommandes = new MatTableDataSource(tab);
+      var tab = [];
+      this.manufacturerId = localStorage.getItem('manufacturer');
+      this.titleView = "Tout les commandes de "+ this.manufacturerId;
+      
+      this.cmd.list(this.manufacturerId)
+      .pipe(first()).subscribe(
+        res => {
+            console.log(res.commands);
+
+            res.commands.forEach(element => {
+              tab.push({
+                id : element.id,
+                vehicle : element.vehicle,
+                amount: element.amount,
+                payed: element.accepted,
+              })
+            });
+
+            this.tabCommandes = new MatTableDataSource(tab);
+        },
+        err => {
+            console.log("Error occured : "+ err);
+        }
+      );
+      
     }
 
-    onAcceptCommand(id:string,index : number){
+    onAcceptCommand(id:string){
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
@@ -57,12 +73,22 @@ export class ListCommandesComponent implements OnInit {
       const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(result => {
         if(result){
-          //call the confirm method of serive
+          this.cmd.accept(this.manufacturerId,id,true)
+          .pipe(first()).subscribe(
+            res => {
+                console.log(res);
+            },
+            err => {
+                console.log("Error occured : "+ err);
+            }
+          );
         }
       });
     }
 }
 interface commande{
-  id : string;
-  vehicle : string
+  id : any,
+  amount:any,
+  vehicle : any,
+  accepted: any,
 }

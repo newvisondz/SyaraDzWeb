@@ -15,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ListVehiculesComponent implements OnInit,AfterViewInit {
 
     vehicules:MatTableDataSource<Vehicule>;
-    displayedColumns: string[] = ['index','numéro de chassis', 'version','couleur','concessionnaire', 'manipulations'];
+    displayedColumns: string[] = ['index','numéro de chassis','couleur','Vendue', 'manipulations'];
     manufacturerId = "";
     idModel = "";
     idVersion = "";
@@ -37,22 +37,40 @@ export class ListVehiculesComponent implements OnInit,AfterViewInit {
 
     loadVehicules() {
       const data = [];
-      data.push({
-        id : "ge565d9f9z8z7",
-        numChassis : "1259287",
-        version : "TOYOTA AURIS 3",
-        couleur : { name : "Noire", value : "#000000"},
-        concessionnaire : "Alger",
-        options : { name : "Places" , value :"6"}
-      },{
-        id : "ge565d9f9z8z7",
-        numChassis : "12592458",
-        version : "TOYOTA AURIS 4",
-        couleur : { name : "Gris", value : "#CCCCCC"},
-        concessionnaire : "Alger",
-        options : { name : "Places" , value :"5"}
-      } );
-      this.vehicules = new MatTableDataSource(data);
+      // data.push({
+      //   id : "ge565d9f9z8z7",
+      //   numChassis : "1259287",
+      //   version : "TOYOTA AURIS 3",
+      //   couleur : { name : "Noire", value : "#000000"},
+      //   concessionnaire : "Alger",
+      //   options : { name : "Places" , value :"6"}
+      // },{
+      //   id : "ge565d9f9z8z7",
+      //   numChassis : "12592458",
+      //   version : "TOYOTA AURIS 4",
+      //   couleur : { name : "Gris", value : "#CCCCCC"},
+      //   concessionnaire : "Alger",
+      //   options : { name : "Places" , value :"5"}
+      // } );
+
+      this._VehicleService.list(this.manufacturerId,this.idModel,this.idVersion)
+      .pipe(first()).subscribe(
+        res => {
+            console.log(res.vehicles);
+            res.vehicles.forEach(element => {
+              data.push({
+                id : element.id,
+                numChassis : element.vin,
+                couleur : { name : "Noire", value : "#000000"},
+                Vendue : element.ordered,
+              })
+            this.vehicules = new MatTableDataSource(data);
+            });
+        },
+        err => {
+            console.log("Error occured : "+ err);
+        }
+      );
     }
 
     onDelete(id:number){
@@ -86,10 +104,8 @@ export class ListVehiculesComponent implements OnInit,AfterViewInit {
 }
 
 interface Vehicule {
-    id : String,
-    numChassis : String,
-    version : String,
+    id : any,
+    numChassis : any,
     couleur : any,
-    concessionnaire : String,
-    options : any
+    Vendue : any,
 }
